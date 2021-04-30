@@ -28,19 +28,19 @@
       android:supportsRtl="true"
       android:theme="@style/Theme.Courseji"
       tools:replace="android:allowBackup">
-        <activity android:name=".teacher.TeacherLeaveActivity">
+
+
+        <meta-data
+          android:name="com.baidu.lbsapi.API_KEY"
+          android:value="E2FgLTZO2dqHCCMz4dGu0kc0tuurco25" />
+
+        <activity android:name=".student.StudentLeaveActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <meta-data
-          android:name="com.baidu.lbsapi.API_KEY"
-          android:value="E2FgLTZO2dqHCCMz4dGu0kc0tuurco25" />
-
-        <activity android:name=".student.StudentLeaveActivity" />
 
         <service
           android:name="com.baidu.location.f"
