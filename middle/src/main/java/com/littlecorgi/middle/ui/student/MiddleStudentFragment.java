@@ -159,7 +159,6 @@ public class MiddleStudentFragment extends Fragment {
             list.add(allSignData);
         }
     }
-
     private void setItemData() {
         if (list.size() != 0) {
             for (ItemData.AllSignData allSignData : list) {
@@ -195,7 +194,6 @@ public class MiddleStudentFragment extends Fragment {
             }
         }
     }
-
     private boolean getResponseData() {
         final boolean[] isSuccess = new boolean[1];
         Call<ItemData> call = RetrofitHelp.getAllSign();
@@ -222,7 +220,6 @@ public class MiddleStudentFragment extends Fragment {
                 });
         return isSuccess[0];
     }
-
     private void setRecyclerView() {
         final RecyclerView recyclerView = view.findViewById(R.id.middle_recyclerViewId);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -247,7 +244,6 @@ public class MiddleStudentFragment extends Fragment {
                     details.setTitle(itemData.getTitle());
                     MiddleDetailsActivity.startDetails(getContext(), details);
                 });
-
         // 打开签到页面
         adapt.addChildClickViewIds(R.id.middle_item_sign);
         adapt.setOnItemChildClickListener(
