@@ -31,4 +31,8 @@
         <item>@color/lightBlue</item>
         <item>@color/ruri</item>
     </integer-array>
+
+    <color name="icActive">#FFFFFFFF</color>
+    <color name="icFocused">#DDFFFFFF</color>
+    <color name="icPressed">#AAFFFFFF</color>
 </resources>
