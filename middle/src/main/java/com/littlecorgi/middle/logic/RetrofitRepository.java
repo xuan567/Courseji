@@ -25,6 +25,14 @@ public class RetrofitRepository {
         return retrofit;
     }
 
+    /**
+     * 创建人脸识别的请求
+     *
+     * @param studentId      学生id
+     * @param detectLiveFace 是否使用活体检测
+     * @param usePersonGroup 是否使用腾讯云人脸识别人员库
+     * @param file           图片文件
+     */
     public static Call<ResponseBody> getFaceRecognitionCall(long studentId, boolean detectLiveFace,
                                                             boolean usePersonGroup, File file) {
         // 创建 RequestBody，用于封装构建RequestBody

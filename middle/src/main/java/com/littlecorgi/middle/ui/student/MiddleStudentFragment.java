@@ -64,8 +64,8 @@ public class MiddleStudentFragment extends Fragment {
                             }
 
                             ItemData.AllSignData itemData = list.get(position);
-                            MiddleSignActivity
-                                    .startSign(getContext(), convertSignDataToSign(itemData), picUri);
+                            MiddleSignActivity.startSign(
+                                    getContext(), convertSignDataToSign(itemData), picUri);
                         }
                     });
 
