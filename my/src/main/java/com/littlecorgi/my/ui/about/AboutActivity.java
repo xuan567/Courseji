@@ -10,8 +10,8 @@ import android.os.Bundle;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import com.littlecorgi.commonlib.BaseActivity;
+import com.littlecorgi.my.BuildConfig;
 import com.littlecorgi.my.R;
-import com.littlecorgi.my.logic.model.MyMessage;
 
 /**
  * 关于页面
@@ -58,24 +58,19 @@ public class AboutActivity extends BaseActivity {
     }
 
     private void initData() {
-        Intent intent = getIntent();
-        MyMessage myMessage = (MyMessage) intent.getSerializableExtra("myMessage");
         AppCompatTextView textView = findViewById(R.id.versionNumber);
-        assert myMessage != null;
-        textView.setText(myMessage.getVersion());
+        textView.setText(BuildConfig.VERSION_NAME);
         update = findViewById(R.id.my_about_update);
-        update.setText(myMessage.getUpdate());
+        update.setText("https://github.com/xuan567/Courseji");
     }
 
     /**
      * 跳转到AboutActivity
      *
-     * @param context   上下文
-     * @param myMessage 我的消息
+     * @param context 上下文
      */
-    public static void startAboutActivity(Context context, MyMessage myMessage) {
+    public static void startAboutActivity(Context context) {
         Intent intent = new Intent(context, AboutActivity.class);
-        intent.putExtra("myMessage", myMessage);
         context.startActivity(intent);
     }
 }
