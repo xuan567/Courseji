@@ -111,5 +111,6 @@ ext {
             "refresh-layout-kernel"        : 'com.scwang.smart:refresh-layout-kernel:2.0.1',                  //SmartRefreshLayout
             "refresh-header-classics"      : 'com.scwang.smart:refresh-header-classics:2.0.1',
             "MPAndroidChart"               : 'com.github.PhilJay:MPAndroidChart:v3.0.3',
+            "lottie"                       : "com.airbnb.android:lottie:3.7.0",
     ]
 }

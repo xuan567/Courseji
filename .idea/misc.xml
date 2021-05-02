@@ -29,7 +29,11 @@
         <entry key="commonlib/src/main/res/layout/fragment_camera.xml" value="0.30027173913043476" />
         <entry key="commonlib/src/main/res/layout/fragment_gallery.xml" value="0.30027173913043476" />
         <entry key="commonlib/src/main/res/xml/file_paths.xml" value="0.30027173913043476" />
+        <entry key="middle/src/main/res/drawable/dialog_loading.xml" value="0.4046875" />
+        <entry key="middle/src/main/res/layout/dialog_loading.xml" value="0.2921195652173913" />
         <entry key="middle/src/main/res/layout/middle_item_recyclerview.xml" value="0.30027173913043476" />
+        <entry key="middle/src/main/res/layout/middle_sign.xml" value="0.2921195652173913" />
+        <entry key="middle/src/main/res/layout/middle_signongoing_face_location.xml" value="0.21770833333333334" />
         <entry key="middle/src/main/res/layout/middle_studentfragment.xml" value="0.30027173913043476" />
       </map>
     </option>

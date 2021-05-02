@@ -60,6 +60,10 @@ dependencies {
     androidTestImplementation rootProject.ext.dependencies["testExtJunit"]
     androidTestImplementation rootProject.ext.dependencies["espressoCore"]
 
+    //noinspection AnnotationProcessorOnCompilePath Lombok只能这么导入
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+
     // apt必须各个模块自行添加
     // Glide-compiler
     annotationProcessor rootProject.ext.dependencies["Glide-compiler"]

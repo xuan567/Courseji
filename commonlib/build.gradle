@@ -166,6 +166,8 @@ dependencies {
 
     api rootProject.ext.dependencies["MPAndroidChart"]
 
+    api rootProject.ext.dependencies["lottie"]
+
     // 百度地图
     api files('libs/BaiduLBS_Android.jar')
 }

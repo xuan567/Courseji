@@ -70,6 +70,7 @@ class GalleryFragment internal constructor() : Fragment() {
         view.findViewById<ImageButton>(R.id.ok_button).setOnClickListener {
             requireActivity().setResult(Activity.RESULT_OK, Intent().apply {
                 putExtra("uri", picUri)
+                putExtra("position", requireActivity().intent.getIntExtra("position", -1))
             })
             requireActivity().finish()
         }
