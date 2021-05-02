@@ -64,15 +64,8 @@ public class MiddleStudentFragment extends Fragment {
                             }
 
                             ItemData.AllSignData itemData = list.get(position);
-                            Sign sign = new Sign();
-                            sign.setState(itemData.getMyLabel());
-                            sign.setLabel(itemData.getLabel());
-                            sign.setEndTime(itemData.getEndTime());
-                            sign.setFinishTime(itemData.getFinishTime());
-                            // sign.setTakePhoto(itemData.getBgImage());
-                            sign.setLat(itemData.getLat());
-                            sign.setLng(itemData.getIng());
-                            MiddleSignActivity.startSign(getContext(), sign);
+                            MiddleSignActivity
+                                    .startSign(getContext(), convertSignDataToSign(itemData), picUri);
                         }
                     });
 
@@ -142,8 +135,19 @@ public class MiddleStudentFragment extends Fragment {
             ItemData.AllSignData allSignData = new ItemData.AllSignData();
             allSignData.setState(1);
             allSignData.setLabel(6);
-            allSignData.setEndTime("2020-12-28 01:34");
+            allSignData.setStartTime("2021-05-02 15:00");
+            allSignData.setEndTime("2021-05-02 23:00");
+            allSignData.setTheme("上课签到");
+            allSignData.setLat("34.2212080000");
+            allSignData.setIng("108.9555180000");
+            list.add(allSignData);
+        }
+        for (int i = 0; i < 2; i++) {
+            ItemData.AllSignData allSignData = new ItemData.AllSignData();
+            allSignData.setState(1);
+            allSignData.setLabel(6);
             allSignData.setStartTime("2020-12-27 20:00");
+            allSignData.setEndTime("2020-12-28 01:34");
             allSignData.setTheme("上课签到");
             allSignData.setLat("34.2212080000");
             allSignData.setIng("108.9555180000");
@@ -153,8 +157,8 @@ public class MiddleStudentFragment extends Fragment {
             ItemData.AllSignData allSignData = new ItemData.AllSignData();
             allSignData.setState(2);
             allSignData.setLabel(6);
-            allSignData.setEndTime("2020-1-10 01:34");
             allSignData.setStartTime("2020-12-27 20:00");
+            allSignData.setEndTime("2020-1-10 01:34");
             allSignData.setTheme("随意签");
             allSignData.setLat("34.2212080000");
             allSignData.setIng("108.9555180000");
@@ -164,8 +168,8 @@ public class MiddleStudentFragment extends Fragment {
             ItemData.AllSignData allSignData = new ItemData.AllSignData();
             allSignData.setState(2);
             allSignData.setLabel(6);
-            allSignData.setEndTime("2021-1-10 01:34");
             allSignData.setStartTime("2020-12-27 20:00");
+            allSignData.setEndTime("2021-1-10 01:34");
             allSignData.setTheme("随意签");
             allSignData.setLat("34.161057");
             allSignData.setIng("108.912334");
@@ -175,8 +179,8 @@ public class MiddleStudentFragment extends Fragment {
             ItemData.AllSignData allSignData = new ItemData.AllSignData();
             allSignData.setState(2);
             allSignData.setLabel(6);
-            allSignData.setEndTime("2020-12-28 01:34");
             allSignData.setStartTime("2020-12-27 20:00");
+            allSignData.setEndTime("2020-12-28 01:34");
             allSignData.setTheme("随意签");
             allSignData.setLat("34.2212080000");
             allSignData.setIng("108.9555180000");
@@ -187,8 +191,8 @@ public class MiddleStudentFragment extends Fragment {
             ItemData.AllSignData allSignData = new ItemData.AllSignData();
             allSignData.setState(3);
             allSignData.setLabel(6);
-            allSignData.setEndTime("2020-12-28 01:34");
             allSignData.setStartTime("2020-12-27 20:00");
+            allSignData.setEndTime("2020-12-28 01:34");
             allSignData.setTheme("随意签");
             allSignData.setLat("34.2212080000");
             allSignData.setIng("108.9555180000");
@@ -306,5 +310,17 @@ public class MiddleStudentFragment extends Fragment {
                     mGetContent.launch(new Intent(requireContext(), CameraActivity.class)
                             .putExtra("position", position));
                 });
+    }
+
+    private Sign convertSignDataToSign(ItemData.AllSignData itemData) {
+        Sign sign = new Sign();
+        sign.setState(itemData.getState());
+        sign.setLabel(itemData.getLabel());
+        sign.setEndTime(itemData.getEndTime());
+        sign.setFinishTime(itemData.getFinishTime());
+        // sign.setTakePhoto(itemData.getBgImage());
+        sign.setLat(itemData.getLat());
+        sign.setLng(itemData.getIng());
+        return sign;
     }
 }

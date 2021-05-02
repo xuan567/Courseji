@@ -16,8 +16,10 @@ import static com.littlecorgi.middle.logic.network.RetrofitHelp.postStudentSign;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -25,7 +27,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -34,25 +38,31 @@ import com.baidu.location.Poi;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.utils.SpatialRelationUtil;
+import com.google.gson.Gson;
 import com.littlecorgi.commonlib.BaseActivity;
 import com.littlecorgi.middle.R;
+import com.littlecorgi.middle.logic.RetrofitRepository;
 import com.littlecorgi.middle.logic.dao.BaiDuMapService;
 import com.littlecorgi.middle.logic.dao.GlideEngine;
 import com.littlecorgi.middle.logic.dao.LocationService;
 import com.littlecorgi.middle.logic.dao.PassedIngLat;
+import com.littlecorgi.middle.logic.model.FaceRecognitionResponse;
 import com.littlecorgi.middle.logic.model.Sign;
 import com.littlecorgi.middle.logic.model.SignResult;
 import com.littlecorgi.middle.logic.network.MyLocationListener;
+import com.littlecorgi.middle.ui.utils.DialogUtil;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import okhttp3.ResponseBody;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -71,6 +81,7 @@ public class MiddleSignActivity extends BaseActivity {
     private LocationService mLocationService;
     private MapView mMapView;
     private Sign mSign;
+    private Uri mPicUri;
     private int mLabel;
     private double mLat;
     private double mIng;
@@ -82,6 +93,11 @@ public class MiddleSignActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.middle_sign);
+
+        Intent intent = getIntent();
+        mSign = (Sign) intent.getSerializableExtra("sign");
+        mPicUri = intent.getParcelableExtra("picUri");
+
         initView();
         initPermission();
         initData();
@@ -98,8 +114,6 @@ public class MiddleSignActivity extends BaseActivity {
     }
 
     private void initData() {
-        Intent intent = getIntent();
-        mSign = (Sign) intent.getSerializableExtra("sign");
         assert mSign != null;
         int state = mSign.getState();
         mLabel = mSign.getLabel();
@@ -178,13 +192,75 @@ public class MiddleSignActivity extends BaseActivity {
     }
 
     private void onGoingFaceLocation() {
+        doFaceRecognition();
+        doLocation();
+    }
 
+    private void doFaceRecognition() {
+        // 显示人脸识别Dialog
+        Dialog progressDialog = DialogUtil.writeLoadingDialog(this, false, "人脸识别中");
+        progressDialog.show();
+        //设置点击屏幕加载框不会取消（返回键可以取消）
+        progressDialog.setCanceledOnTouchOutside(true);
+
+        File file = new File(mPicUri.getPath());
+        RetrofitRepository.getFaceRecognitionCall(1L, true, false, file)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(@NonNull Call<ResponseBody> call,
+                                           @NonNull Response<ResponseBody> response) {
+                        boolean isSuccess = false;
+                        String errorMessage = "";
+                        progressDialog.cancel();
+                        if (response.body() != null) {
+                            try {
+                                String json = response.body().string();
+                                FaceRecognitionResponse faceRecognitionResponse = new Gson()
+                                        .fromJson(json, FaceRecognitionResponse.class);
+                                Log.d(TAG, "onResponse: " + faceRecognitionResponse);
+                                if (faceRecognitionResponse.getStatus() == 800) {
+                                    if (faceRecognitionResponse.getData() >= 40) {
+                                        Toast.makeText(MiddleSignActivity.this, "人脸识别成功",
+                                                Toast.LENGTH_SHORT)
+                                                .show();
+                                        isSuccess = true;
+                                    } else {
+                                        errorMessage = "人脸识别未通过";
+                                    }
+                                } else {
+                                    errorMessage =
+                                            "人脸识别错误，" + faceRecognitionResponse.getErrorMsg();
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                errorMessage = "接口异常" + e.getMessage();
+                            }
+                        } else {
+                            Log.d(TAG, "onResponse: response.body() is null!!!");
+                        }
+                        file.delete();
+                        if (!isSuccess) {
+                            showFaceRecognitionFailureDialog(errorMessage);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                        progressDialog.cancel();
+                        t.printStackTrace();
+                        file.delete();
+                        showFaceRecognitionFailureDialog("网络错误");
+                    }
+                });
+    }
+
+    private void doLocation() {
         View view = addView(R.layout.middle_signongoing_face_location);
         mLastView = view;
         AppCompatTextView countdown = view.findViewById(R.id.OGFL_Countdown);
         mMapView = view.findViewById(R.id.OGFL_MapView);
-        AppCompatTextView text = view.findViewById(R.id.OGFL_mapText);
-        AppCompatButton sureButton = view.findViewById(R.id.OGFL_Button);
+        final AppCompatTextView text = view.findViewById(R.id.OGFL_mapText);
+        final AppCompatButton sureButton = view.findViewById(R.id.OGFL_Button);
 
         // 倒计时：
         try {
@@ -254,7 +330,8 @@ public class MiddleSignActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(@NotNull Call<SignResult> call, @NotNull Throwable t) {
-                        Toast.makeText(MiddleSignActivity.this, "请检查网络后重试", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MiddleSignActivity.this, "请检查网络后重试", Toast.LENGTH_LONG)
+                                .show();
                     }
                 });
     }
@@ -449,9 +526,17 @@ public class MiddleSignActivity extends BaseActivity {
      * @param context 上下文
      * @param sign    登录所需信息
      */
-    public static void startSign(Context context, Sign sign) {
+    public static void startSign(Context context, Sign sign, Uri picUri) {
         Intent intent = new Intent(context, MiddleSignActivity.class);
         intent.putExtra("sign", sign);
+        intent.putExtra("picUri", picUri);
         context.startActivity(intent);
+    }
+
+    private void showFaceRecognitionFailureDialog(String errorMessage) {
+        new AlertDialog.Builder(MiddleSignActivity.this)
+                .setTitle("人脸识别失败")
+                .setMessage(errorMessage + "\n请返回再次验证")
+                .setNegativeButton("好的", (dialog, which) -> finish()).show();
     }
 }
