@@ -36,13 +36,10 @@ import androidx.camera.view.PreviewView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.net.toFile
-import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.navigation.Navigation
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.littlecorgi.commonlib.R
 import com.littlecorgi.commonlib.camerax.CameraActivity
 import com.littlecorgi.commonlib.camerax.KEY_EVENT_ACTION
@@ -64,6 +61,7 @@ import kotlin.math.max
 import kotlin.math.min
 
 /**
+ * 相机fragment
  *
  * @author littlecorgi 2021/5/1
  */
@@ -84,7 +82,7 @@ class CameraFragment : Fragment() {
     private lateinit var broadcastManager: LocalBroadcastManager
 
     private var displayId: Int = -1
-    private var lensFacing: Int = CameraSelector.LENS_FACING_BACK
+    private var lensFacing: Int = CameraSelector.LENS_FACING_FRONT
     private var preview: Preview? = null
     private var imageCapture: ImageCapture? = null
     private var imageAnalyzer: ImageAnalysis? = null
@@ -158,24 +156,6 @@ class CameraFragment : Fragment() {
     ): View? =
         inflater.inflate(R.layout.fragment_camera, container, false)
 
-    private fun setGalleryThumbnail(uri: Uri) {
-        // Reference of the view that holds the gallery thumbnail
-        val thumbnail = container.findViewById<ImageButton>(R.id.photo_view_button)
-
-        // Run the operations in the view's thread
-        thumbnail.post {
-
-            // Remove thumbnail padding
-            thumbnail.setPadding(resources.getDimension(R.dimen.stroke_small).toInt())
-
-            // Load thumbnail into circular button using Glide
-            Glide.with(thumbnail)
-                .load(uri)
-                .apply(RequestOptions.circleCropTransform())
-                .into(thumbnail)
-        }
-    }
-
     @SuppressLint("MissingPermission")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -239,8 +219,8 @@ class CameraFragment : Fragment() {
 
             // Select lensFacing depending on the available cameras
             lensFacing = when {
-                hasBackCamera() -> CameraSelector.LENS_FACING_BACK
                 hasFrontCamera() -> CameraSelector.LENS_FACING_FRONT
+                hasBackCamera() -> CameraSelector.LENS_FACING_BACK
                 else -> throw IllegalStateException("Back and front camera are unavailable")
             }
 
@@ -355,15 +335,6 @@ class CameraFragment : Fragment() {
         // Inflate a new view containing all UI for controlling the camera
         val controls = View.inflate(requireContext(), R.layout.camera_ui_container, container)
 
-        // In the background, load latest photo taken (if any) for gallery thumbnail
-        lifecycleScope.launch(Dispatchers.IO) {
-            outputDirectory.listFiles { file ->
-                EXTENSION_WHITELIST.contains(file.extension.toUpperCase(Locale.ROOT))
-            }?.max()?.let {
-                setGalleryThumbnail(Uri.fromFile(it))
-            }
-        }
-
         // Listener for button used to capture photo
         controls.findViewById<ImageButton>(R.id.camera_capture_button).setOnClickListener {
 
@@ -394,13 +365,19 @@ class CameraFragment : Fragment() {
 
                         override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                             val savedUri = output.savedUri ?: Uri.fromFile(photoFile)
-                            Log.d(TAG, "Photo capture succeeded: $savedUri")
 
-                            // We can only change the foreground Drawable using API level 23+ API
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                // Update the gallery thumbnail with latest picture taken
-                                setGalleryThumbnail(savedUri)
+                            lifecycleScope.launch(Dispatchers.Main) {
+                                Navigation.findNavController(
+                                    requireActivity(), R.id.fragment_container
+                                ).navigate(
+                                    CameraFragmentDirections
+                                        .actionCameraToGallery(savedUri)
+                                )
                             }
+
+                            // ***************
+
+                            Log.d(TAG, "Photo capture succeeded: $savedUri")
 
                             // Implicit broadcasts will be ignored for devices running API level >= 24
                             // so if you only target API level 24+ you can remove this statement
@@ -457,18 +434,18 @@ class CameraFragment : Fragment() {
             }
         }
 
-        // Listener for button used to view the most recent photo
-        controls.findViewById<ImageButton>(R.id.photo_view_button).setOnClickListener {
-            // Only navigate when the gallery has photos
-            if (true == outputDirectory.listFiles()?.isNotEmpty()) {
-                Navigation.findNavController(
-                    requireActivity(), R.id.fragment_container
-                ).navigate(
-                    CameraFragmentDirections
-                        .actionCameraToGallery(outputDirectory.absolutePath)
-                )
-            }
-        }
+        // // Listener for button used to view the most recent photo
+        // controls.findViewById<ImageButton>(R.id.photo_view_button).setOnClickListener {
+        //     // Only navigate when the gallery has photos
+        //     if (true == outputDirectory.listFiles()?.isNotEmpty()) {
+        //         Navigation.findNavController(
+        //             requireActivity(), R.id.fragment_container
+        //         ).navigate(
+        //             CameraFragmentDirections
+        //                 .actionCameraToGallery(outputDirectory.absolutePath)
+        //         )
+        //     }
+        // }
     }
 
     /** Enabled or disabled a button to switch cameras depending on the available cameras */
@@ -580,7 +557,7 @@ class CameraFragment : Fragment() {
 
     companion object {
 
-        private const val TAG = "CameraXBasic"
+        private const val TAG = "CoursejiBaseCamera"
         private const val FILENAME = "yyyy-MM-dd-HH-mm-ss-SSS"
         private const val PHOTO_EXTENSION = ".jpg"
         private const val RATIO_4_3_VALUE = 4.0 / 3.0

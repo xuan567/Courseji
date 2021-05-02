@@ -28,7 +28,9 @@
             android:launchMode="singleTask"
             android:exported="true" />
         <activity android:name=".BaseActivity" />
-        <activity android:name=".camerax.CameraActivity" /><!-- App Startup的provider -->
+        <activity
+            android:name=".camerax.CameraActivity"
+            android:screenOrientation="portrait" />/><!-- App Startup的provider -->
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"

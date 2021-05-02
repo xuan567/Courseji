@@ -20,10 +20,10 @@
     android:background="@android:color/black"
     android:layoutDirection="ltr">
 
-    <androidx.viewpager.widget.ViewPager
+    <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/photo_view_pager" />
+        android:id="@+id/photo_view" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cutout_safe_area"
@@ -44,7 +44,7 @@
             app:srcCompat="@drawable/ic_back" />
 
         <ImageButton
-            android:id="@+id/share_button"
+            android:id="@+id/ok_button"
             android:contentDescription="@string/share_button_alt"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -55,7 +55,7 @@
             android:layout_height="@dimen/round_button_small"
             android:scaleType="fitCenter"
             android:background="@android:color/transparent"
-            app:srcCompat="@drawable/ic_share" />
+            app:srcCompat="@drawable/ic_baseline_check_circle_24" />
 
         <ImageButton
             android:id="@+id/delete_button"

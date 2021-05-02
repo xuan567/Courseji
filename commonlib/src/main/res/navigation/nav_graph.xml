@@ -52,9 +52,12 @@
         android:id="@+id/gallery_fragment"
         android:name="com.littlecorgi.commonlib.camerax.fragments.GalleryFragment"
         android:label="GalleryFragment">
+        <!--<argument-->
+        <!--    android:name="root_directory"-->
+        <!--    app:argType="string" />-->
         <argument
-            android:name="root_directory"
-            app:argType="string" />
+            android:name="pic_file_uri"
+            app:argType="android.net.Uri" />
     </fragment>
 
 </navigation>
