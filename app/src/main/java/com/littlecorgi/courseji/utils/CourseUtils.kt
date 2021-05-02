@@ -9,8 +9,9 @@ import com.littlecorgi.courseji.schedule.logic.model.bean.TimeBean
 import com.littlecorgi.courseji.schedule_import.Common
 import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 /**
  * 课程相关的工具类
@@ -58,7 +59,11 @@ object CourseUtils {
         return CourseEditBean(
             id = c.id,
             time = MutableLiveData<TimeBean>().apply {
-                this.value = TimeBean(day = c.day, startNode = c.startNode, endNode = c.startNode + c.step - 1)
+                this.value = TimeBean(
+                    day = c.day,
+                    startNode = c.startNode,
+                    endNode = c.startNode + c.step - 1
+                )
             },
             room = c.room, teacher = c.teacher,
             weekList = MutableLiveData<ArrayList<Int>>().apply {

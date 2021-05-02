@@ -205,19 +205,22 @@ class ScheduleFragment : Fragment() {
                 c.startNode = 1
                 isError = true
                 // Toasty.info(requireContext(), R.string.error_course_data, Toast.LENGTH_LONG).show()
-                Toast.makeText(requireContext(), R.string.error_course_data, Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), R.string.error_course_data, Toast.LENGTH_LONG)
+                    .show()
             }
             if (c.startNode > table.nodes) {
                 c.startNode = table.nodes
                 isError = true
                 // Toasty.info(requireContext(), R.string.error_course_node, Toast.LENGTH_LONG).show()
-                Toast.makeText(requireContext(), R.string.error_course_node, Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), R.string.error_course_node, Toast.LENGTH_LONG)
+                    .show()
             }
             if (c.startNode + c.step - 1 > table.nodes) {
                 c.step = table.nodes - c.startNode + 1
                 isError = true
                 // Toasty.info(requireContext(), R.string.error_course_node, Toast.LENGTH_LONG).show()
-                Toast.makeText(requireContext(), R.string.error_course_node, Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), R.string.error_course_node, Toast.LENGTH_LONG)
+                    .show()
             }
 
             val textView = TipTextView(requireContext())
@@ -235,12 +238,12 @@ class ScheduleFragment : Fragment() {
 
             if (c.color.isEmpty()) {
                 c.color = "#${
-                Integer.toHexString(
-                    ViewUtils.getCustomizedColor(
-                        requireActivity(),
-                        c.id % 9
+                    Integer.toHexString(
+                        ViewUtils.getCustomizedColor(
+                            requireActivity(),
+                            c.id % 9
+                        )
                     )
-                )
                 }"
             }
 

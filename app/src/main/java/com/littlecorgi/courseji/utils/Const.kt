@@ -4,7 +4,8 @@ import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 
-fun Context.getPrefer(name: String = "config"): SharedPreferences = getSharedPreferences(name, MODE_PRIVATE)
+fun Context.getPrefer(name: String = "config"): SharedPreferences =
+    getSharedPreferences(name, MODE_PRIVATE)
 
 object Const {
 

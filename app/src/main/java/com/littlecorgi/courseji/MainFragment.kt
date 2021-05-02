@@ -29,9 +29,9 @@ import com.littlecorgi.courseji.schedule_import.ui.ChooseImportFragment
 import com.littlecorgi.courseji.schedule_setting.ui.ScheduleSettingsActivity
 import com.littlecorgi.courseji.utils.Const
 import com.littlecorgi.courseji.utils.CourseUtils
-import java.text.ParseException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.text.ParseException
 
 class MainFragment : BaseFragment() {
 
