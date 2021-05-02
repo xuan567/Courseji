@@ -45,9 +45,7 @@ import retrofit2.Response;
  */
 public class AdviceActivity extends BaseActivity implements View.OnClickListener {
 
-    /*
-    未完成：sendAdvice()把建议上传到服务器，需要修改路径
-     */
+    // todo: 未完成：sendAdvice()把建议上传到服务器，需要修改路径
 
     private static final int PHOTO = 1;
     private AppCompatEditText mEditText;
