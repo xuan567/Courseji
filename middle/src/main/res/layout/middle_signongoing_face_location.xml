@@ -1,69 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:id="@+id/OnGoing_FaceLocation"
-  xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/OnGoing_FaceLocation"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/middle_details_guideline"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.15" />
+        android:id="@+id/middle_details_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15" />
+
     <androidx.appcompat.widget.AppCompatTextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:id="@+id/middle_details_SOGTitle"
-      android:layout_marginTop="10dp"
-      android:text="距签到结束还有:"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/middle_details_guideline"
-      app:layout_constraintBottom_toTopOf="@id/OGFL_Countdown"
-      app:layout_constraintVertical_chainStyle="packed"
-      app:layout_constraintVertical_bias="0"
-      android:textSize="24sp"
-      android:textColor="@color/Ongoing" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/middle_details_SOGTitle"
+        android:layout_marginTop="10dp"
+        android:text="距签到结束还有:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/middle_details_guideline"
+        app:layout_constraintBottom_toTopOf="@id/OGFL_Countdown"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintVertical_bias="0"
+        android:textSize="24sp"
+        android:textColor="@color/Ongoing" />
+
     <androidx.appcompat.widget.AppCompatTextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:id="@+id/OGFL_Countdown"
-      android:textColor="@color/Ongoing"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/middle_details_SOGTitle"
-      app:layout_constraintBottom_toBottomOf="parent"
-      android:layout_marginTop="5dp"
-      android:textSize="24sp" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/OGFL_Countdown"
+        android:textColor="@color/Ongoing"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/middle_details_SOGTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="5dp"
+        android:textSize="24sp" />
+
     <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/guideline"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.6" />
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6" />
 
     <com.baidu.mapapi.map.MapView
-      android:id="@+id/OGFL_MapView"
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_marginTop="10dp"
-      android:layout_marginStart="30dp"
-      android:layout_marginEnd="30dp"
-      app:layout_constraintTop_toBottomOf="@id/OGFL_Countdown"
-      app:layout_constraintBottom_toBottomOf="@id/guideline"
-      android:clickable="true"
-      android:focusable="true" />
+        android:id="@+id/OGFL_MapView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintTop_toBottomOf="@id/OGFL_Countdown"
+        app:layout_constraintBottom_toBottomOf="@id/guideline"
+        android:clickable="true"
+        android:focusable="true" />
 
     <androidx.appcompat.widget.AppCompatTextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="5dp"
-      android:textSize="18sp"
-      android:id="@+id/OGFL_mapText"
-      android:textColor="?android:attr/textColorPrimary"
-      app:layout_constraintTop_toBottomOf="@id/OGFL_MapView"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textSize="18sp"
+        android:id="@+id/OGFL_mapText"
+        android:textColor="?android:attr/textColorPrimary"
+        app:layout_constraintTop_toBottomOf="@id/OGFL_MapView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
     <!--
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="120dp"
@@ -79,15 +83,15 @@
         />
         -->
     <androidx.appcompat.widget.AppCompatButton
-      android:layout_width="120dp"
-      android:layout_height="120dp"
-      android:layout_marginTop="30dp"
-      android:text="签到"
-      android:textSize="30sp"
-      android:id="@+id/OGFL_Button"
-      android:textColor="?android:attr/textColorPrimary"
-      android:background="@drawable/middle_circular"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/OGFL_mapText" />
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="30dp"
+        android:text="签到"
+        android:textSize="30sp"
+        android:id="@+id/OGFL_Button"
+        android:textColor="?android:attr/textColorPrimary"
+        android:background="@drawable/middle_circular"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/OGFL_mapText" />
 </androidx.constraintlayout.widget.ConstraintLayout>

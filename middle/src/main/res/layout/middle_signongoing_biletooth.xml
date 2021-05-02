@@ -1,44 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?><!-- 2签到进行中  -->
 <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:id="@+id/OnGoing_Bluetooth"
-  xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/OnGoing_Bluetooth"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
     <androidx.appcompat.widget.AppCompatTextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:id="@+id/middle_details_SOGTitle"
-      android:layout_marginTop="30dp"
-      android:text="距签到结束还有:"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintBottom_toTopOf="@id/middle_details_SOGCountdown"
-      app:layout_constraintVertical_chainStyle="packed"
-      app:layout_constraintVertical_bias="0.3"
-      android:textSize="30sp"
-      android:textColor="@color/Ongoing" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/middle_details_SOGTitle"
+        android:layout_marginTop="30dp"
+        android:text="距签到结束还有:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/middle_details_SOGCountdown"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintVertical_bias="0.3"
+        android:textSize="30sp"
+        android:textColor="@color/Ongoing" />
+
     <androidx.appcompat.widget.AppCompatTextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:id="@+id/middle_details_SOGCountdown"
-      android:textColor="@color/Ongoing"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/middle_details_SOGTitle"
-      app:layout_constraintBottom_toBottomOf="parent"
-      android:layout_marginTop="5dp"
-      android:textSize="30sp" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/middle_details_SOGCountdown"
+        android:textColor="@color/Ongoing"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/middle_details_SOGTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="5dp"
+        android:textSize="30sp" />
+
     <androidx.appcompat.widget.AppCompatButton
-      android:layout_width="120dp"
-      android:layout_height="120dp"
-      android:layout_marginTop="30dp"
-      android:text="签到"
-      android:textSize="30sp"
-      android:id="@+id/middle_details_SOGButton"
-      android:textColor="?android:attr/textColorPrimary"
-      android:background="@drawable/middle_circular"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/middle_details_SOGCountdown" />
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="30dp"
+        android:text="签到"
+        android:textSize="30sp"
+        android:id="@+id/middle_details_SOGButton"
+        android:textColor="?android:attr/textColorPrimary"
+        android:background="@drawable/middle_circular"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/middle_details_SOGCountdown" />
 </androidx.constraintlayout.widget.ConstraintLayout>
