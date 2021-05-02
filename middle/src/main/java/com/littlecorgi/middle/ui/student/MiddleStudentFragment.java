@@ -1,23 +1,29 @@
 package com.littlecorgi.middle.ui.student;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.littlecorgi.commonlib.camerax.CameraActivity;
 import com.littlecorgi.middle.R;
 import com.littlecorgi.middle.logic.dao.Tool;
 import com.littlecorgi.middle.logic.dao.WindowHelp;
 import com.littlecorgi.middle.logic.model.Details;
 import com.littlecorgi.middle.logic.model.ItemData;
-import com.littlecorgi.middle.logic.model.Sign;
 import com.littlecorgi.middle.logic.network.RetrofitHelp;
 import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
@@ -37,11 +43,20 @@ import retrofit2.Response;
  */
 public class MiddleStudentFragment extends Fragment {
 
-    //todo 未完成的：网络请求地址
-
     private View view;
     private MyAdapter adapt;
     private List<ItemData.AllSignData> list;
+
+    ActivityResultLauncher<Intent> mGetContent =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        if (result.getResultCode() == Activity.RESULT_OK) {
+                            Intent intent = result.getData();
+                            assert intent != null;
+                            Uri picUri = intent.getParcelableExtra("uri");
+                            Log.d("MiddleStudentFragment", "从GalleryFragment获取到的图片: " + picUri);
+                        }
+                    });
 
     @Nullable
     @Override
@@ -49,12 +64,14 @@ public class MiddleStudentFragment extends Fragment {
             @NonNull LayoutInflater inflater,
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.middle_studentfragment, container, false);
+        view = inflater.inflate(R.layout.middle_studentfragment, container,
+                false);
         return view;
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view,
+                              @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView();
         initData();
@@ -79,7 +96,8 @@ public class MiddleStudentFragment extends Fragment {
     }
 
     private void initClick() {
-        AppCompatTextView returnButton = view.findViewById(R.id.student_returnButton);
+        AppCompatTextView returnButton =
+                view.findViewById(R.id.student_returnButton);
         AppCompatTextView history = view.findViewById(R.id.student_History);
         returnButton.setOnClickListener(v -> requireActivity().finish());
         history.setOnClickListener(
@@ -159,15 +177,20 @@ public class MiddleStudentFragment extends Fragment {
             list.add(allSignData);
         }
     }
+
     private void setItemData() {
         if (list.size() != 0) {
             for (ItemData.AllSignData allSignData : list) {
                 if (allSignData.getState() == 2) {
                     @SuppressLint("SimpleDateFormat")
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                    SimpleDateFormat simpleDateFormat =
+                            new SimpleDateFormat("yyyy-MM-dd HH:mm");
                     long end = 0;
                     try {
-                        end = Objects.requireNonNull(simpleDateFormat.parse(allSignData.getEndTime())).getTime();
+                        end = Objects.requireNonNull(
+                                simpleDateFormat
+                                        .parse(allSignData.getEndTime()))
+                                .getTime();
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -175,25 +198,31 @@ public class MiddleStudentFragment extends Fragment {
                     if (end > now) {
                         allSignData.setMyLabel(Tool.SOG);
                         allSignData.setStateTitle(Tool.SOG_TITLE);
-                        allSignData.setLeftColor(getResources().getColor(R.color.Ongoing));
+                        allSignData.setLeftColor(
+                                getResources().getColor(R.color.Ongoing));
                     } else {
                         allSignData.setMyLabel(Tool.SUnFinish);
                         allSignData.setStateTitle(Tool.SUnFinish_TITLE);
-                        allSignData.setLeftColor(getResources().getColor(R.color.warning));
+                        allSignData.setLeftColor(
+                                getResources().getColor(R.color.warning));
                     }
                 } else if (allSignData.getState() == 1) {
                     allSignData.setMyLabel(Tool.SFinish);
                     allSignData.setStateTitle(Tool.SFinish_TITLE);
-                    allSignData.setLeftColor(getResources().getColor(R.color.finish));
+                    allSignData.setLeftColor(
+                            getResources().getColor(R.color.finish));
                 } else if (allSignData.getState() == 3) {
                     allSignData.setMyLabel(Tool.SLeave);
                     allSignData.setStateTitle(Tool.SLeave_TITLE);
-                    allSignData.setLeftColor(getResources().getColor(R.color.leave));
+                    allSignData.setLeftColor(
+                            getResources().getColor(R.color.leave));
                 }
-                allSignData.setLabelTitle(Tool.getLabelTitle(allSignData.getLabel()));
+                allSignData.setLabelTitle(
+                        Tool.getLabelTitle(allSignData.getLabel()));
             }
         }
     }
+
     private boolean getResponseData() {
         final boolean[] isSuccess = new boolean[1];
         Call<ItemData> call = RetrofitHelp.getAllSign();
@@ -201,7 +230,8 @@ public class MiddleStudentFragment extends Fragment {
                 new Callback<ItemData>() {
                     @Override
                     public void onResponse(
-                            @NotNull Call<ItemData> call, @NotNull Response<ItemData> response) {
+                            @NotNull Call<ItemData> call,
+                            @NotNull Response<ItemData> response) {
                         if (response.body() != null) {
                             list.clear();
                             list.addAll(response.body().getAllSignData());
@@ -213,16 +243,21 @@ public class MiddleStudentFragment extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(@NotNull Call<ItemData> call, @NotNull Throwable t) {
-                        Toast.makeText(getContext(), "网络连接失败，过会在试吧", Toast.LENGTH_LONG).show();
+                    public void onFailure(@NotNull Call<ItemData> call,
+                                          @NotNull Throwable t) {
+                        Toast.makeText(getContext(), "网络连接失败，过会在试吧",
+                                Toast.LENGTH_LONG).show();
                         isSuccess[0] = false;
                     }
                 });
         return isSuccess[0];
     }
+
     private void setRecyclerView() {
-        final RecyclerView recyclerView = view.findViewById(R.id.middle_recyclerViewId);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        final RecyclerView recyclerView =
+                view.findViewById(R.id.middle_recyclerViewId);
+        LinearLayoutManager linearLayoutManager =
+                new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         list = new ArrayList<>();
         adapt = new MyAdapter(R.layout.middle_item_recyclerview, list);
@@ -248,16 +283,9 @@ public class MiddleStudentFragment extends Fragment {
         adapt.addChildClickViewIds(R.id.middle_item_sign);
         adapt.setOnItemChildClickListener(
                 (adapter, view, position) -> {
-                    ItemData.AllSignData itemData = list.get(position);
-                    Sign sign = new Sign();
-                    sign.setState(itemData.getMyLabel());
-                    sign.setLabel(itemData.getLabel());
-                    sign.setEndTime(itemData.getEndTime());
-                    sign.setFinishTime(itemData.getFinishTime());
-                    // sign.setTakePhoto(itemData.getBgImage());
-                    sign.setLat(itemData.getLat());
-                    sign.setLng(itemData.getIng());
-                    MiddleSignActivity.startSign(getContext(), sign);
+                    // Pass in the mime type you'd like to allow the user to select
+                    // as the input
+                    mGetContent.launch(new Intent(requireContext(), CameraActivity.class));
                 });
     }
 }

@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
+    id "androidx.navigation.safeargs"
 }
 
 kapt {
@@ -70,6 +71,10 @@ dependencies {
     api rootProject.ext.dependencies["viewpager2"]
     api rootProject.ext.dependencies["fragment"]
     api rootProject.ext.dependencies["fragmentKtx"]
+    api rootProject.ext.dependencies["cameraxCore"]
+    api rootProject.ext.dependencies["cameraxLifecycle"]
+    api rootProject.ext.dependencies["cameraxCamera2"]
+    api rootProject.ext.dependencies["cameraxView"]
     testImplementation rootProject.ext.dependencies["junit"]
     androidTestImplementation rootProject.ext.dependencies["testExtJunit"]
     androidTestImplementation rootProject.ext.dependencies["espressoCore"]
@@ -92,6 +97,9 @@ dependencies {
     api rootProject.ext.dependencies["room"]
     api rootProject.ext.dependencies["roomKtx"]
     kapt rootProject.ext.dependencies["room-compiler"]
+    // navigation
+    api rootProject.ext.dependencies["naviFragmentKtx"]
+    api rootProject.ext.dependencies["naviUiKtx"]
 
     // Koin
     api rootProject.ext.dependencies["KoinCore"]
