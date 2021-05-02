@@ -205,16 +205,16 @@ class WebViewLoginFragment : Fragment() {
         }
 
         val js = "javascript:var ifrs=document.getElementsByTagName(\"iframe\");" +
-                "var iframeContent=\"\";" +
-                "for(var i=0;i<ifrs.length;i++){" +
-                "iframeContent=iframeContent+ifrs[i].contentDocument.body.parentElement.outerHTML;" +
-                "}\n" +
-                "var frs=document.getElementsByTagName(\"frame\");" +
-                "var frameContent=\"\";" +
-                "for(var i=0;i<frs.length;i++){" +
-                "frameContent=frameContent+frs[i].contentDocument.body.parentElement.outerHTML;" +
-                "}\n" +
-                "window.local_obj.showSource(document.getElementsByTagName('html')[0].innerHTML + iframeContent + frameContent);"
+            "var iframeContent=\"\";" +
+            "for(var i=0;i<ifrs.length;i++){" +
+            "iframeContent=iframeContent+ifrs[i].contentDocument.body.parentElement.outerHTML;" +
+            "}\n" +
+            "var frs=document.getElementsByTagName(\"frame\");" +
+            "var frameContent=\"\";" +
+            "for(var i=0;i<frs.length;i++){" +
+            "frameContent=frameContent+frs[i].contentDocument.body.parentElement.outerHTML;" +
+            "}\n" +
+            "window.local_obj.showSource(document.getElementsByTagName('html')[0].innerHTML + iframeContent + frameContent);"
 
         binding.fabImport.setOnClickListener {
             binding.wvCourse.loadUrl(js)

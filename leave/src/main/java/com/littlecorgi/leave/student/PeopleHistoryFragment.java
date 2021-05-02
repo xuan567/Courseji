@@ -126,7 +126,8 @@ public class PeopleHistoryFragment extends Fragment {
     }
 
     private void getData() {
-        SharedPreferences pref = requireActivity().getSharedPreferences("data", Context.MODE_PRIVATE);
+        SharedPreferences pref =
+                requireActivity().getSharedPreferences("data", Context.MODE_PRIVATE);
         mName = pref.getString("name", "");
         mType1 = pref.getString("type1", "");
         mType2 = pref.getString("type2", "");

@@ -1,51 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?><!-- 1显示拍照的签到  -->
 <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:id="@+id/middle_details_SFTakePhoto"
-  xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/middle_details_SFTakePhoto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/middle_details_guideline"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.15" />
+        android:id="@+id/middle_details_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15" />
+
     <androidx.appcompat.widget.AppCompatTextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:id="@+id/middle_details_SFTPName"
-      android:text="签到成功"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/middle_details_guideline"
-      app:layout_constraintBottom_toTopOf="@id/middle_details_SFTPTime"
-      app:layout_constraintVertical_chainStyle="packed"
-      app:layout_constraintVertical_bias="0.06"
-      android:textSize="30sp"
-      android:textColor="@color/finish" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/middle_details_SFTPName"
+        android:text="签到成功"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/middle_details_guideline"
+        app:layout_constraintBottom_toTopOf="@id/middle_details_SFTPTime"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintVertical_bias="0.06"
+        android:textSize="30sp"
+        android:textColor="@color/finish" />
+
     <androidx.appcompat.widget.AppCompatTextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:id="@+id/middle_details_SFTPTime"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/middle_details_SFTPName"
-      app:layout_constraintBottom_toBottomOf="parent"
-      android:layout_marginTop="5dp"
-      android:textSize="20sp" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/middle_details_SFTPTime"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/middle_details_SFTPName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="5dp"
+        android:textSize="20sp" />
+
     <androidx.appcompat.widget.AppCompatImageView
-      android:layout_width="200dp"
-      android:layout_height="0dp"
-      android:layout_marginTop="30dp"
-      android:layout_marginStart="60dp"
-      android:layout_marginEnd="60dp"
-      android:layout_marginBottom="30dp"
-      android:id="@+id/middle_details_signFinishImage"
-      app:layout_constraintTop_toBottomOf="@id/middle_details_SFTPTime"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintDimensionRatio="0.7"
-      android:scaleType="centerCrop" />
+        android:layout_width="200dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="30dp"
+        android:id="@+id/middle_details_signFinishImage"
+        app:layout_constraintTop_toBottomOf="@id/middle_details_SFTPTime"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="0.7"
+        android:scaleType="centerCrop" />
 </androidx.constraintlayout.widget.ConstraintLayout>

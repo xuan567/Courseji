@@ -35,7 +35,8 @@ public class GlideRoundTransform extends BitmapTransformation {
     }
 
     @Override
-    protected Bitmap transform(@NotNull BitmapPool pool, @NotNull Bitmap toTransform, int outWidth, int outHeight) {
+    protected Bitmap transform(@NotNull BitmapPool pool, @NotNull Bitmap toTransform, int outWidth,
+                               int outHeight) {
         Bitmap bitmap = TransformationUtils.centerCrop(pool, toTransform, outWidth, outHeight);
         return roundCrop(pool, bitmap);
     }

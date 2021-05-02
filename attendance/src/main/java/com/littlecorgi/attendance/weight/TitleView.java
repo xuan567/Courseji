@@ -148,7 +148,8 @@ public class TitleView extends RelativeLayout {
             leftText = "返回";
         }
         final float leftTextSize = typedArray.getDimension(R.styleable.TitleView_leftTextSize, 20);
-        final int leftTextColor = typedArray.getColor(R.styleable.TitleView_titleColor, Color.WHITE);
+        final int leftTextColor =
+                typedArray.getColor(R.styleable.TitleView_titleColor, Color.WHITE);
         boolean leftIconVisibility =
                 typedArray.getBoolean(R.styleable.TitleView_leftIconVisibility, true);
         boolean leftTextVisibility =
@@ -176,8 +177,10 @@ public class TitleView extends RelativeLayout {
         if (rightText == null || leftText.equals("")) {
             rightText = "菜单";
         }
-        final float rightTextSize = typedArray.getDimension(R.styleable.TitleView_rightTextSize, 20);
-        final int rightTextColor = typedArray.getColor(R.styleable.TitleView_rightTextColor, Color.WHITE);
+        final float rightTextSize =
+                typedArray.getDimension(R.styleable.TitleView_rightTextSize, 20);
+        final int rightTextColor =
+                typedArray.getColor(R.styleable.TitleView_rightTextColor, Color.WHITE);
         boolean rightIconVisibility =
                 typedArray.getBoolean(R.styleable.TitleView_rightIconVisibility, false);
         boolean rightTextVisibility =

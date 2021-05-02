@@ -24,12 +24,12 @@ abstract class Parser(val source: String) {
                     CourseBaseBean(
                         id = id, courseName = course.name,
                         color = "#${
-                        Integer.toHexString(
-                            ViewUtils.getCustomizedColor(
-                                context,
-                                id % 9
+                            Integer.toHexString(
+                                ViewUtils.getCustomizedColor(
+                                    context,
+                                    id % 9
+                                )
                             )
-                        )
                         }",
                         tableId = tableId
                     )

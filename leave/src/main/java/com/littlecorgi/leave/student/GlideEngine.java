@@ -39,7 +39,8 @@ public class GlideEngine implements ImageEngine {
      * @param imageView 加载图片的ImageView
      */
     @Override
-    public void loadImage(@NonNull Context context, @NonNull String url, @NonNull ImageView imageView) {
+    public void loadImage(@NonNull Context context, @NonNull String url,
+                          @NonNull ImageView imageView) {
         Glide.with(context).load(url).into(imageView);
     }
 

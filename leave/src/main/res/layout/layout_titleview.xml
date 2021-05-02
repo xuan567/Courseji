@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="match_parent"
-  android:layout_height="50dp"
-  android:id="@+id/rl_viewGroup"
-  android:background="#08b9fd"
-  android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:id="@+id/rl_viewGroup"
+    android:background="#08b9fd"
+    android:orientation="vertical">
 
     <View
-      android:layout_width="match_parent"
-      android:layout_height="10dp"
-      android:id="@+id/view_up_line"
-      android:background="@android:color/transparent" />
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:id="@+id/view_up_line"
+        android:background="@android:color/transparent" />
 
     <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="32dp">
+        android:layout_width="match_parent"
+        android:layout_height="32dp">
 
         <LinearLayout
-          android:id="@+id/ll_left"
-          android:layout_width="wrap_content"
-          android:layout_height="45dp"
-          android:layout_alignParentLeft="true"
-          android:orientation="horizontal"
-          android:paddingLeft="10dp">
+            android:id="@+id/ll_left"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp">
 
             <Button
-              android:id="@+id/btn_return"
-              android:layout_width="17dp"
-              android:layout_height="17dp"
-              android:layout_gravity="center_vertical"
-              android:background="@mipmap/title_return" />
+                android:id="@+id/btn_return"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_gravity="center_vertical"
+                android:background="@mipmap/title_return" />
 
             <Button
-              android:id="@+id/tv_return"
-              android:layout_width="60dp"
-              android:layout_height="wrap_content"
-              android:layout_gravity="center_vertical"
-              android:background="@android:color/transparent"
-              android:text="返回"
-              android:textColor="@android:color/white"
-              android:textSize="17sp" />
+                android:id="@+id/tv_return"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@android:color/transparent"
+                android:text="返回"
+                android:textColor="@android:color/white"
+                android:textSize="17sp" />
 
 
         </LinearLayout>

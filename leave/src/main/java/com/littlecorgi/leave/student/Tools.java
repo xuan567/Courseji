@@ -135,7 +135,8 @@ public class Tools {
     /**
      * 跳转到查看图片界面 上下文、list、点击的位置
      */
-    public static void startPhotoViewActivity(Activity context, ArrayList<String> list, int position) {
+    public static void startPhotoViewActivity(Activity context, ArrayList<String> list,
+                                              int position) {
         Intent intent = new Intent(context, PhotoViewActivity.class);
         Bundle bundle = new Bundle();
         bundle.putStringArrayList("list", list);

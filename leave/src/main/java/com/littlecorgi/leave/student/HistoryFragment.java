@@ -49,7 +49,8 @@ public class HistoryFragment extends Fragment {
     }
 
     private void initHistories() {
-        SharedPreferences pref = requireActivity().getSharedPreferences("data", Context.MODE_PRIVATE);
+        SharedPreferences pref =
+                requireActivity().getSharedPreferences("data", Context.MODE_PRIVATE);
         String name = pref.getString("name", "");
         String type1 = pref.getString("type1", "");
         String startTime = pref.getString("startTime", "");

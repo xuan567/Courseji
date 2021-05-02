@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:layout_width="match_parent"
-  android:layout_height="320dp"
-  android:layout_gravity="bottom"
-  android:layout_margin="16dp"
-  app:cardBackgroundColor="#fafafa"
-  app:cardElevation="8dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="320dp"
+    android:layout_gravity="bottom"
+    android:layout_margin="16dp"
+    app:cardBackgroundColor="#fafafa"
+    app:cardElevation="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:paddingStart="16dp"
-      android:paddingEnd="16dp"
-      android:splitMotionEvents="false">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:splitMotionEvents="false">
 
         <androidx.appcompat.widget.AppCompatTextView
-          android:id="@+id/bottom_sheet_tv_title_week"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="16dp"
-          android:text="周数"
-          android:textSize="12sp"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent" />
+            android:id="@+id/bottom_sheet_tv_title_week"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="周数"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
-          android:id="@+id/bottom_sheet_btn_change_week"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          style="@style/material_button"
-          android:text="修改当前周"
-          android:minWidth="0dp"
-          android:textSize="12sp"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toTopOf="@id/bottom_sheet_tv_title_week"
-          app:layout_constraintBottom_toBottomOf="@id/bottom_sheet_tv_title_week" />
+            android:id="@+id/bottom_sheet_btn_change_week"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/material_button"
+            android:text="修改当前周"
+            android:minWidth="0dp"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/bottom_sheet_tv_title_week"
+            app:layout_constraintBottom_toBottomOf="@id/bottom_sheet_tv_title_week" />
 
         <HorizontalScrollView
-          android:id="@+id/bottom_sheet_sv_week"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:overScrollMode="never"
-          android:scrollbars="none"
-          android:layout_marginTop="8dp"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/bottom_sheet_tv_title_week">
+            android:id="@+id/bottom_sheet_sv_week"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bottom_sheet_tv_title_week">
 
             <com.google.android.material.button.MaterialButtonToggleGroup
-              android:id="@+id/bottom_sheet_tg_week"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              app:singleSelection="true"
-              app:selectionRequired="true" />
+                android:id="@+id/bottom_sheet_tg_week"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:singleSelection="true"
+                app:selectionRequired="true" />
         </HorizontalScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

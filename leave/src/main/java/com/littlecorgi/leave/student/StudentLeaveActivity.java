@@ -36,7 +36,7 @@ public class StudentLeaveActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
-        String[] titles = new String[]{"提交请假", "请假记录"};
+        String[] titles = new String[] {"提交请假", "请假记录"};
         for (int i = 0; i < titles.length; i++) {
             tabLayout.getTabAt(i).setText(titles[i]);
         }

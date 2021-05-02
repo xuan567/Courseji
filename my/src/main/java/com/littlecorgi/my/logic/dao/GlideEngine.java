@@ -23,10 +23,14 @@ import com.luck.picture.lib.widget.longimage.ImageViewState;
 import com.luck.picture.lib.widget.longimage.SubsamplingScaleImageView;
 
 /**
- * Created by Android Studio. ProjectName: ----2、图片选择器加载图片失败GlideEngine： Author: HongYu (wb_hongyu3@staff.weibo.com)
- * Create date: by Baron on 2020/11/24 11:24 AM Last modified by YanTao (wb_hongyu3@staff.weibo.com) Last modified date:
- * by Baron on 2020/11/24 11:24 AM \ -------------------------------------------- \| The only thing that is constant is
- * change! | \ -------------------------------------------- \ \ \ \ \_\_ _/_/ \ \ \__/ \ (oo)\_______ \ (__)\ )\/\ \
+ * Created by Android Studio. ProjectName:
+ * ----2、图片选择器加载图片失败GlideEngine： Author: HongYu (wb_hongyu3@staff.weibo.com)
+ * Create date: by Baron on 2020/11/24 11:24 AM
+ * Last modified by YanTao (wb_hongyu3@staff.weibo.com)
+ * Last modified date: by Baron on 2020/11/24 11:24 AM
+ * \ -------------------------------------------- \| The only thing that is constant is change! |
+ * \ -------------------------------------------- \
+ * \ \ \ \_\_ _/_/ \ \ \__/ \ (oo)\_______ \ (__)\ )\/\ \
  * ||----w | \ || ||
  */
 public class GlideEngine implements ImageEngine {
@@ -39,7 +43,8 @@ public class GlideEngine implements ImageEngine {
      * @param imageView 加载图片的ImageView
      */
     @Override
-    public void loadImage(@NonNull Context context, @NonNull String url, @NonNull ImageView imageView) {
+    public void loadImage(@NonNull Context context, @NonNull String url,
+                          @NonNull ImageView imageView) {
         Glide.with(context).load(url).into(imageView);
     }
 
@@ -50,7 +55,8 @@ public class GlideEngine implements ImageEngine {
      * @param url           链接URL
      * @param imageView     加载图片的ImageView
      * @param longImageView 长图的ImageView
-     * @param callback      网络图片加载回调监听 {link after version 2.5.1 Please use the #OnImageCompleteCallback#}
+     * @param callback      网络图片加载回调监听
+     *                      {link after version 2.5.1 Please use the #OnImageCompleteCallback#}
      */
     @Override
     public void loadImage(

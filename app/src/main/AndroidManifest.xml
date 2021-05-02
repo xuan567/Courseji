@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.littlecorgi.courseji">
+    package="com.littlecorgi.courseji">
     <!-- 友盟 -->
     <!-- 以下为需要的基本权限，需要自行添加至您的AndroidManifest文件中 start -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -26,19 +26,19 @@
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
 
     <application
-      android:name=".AppApp"
-      android:allowBackup="false"
-      android:icon="@mipmap/ic_launcher"
-      android:label="@string/app_name"
-      android:networkSecurityConfig="@xml/network_security_config"
-      android:roundIcon="@mipmap/ic_launcher_round"
-      android:supportsRtl="true"
-      android:theme="@style/Theme.Corseji">
+        android:name=".AppApp"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Corseji">
         <activity android:name=".schedule_setting.ui.ScheduleSettingsActivity" />
         <activity
-          android:name=".schedule_import.LoginWebActivity"
-          android:configChanges="keyboardHidden"
-          android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:name=".schedule_import.LoginWebActivity"
+            android:configChanges="keyboardHidden"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,19 +50,19 @@
         <activity android:name=".MainActivity" />
         <!--穿山甲-->
         <provider
-          android:name="com.bytedance.sdk.openadsdk.TTFileProvider"
-          android:authorities="${applicationId}.TTFileProvider"
-          android:exported="false"
-          android:grantUriPermissions="true">
+            android:name="com.bytedance.sdk.openadsdk.TTFileProvider"
+            android:authorities="${applicationId}.TTFileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
             <meta-data
-              android:name="android.support.FILE_PROVIDER_PATHS"
-              android:resource="@xml/file_paths" />
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
         </provider>
         <!-- 以下为友盟基本配置信息，需要自行添加至您的AndroidManifest文件中 start -->
         <service
-          android:name="com.taobao.accs.ChannelService"
-          android:exported="true"
-          android:process=":channel">
+            android:name="com.taobao.accs.ChannelService"
+            android:exported="true"
+            android:process=":channel">
             <intent-filter>
                 <action android:name="com.taobao.accs.intent.action.SERVICE" />
             </intent-filter>
@@ -71,16 +71,16 @@
             </intent-filter>
         </service>
         <service
-          android:name="com.taobao.accs.data.MsgDistributeService"
-          android:exported="true">
+            android:name="com.taobao.accs.data.MsgDistributeService"
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.taobao.accs.intent.action.RECEIVE" />
             </intent-filter>
         </service>
 
         <receiver
-          android:name="com.taobao.accs.EventReceiver"
-          android:process=":channel">
+            android:name="com.taobao.accs.EventReceiver"
+            android:process=":channel">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
@@ -97,8 +97,8 @@
             </intent-filter>
         </receiver>
         <receiver
-          android:name="com.taobao.accs.ServiceReceiver"
-          android:process=":channel">
+            android:name="com.taobao.accs.ServiceReceiver"
+            android:process=":channel">
             <intent-filter>
                 <action android:name="com.taobao.accs.intent.action.COMMAND" />
             </intent-filter>
@@ -108,40 +108,40 @@
         </receiver>
 
         <service
-          android:name="com.taobao.accs.internal.AccsJobService"
-          android:permission="android.permission.BIND_JOB_SERVICE"
-          android:process=":channel" />
+            android:name="com.taobao.accs.internal.AccsJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:process=":channel" />
         <service
-          android:name="com.taobao.accs.ChannelService$KernelService"
-          android:process=":channel" />
+            android:name="com.taobao.accs.ChannelService$KernelService"
+            android:process=":channel" />
         <service
-          android:name="org.android.agoo.accs.AgooService"
-          android:exported="true">
+            android:name="org.android.agoo.accs.AgooService"
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.taobao.accs.intent.action.RECEIVE" />
             </intent-filter>
         </service>
         <service
-          android:name="com.umeng.message.UmengIntentService"
-          android:exported="true"
-          android:process=":channel">
+            android:name="com.umeng.message.UmengIntentService"
+            android:exported="true"
+            android:process=":channel">
             <intent-filter>
                 <action android:name="org.agoo.android.intent.action.RECEIVE" />
             </intent-filter>
         </service>
         <service
-          android:name="com.umeng.message.XiaomiIntentService"
-          android:exported="true"
-          android:process=":channel">
+            android:name="com.umeng.message.XiaomiIntentService"
+            android:exported="true"
+            android:process=":channel">
             <intent-filter>
                 <action android:name="org.agoo.android.intent.action.RECEIVE" />
             </intent-filter>
         </service>
 
         <receiver
-          android:name="com.taobao.agoo.AgooCommondReceiver"
-          android:exported="true"
-          android:process=":channel">
+            android:name="com.taobao.agoo.AgooCommondReceiver"
+            android:exported="true"
+            android:process=":channel">
             <intent-filter>
                 <action android:name="${applicationId}.intent.action.COMMAND" />
             </intent-filter>
@@ -153,22 +153,22 @@
         </receiver>
 
         <service
-          android:name="com.umeng.message.UmengMessageIntentReceiverService"
-          android:exported="true"
-          android:process=":channel">
+            android:name="com.umeng.message.UmengMessageIntentReceiverService"
+            android:exported="true"
+            android:process=":channel">
             <intent-filter>
                 <action android:name="org.android.agoo.client.MessageReceiverService" />
             </intent-filter>
         </service>
 
         <receiver
-          android:name="com.umeng.message.NotificationProxyBroadcastReceiver"
-          android:exported="false" />
+            android:name="com.umeng.message.NotificationProxyBroadcastReceiver"
+            android:exported="false" />
 
         <service
-          android:name="com.umeng.message.UmengMessageCallbackHandlerService"
-          android:exported="false"
-          android:permission="android.permission.BIND_JOB_SERVICE">
+            android:name="com.umeng.message.UmengMessageCallbackHandlerService"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE">
             <intent-filter>
                 <action android:name="com.umeng.messge.registercallback.action" />
             </intent-filter>
@@ -186,19 +186,19 @@
             </intent-filter>
         </service>
         <service
-          android:name="com.umeng.message.UmengDownloadResourceService"
-          android:exported="false"
-          android:permission="android.permission.BIND_JOB_SERVICE" />
+            android:name="com.umeng.message.UmengDownloadResourceService"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <provider
-          android:name="com.umeng.message.provider.MessageProvider"
-          android:authorities="${applicationId}.umeng.message"
-          android:exported="false">
+            android:name="com.umeng.message.provider.MessageProvider"
+            android:authorities="${applicationId}.umeng.message"
+            android:exported="false">
             <grant-uri-permission android:pathPattern=".*" />
         </provider> <!-- 华为Push配置 -->
         <meta-data
-          android:name="com.huawei.hms.client.appid"
-          android:value="appid=103176589" />
+            android:name="com.huawei.hms.client.appid"
+            android:value="appid=103176589" />
     </application>
 
 </manifest>

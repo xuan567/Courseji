@@ -1,108 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.scwang.smart.refresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:id="@+id/refreshLayout"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/refreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <!--
     上拉刷新
     -->
     <com.scwang.smart.refresh.header.ClassicsHeader
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <!--
     这里在显示时发现底部的RecyclerView有被遮挡的情况，用了
         CoordinatorLayout布局+NestedScrollView解决
     -->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:background="#E3DDDD">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#E3DDDD">
 
         <com.google.android.material.appbar.AppBarLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <RelativeLayout
-              android:id="@+id/topLayout"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:background="@color/blue"
-              android:orientation="horizontal"
-              app:layout_constraintTop_toTopOf="parent"
-              app:layout_scrollFlags="scroll|enterAlways|snap">
+                android:id="@+id/topLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/blue"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_scrollFlags="scroll|enterAlways|snap">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                  android:id="@+id/student_returnButton"
-                  android:layout_width="32dp"
-                  android:layout_height="32dp"
-                  android:layout_alignParentStart="true"
-                  android:layout_alignParentTop="true"
-                  android:layout_marginTop="6dp"
-                  android:layout_marginBottom="6dp"
-                  android:fontFamily="@font/iconfont"
-                  android:gravity="center"
-                  android:includeFontPadding="false"
-                  android:text=""
-                  android:textColor="#000"
-                  android:textSize="30sp" />
+                    android:id="@+id/student_returnButton"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:fontFamily="@font/iconfont"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:text=""
+                    android:textColor="#000"
+                    android:textSize="30sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="32dp"
-                  android:layout_alignParentTop="true"
-                  android:layout_centerInParent="true"
-                  android:layout_gravity="center"
-                  android:layout_marginTop="6dp"
-                  android:layout_marginBottom="6dp"
-                  android:gravity="center"
-                  android:text="签到"
-                  android:textColor="?android:attr/textColorPrimary"
-                  android:textSize="20sp" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:gravity="center"
+                    android:text="签到"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="20sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                  android:id="@+id/student_History"
-                  android:layout_width="32dp"
-                  android:layout_height="32dp"
-                  android:layout_alignParentTop="true"
-                  android:layout_alignParentEnd="true"
-                  android:layout_marginTop="6dp"
-                  android:layout_marginEnd="10dp"
-                  android:layout_marginBottom="6dp"
-                  android:fontFamily="@font/iconfont"
-                  android:gravity="center"
-                  android:includeFontPadding="false"
-                  android:text=""
-                  android:textColor="#000"
-                  android:textSize="30sp" />
+                    android:id="@+id/student_History"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="6dp"
+                    android:fontFamily="@font/iconfont"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:text=""
+                    android:textColor="#000"
+                    android:textSize="30sp" />
             </RelativeLayout>
 
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.core.widget.NestedScrollView
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <androidx.recyclerview.widget.RecyclerView
-              android:id="@+id/middle_recyclerViewId"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:visibility="visible"
-              app:layout_constraintTop_toBottomOf="@id/topLayout" />
+                android:id="@+id/middle_recyclerViewId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@id/topLayout" />
         </androidx.core.widget.NestedScrollView>
 
         <androidx.appcompat.widget.AppCompatImageView
-          android:id="@+id/middle_emptyLayout"
-          android:layout_width="0dp"
-          android:layout_height="0dp"
-          android:scaleType="centerCrop"
-          android:src="@drawable/middle_empty"
-          android:visibility="gone"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/topLayout" />
+            android:id="@+id/middle_emptyLayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/middle_empty"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/topLayout" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </com.scwang.smart.refresh.layout.SmartRefreshLayout>
