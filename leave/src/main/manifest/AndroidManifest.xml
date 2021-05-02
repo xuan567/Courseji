@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  package="com.littlecorgi.leave">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.littlecorgi.leave">
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -20,19 +20,19 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
-      android:allowBackup="true"
-      android:icon="@mipmap/ic_launcher"
-      android:label="@string/app_name"
-      android:requestLegacyExternalStorage="true"
-      android:roundIcon="@mipmap/ic_launcher_round"
-      android:supportsRtl="true"
-      android:theme="@style/Theme.Courseji"
-      tools:replace="android:allowBackup">
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Courseji"
+        tools:replace="android:allowBackup">
 
 
         <meta-data
-          android:name="com.baidu.lbsapi.API_KEY"
-          android:value="E2FgLTZO2dqHCCMz4dGu0kc0tuurco25" />
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="E2FgLTZO2dqHCCMz4dGu0kc0tuurco25" />
 
         <activity android:name=".student.StudentLeaveActivity">
             <intent-filter>
@@ -43,9 +43,9 @@
         </activity>
 
         <service
-          android:name="com.baidu.location.f"
-          android:enabled="true"
-          android:process=":remote" />
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
     </application>
 
 </manifest>

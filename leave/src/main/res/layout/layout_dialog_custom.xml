@@ -1,45 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  android:orientation="vertical"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:background="#fff">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff">
 
     <TextView
-      android:id="@+id/tv_take_photo"
-      android:layout_width="match_parent"
-      android:layout_height="50dp"
-      android:text="拍照"
-      android:gravity="center"
-      android:textColor="@color/blue_title"
-      android:textSize="15sp" />
-    <View
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:background="@color/blue_title" />
-
-    <TextView
-      android:id="@+id/tv_choose_picture"
-      android:layout_width="match_parent"
-      android:layout_height="50dp"
-      android:text="从相册选择"
-      android:gravity="center"
-      android:textColor="@color/blue_title"
-      android:textSize="15sp" />
+        android:id="@+id/tv_take_photo"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="拍照"
+        android:gravity="center"
+        android:textColor="@color/blue_title"
+        android:textSize="15sp" />
 
     <View
-      android:layout_width="match_parent"
-      android:layout_height="5dp"
-      android:background="#81C7E6" />
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/blue_title" />
 
     <TextView
-      android:id="@+id/tv_cancel"
-      android:layout_width="match_parent"
-      android:layout_height="50dp"
-      android:text="取消"
-      android:gravity="center"
-      android:textColor="@color/blue_title"
-      android:textSize="15sp" />
+        android:id="@+id/tv_choose_picture"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="从相册选择"
+        android:gravity="center"
+        android:textColor="@color/blue_title"
+        android:textSize="15sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="#81C7E6" />
+
+    <TextView
+        android:id="@+id/tv_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="取消"
+        android:gravity="center"
+        android:textColor="@color/blue_title"
+        android:textSize="15sp" />
 
 
 </LinearLayout>
