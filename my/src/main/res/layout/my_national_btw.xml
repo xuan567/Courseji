@@ -1,61 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:layout_marginStart="5dp"
-  android:layout_marginEnd="5dp"
-  app:cardCornerRadius="4dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
+    app:cardCornerRadius="4dp">
+
     <androidx.constraintlayout.widget.ConstraintLayout
-      android:layout_width="match_parent"
-      android:layout_height="280dp">
+        android:layout_width="match_parent"
+        android:layout_height="280dp">
+
         <androidx.constraintlayout.widget.Guideline
-          android:id="@+id/guideline1"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal"
-          app:layout_constraintGuide_percent="0.05" />
+            android:id="@+id/guideline1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.05" />
+
         <androidx.constraintlayout.widget.Guideline
-          android:id="@+id/guideline2"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal"
-          app:layout_constraintGuide_percent="0.7" />
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.7" />
+
         <com.contrarywind.view.WheelView
-          android:id="@+id/national_blw_wheelView"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          app:layout_constraintTop_toTopOf="@id/guideline1" />
-        <androidx.appcompat.widget.AppCompatButton
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="20dp"
-          android:layout_marginBottom="10dp"
-          android:text="取消"
-          android:includeFontPadding="false"
-          android:paddingLeft="40dp"
-          android:paddingRight="40dp"
-          android:textSize="16sp"
-          android:textColor="#4CAF50"
-          android:background="#ECE9E9"
-          android:id="@+id/national_blw_cancelButton"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintEnd_toStartOf="@+id/national_blw_sureButton" />
+            android:id="@+id/national_blw_wheelView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/guideline1" />
 
         <androidx.appcompat.widget.AppCompatButton
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="确定"
-          android:includeFontPadding="false"
-          android:paddingLeft="40dp"
-          android:paddingRight="40dp"
-          android:textColor="@color/white"
-          android:background="#4CAF50"
-          android:textSize="16sp"
-          android:id="@+id/national_blw_sureButton"
-          app:layout_constraintBaseline_toBaselineOf="@id/national_blw_cancelButton"
-          app:layout_constraintStart_toEndOf="@id/national_blw_cancelButton"
-          app:layout_constraintEnd_toEndOf="parent" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:text="取消"
+            android:includeFontPadding="false"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:textSize="16sp"
+            android:textColor="#4CAF50"
+            android:background="#ECE9E9"
+            android:id="@+id/national_blw_cancelButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/national_blw_sureButton" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="确定"
+            android:includeFontPadding="false"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:textColor="@color/white"
+            android:background="#4CAF50"
+            android:textSize="16sp"
+            android:id="@+id/national_blw_sureButton"
+            app:layout_constraintBaseline_toBaselineOf="@id/national_blw_cancelButton"
+            app:layout_constraintStart_toEndOf="@id/national_blw_cancelButton"
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

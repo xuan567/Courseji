@@ -18,7 +18,8 @@ public class Tool {
      */
     public static void copyHelper(Context context, String copyTitle) {
         // 添加到剪切板
-        ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipboardManager clipboardManager =
+                (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         /*之前的应用过期的方法，clipboardManager.setText(copy);*/
         assert clipboardManager != null;
         clipboardManager.setPrimaryClip(ClipData.newPlainText(null, copyTitle));

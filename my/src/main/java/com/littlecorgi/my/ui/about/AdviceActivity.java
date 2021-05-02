@@ -178,7 +178,7 @@ public class AdviceActivity extends BaseActivity implements View.OnClickListener
 
                 @Override
                 public void onFailure(@NotNull Call<ResponseBody> call,
-                        @NotNull Throwable t) {
+                                      @NotNull Throwable t) {
                     Toast.makeText(AdviceActivity.this, "", Toast.LENGTH_LONG).show();
                 }
             });

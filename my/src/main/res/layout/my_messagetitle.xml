@@ -1,326 +1,352 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:layout_marginStart="5dp"
-  android:layout_marginTop="15dp"
-  android:layout_marginEnd="5dp"
-  app:cardCornerRadius="4dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="5dp"
+    android:layout_marginTop="15dp"
+    android:layout_marginEnd="5dp"
+    app:cardCornerRadius="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-          android:id="@+id/my_message_picture"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent">
+            android:id="@+id/my_message_picture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatTextView
-              android:id="@+id/pictureTitle"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginStart="10dp"
-              android:text="头像"
-              android:textColor="?android:attr/textColorPrimary"
-              android:textSize="18sp"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toTopOf="parent"
-              app:layout_constraintBottom_toBottomOf="parent" />
+                android:id="@+id/pictureTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="头像"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
             <androidx.appcompat.widget.AppCompatImageView
-              android:padding="5dp"
-              android:layout_marginEnd="10dp"
-              android:id="@+id/my_message_ImageView"
-              android:layout_width="60dp"
-              android:layout_height="60dp"
-              android:scaleType="centerCrop"
-              app:layout_constraintTop_toTopOf="parent"
-              app:layout_constraintBottom_toBottomOf="parent"
-              app:layout_constraintEnd_toEndOf="parent"
-              android:src="@drawable/my" />
+                android:padding="5dp"
+                android:layout_marginEnd="10dp"
+                android:id="@+id/my_message_ImageView"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:src="@drawable/my" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <View
-          android:id="@+id/pictureSplitLine"
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:layout_marginTop="10dp"
-          android:background="#ECE9E9"
-          app:layout_constraintTop_toBottomOf="@id/my_message_picture" />
+            android:id="@+id/pictureSplitLine"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="#ECE9E9"
+            app:layout_constraintTop_toBottomOf="@id/my_message_picture" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
-          android:id="@+id/my_message_name"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/pictureSplitLine">
+            android:id="@+id/my_message_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pictureSplitLine">
+
             <androidx.appcompat.widget.AppCompatTextView
-              android:id="@+id/nameTitle"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginStart="10dp"
-              android:layout_marginTop="8dp"
-              android:text="姓名"
-              android:textColor="?android:attr/textColorPrimary"
-              android:textSize="18sp"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toTopOf="parent"
-              app:layout_constraintBottom_toBottomOf="parent" />
+                android:id="@+id/nameTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="8dp"
+                android:text="姓名"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
             <androidx.constraintlayout.widget.Guideline
-              android:id="@+id/guideline1"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              app:layout_constraintGuide_percent="0.20" />
+                android:id="@+id/guideline1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.20" />
+
             <androidx.appcompat.widget.AppCompatTextView
-              android:id="@+id/my_message_nameTitle"
-              android:layout_height="wrap_content"
-              android:layout_width="wrap_content"
-              android:hint="你的名字"
-              android:textSize="18sp"
-              app:layout_constraintBaseline_toBaselineOf="@id/nameTitle"
-              app:layout_constraintStart_toStartOf="@id/guideline1" />
+                android:id="@+id/my_message_nameTitle"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:hint="你的名字"
+                android:textSize="18sp"
+                app:layout_constraintBaseline_toBaselineOf="@id/nameTitle"
+                app:layout_constraintStart_toStartOf="@id/guideline1" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
-          android:id="@+id/nameSplitLine"
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:layout_marginTop="10dp"
-          android:background="#ECE9E9"
-          app:layout_constraintTop_toBottomOf="@id/my_message_name" />
+            android:id="@+id/nameSplitLine"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="#ECE9E9"
+            app:layout_constraintTop_toBottomOf="@id/my_message_name" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-          android:id="@+id/my_message_id"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/nameSplitLine">
+            android:id="@+id/my_message_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nameSplitLine">
+
             <androidx.appcompat.widget.AppCompatTextView
-              android:id="@+id/idTitle"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginStart="10dp"
-              android:layout_marginTop="8dp"
-              android:text="身份证"
-              android:textColor="?android:attr/textColorPrimary"
-              android:textSize="18sp"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toTopOf="parent"
-              app:layout_constraintBottom_toBottomOf="parent" />
+                android:id="@+id/idTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="8dp"
+                android:text="身份证"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
             <androidx.constraintlayout.widget.Guideline
-              android:id="@+id/guideline5"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              app:layout_constraintGuide_percent="0.20" />
+                android:id="@+id/guideline5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.20" />
+
             <androidx.appcompat.widget.AppCompatTextView
-              android:id="@+id/my_message_idTitle"
-              android:layout_height="wrap_content"
-              android:layout_width="wrap_content"
-              android:textSize="18sp"
-              app:layout_constraintBaseline_toBaselineOf="@id/idTitle"
-              app:layout_constraintStart_toStartOf="@id/guideline5" />
+                android:id="@+id/my_message_idTitle"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textSize="18sp"
+                app:layout_constraintBaseline_toBaselineOf="@id/idTitle"
+                app:layout_constraintStart_toStartOf="@id/guideline5" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
-          android:id="@+id/idSplitLine"
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:layout_marginTop="10dp"
-          android:background="#ECE9E9"
-          app:layout_constraintTop_toBottomOf="@id/my_message_id" />
+            android:id="@+id/idSplitLine"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="#ECE9E9"
+            app:layout_constraintTop_toBottomOf="@id/my_message_id" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
-          android:id="@+id/my_message_gender"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/idSplitLine">
+            android:id="@+id/my_message_gender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/idSplitLine">
+
             <androidx.appcompat.widget.AppCompatButton
-              android:layout_width="24dp"
-              android:layout_height="24dp"
-              android:layout_marginEnd="10dp"
-              android:background="@drawable/my_right"
-              app:layout_constraintBaseline_toBaselineOf="@id/gender"
-              app:layout_constraintEnd_toEndOf="parent" />
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/my_right"
+                app:layout_constraintBaseline_toBaselineOf="@id/gender"
+                app:layout_constraintEnd_toEndOf="parent" />
+
             <androidx.constraintlayout.widget.Guideline
-              android:id="@+id/guideline2"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              app:layout_constraintGuide_percent="0.20" />
-            <androidx.appcompat.widget.AppCompatTextView
-              android:id="@+id/gender"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginStart="10dp"
-              android:text="性别"
-              android:textColor="?android:attr/textColorPrimary"
-              android:textSize="18sp"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toTopOf="parent"
-              app:layout_constraintBottom_toBottomOf="parent" />
-            <androidx.appcompat.widget.AppCompatTextView
-              android:id="@+id/my_message_genderTitle"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:hint="男"
-              android:textSize="18sp"
-              app:layout_constraintBaseline_toBaselineOf="@id/gender"
-              app:layout_constraintStart_toStartOf="@id/guideline2" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-        <View
-          android:id="@+id/genderSplitLine"
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:layout_marginTop="10dp"
-          android:background="#ECE9E9"
-          app:layout_constraintTop_toBottomOf="@id/my_message_gender" />
-        <androidx.constraintlayout.widget.ConstraintLayout
-          android:id="@+id/my_message_professional"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/genderSplitLine">
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.20" />
 
             <androidx.appcompat.widget.AppCompatTextView
-              android:id="@+id/professional"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginStart="10dp"
-              android:layout_marginTop="8dp"
-              android:text="专业"
-              android:textColor="?android:attr/textColorPrimary"
-              android:textSize="18sp"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toTopOf="parent"
-              app:layout_constraintBottom_toBottomOf="parent" />
+                android:id="@+id/gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="性别"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/my_message_genderTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="男"
+                android:textSize="18sp"
+                app:layout_constraintBaseline_toBaselineOf="@id/gender"
+                app:layout_constraintStart_toStartOf="@id/guideline2" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/genderSplitLine"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="#ECE9E9"
+            app:layout_constraintTop_toBottomOf="@id/my_message_gender" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/my_message_professional"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/genderSplitLine">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/professional"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="8dp"
+                android:text="专业"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
             <androidx.constraintlayout.widget.Guideline
-              android:id="@+id/guideline3"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              app:layout_constraintGuide_percent="0.20" />
+                android:id="@+id/guideline3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.20" />
 
             <androidx.appcompat.widget.AppCompatEditText
-              android:id="@+id/my_message_professionalTitle"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:background="@color/white"
-              android:hint="请输入专业名称"
-              android:textColor="#FF888888"
-              android:textSize="18sp"
-              app:layout_constraintBaseline_toBaselineOf="@id/professional"
-              app:layout_constraintStart_toStartOf="@id/guideline3" />
+                android:id="@+id/my_message_professionalTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:hint="请输入专业名称"
+                android:textColor="#FF888888"
+                android:textSize="18sp"
+                app:layout_constraintBaseline_toBaselineOf="@id/professional"
+                app:layout_constraintStart_toStartOf="@id/guideline3" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <View
-          android:id="@+id/professionalSplitLine"
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:layout_marginTop="10dp"
-          android:background="#ECE9E9"
-          app:layout_constraintTop_toBottomOf="@id/my_message_professional" />
+            android:id="@+id/professionalSplitLine"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="#ECE9E9"
+            app:layout_constraintTop_toBottomOf="@id/my_message_professional" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-          android:id="@+id/my_message_Describe"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/professionalSplitLine">
+            android:id="@+id/my_message_Describe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/professionalSplitLine">
 
             <androidx.appcompat.widget.AppCompatButton
-              android:layout_width="24dp"
-              android:layout_height="24dp"
-              android:layout_marginEnd="10dp"
-              android:background="@drawable/my_right"
-              app:layout_constraintBaseline_toBaselineOf="@id/describe"
-              app:layout_constraintEnd_toEndOf="parent" />
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/my_right"
+                app:layout_constraintBaseline_toBaselineOf="@id/describe"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <androidx.appcompat.widget.AppCompatTextView
-              android:id="@+id/describe"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginStart="10dp"
-              android:text="描述"
-              android:textColor="?android:attr/textColorPrimary"
-              android:textSize="18sp"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toTopOf="parent"
-              app:layout_constraintBottom_toBottomOf="parent" />
+                android:id="@+id/describe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="描述"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
             <androidx.constraintlayout.widget.Guideline
-              android:id="@+id/guideline"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              app:layout_constraintGuide_percent="0.20" />
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.20" />
+
             <androidx.appcompat.widget.AppCompatTextView
-              android:id="@+id/my_message_DescribeTitle"
-              android:layout_width="200dp"
-              android:layout_height="wrap_content"
-              android:layout_marginEnd="5dp"
-              android:ellipsize="marquee"
-              android:singleLine="true"
-              android:maxLength="50"
-              android:textSize="18sp"
-              app:layout_constraintBaseline_toBaselineOf="@id/describe"
-              app:layout_constraintStart_toStartOf="@id/guideline" />
+                android:id="@+id/my_message_DescribeTitle"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:ellipsize="marquee"
+                android:singleLine="true"
+                android:maxLength="50"
+                android:textSize="18sp"
+                app:layout_constraintBaseline_toBaselineOf="@id/describe"
+                app:layout_constraintStart_toStartOf="@id/guideline" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <View
-          android:id="@+id/DescribeSplitLine"
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:layout_marginTop="10dp"
-          android:background="#ECE9E9"
-          app:layout_constraintTop_toBottomOf="@id/my_message_Describe" />
+            android:id="@+id/DescribeSplitLine"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="#ECE9E9"
+            app:layout_constraintTop_toBottomOf="@id/my_message_Describe" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-          android:id="@+id/my_message_national"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/DescribeSplitLine">
+            android:id="@+id/my_message_national"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/DescribeSplitLine">
+
             <androidx.appcompat.widget.AppCompatButton
-              android:layout_width="24dp"
-              android:layout_height="24dp"
-              android:layout_marginEnd="10dp"
-              android:background="@drawable/my_right"
-              app:layout_constraintBaseline_toBaselineOf="@id/national"
-              app:layout_constraintEnd_toEndOf="parent" />
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/my_right"
+                app:layout_constraintBaseline_toBaselineOf="@id/national"
+                app:layout_constraintEnd_toEndOf="parent" />
+
             <androidx.constraintlayout.widget.Guideline
-              android:id="@+id/guideline4"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              app:layout_constraintGuide_percent="0.20" />
+                android:id="@+id/guideline4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.20" />
+
             <androidx.appcompat.widget.AppCompatTextView
-              android:id="@+id/national"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginStart="10dp"
-              android:layout_marginTop="8dp"
-              android:text="民族"
-              android:textColor="?android:attr/textColorPrimary"
-              android:textSize="18sp"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toTopOf="parent"
-              app:layout_constraintBottom_toBottomOf="parent" />
+                android:id="@+id/national"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="8dp"
+                android:text="民族"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
             <androidx.appcompat.widget.AppCompatTextView
-              android:id="@+id/my_message_nationalTitle"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:hint="汉族"
-              android:textSize="18sp"
-              app:layout_constraintBaseline_toBaselineOf="@id/national"
-              app:layout_constraintStart_toStartOf="@id/guideline4" />
+                android:id="@+id/my_message_nationalTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="汉族"
+                android:textSize="18sp"
+                app:layout_constraintBaseline_toBaselineOf="@id/national"
+                app:layout_constraintStart_toStartOf="@id/guideline4" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <View
-          android:id="@+id/nationalSplitLine"
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:layout_marginTop="10dp"
-          android:background="#ECE9E9"
-          app:layout_constraintTop_toBottomOf="@id/my_message_national" />
+            android:id="@+id/nationalSplitLine"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="#ECE9E9"
+            app:layout_constraintTop_toBottomOf="@id/my_message_national" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

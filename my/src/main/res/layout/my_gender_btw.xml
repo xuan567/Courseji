@@ -1,72 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:layout_marginStart="5dp"
-  android:layout_marginEnd="5dp"
-  app:cardCornerRadius="4dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
+    app:cardCornerRadius="4dp">
+
     <androidx.constraintlayout.widget.ConstraintLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
         <androidx.appcompat.widget.AppCompatTextView
-          android:id="@+id/gender_btw_man"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:padding="8dp"
-          android:text="男"
-          android:gravity="center"
-          android:textColor="?android:attr/textColorPrimary"
-          android:textSize="18sp"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toTopOf="parent" />
-        <View
-          android:id="@+id/manSplitLine"
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:layout_marginTop="10dp"
-          android:background="#ECE9E9"
-          app:layout_constraintTop_toBottomOf="@id/gender_btw_man" />
-        <androidx.appcompat.widget.AppCompatTextView
-          android:id="@+id/gender_btw_woman"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:padding="8dp"
-          android:text="女"
-          android:gravity="center"
-          android:textColor="?android:attr/textColorPrimary"
-          android:textSize="18sp"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/manSplitLine" />
+            android:id="@+id/gender_btw_man"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="男"
+            android:gravity="center"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <View
-          android:id="@+id/womanSplitLine"
-          android:layout_width="match_parent"
-          android:layout_height="10dp"
-          android:layout_marginTop="10dp"
-          android:background="#ECE9E9"
-          app:layout_constraintTop_toBottomOf="@id/gender_btw_woman" />
+            android:id="@+id/manSplitLine"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="#ECE9E9"
+            app:layout_constraintTop_toBottomOf="@id/gender_btw_man" />
+
         <androidx.appcompat.widget.AppCompatTextView
-          android:id="@+id/gender_btw_cancel"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:padding="8dp"
-          android:text="取消"
-          android:gravity="center"
-          android:textColor="?android:attr/textColorPrimary"
-          android:textSize="18sp"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/womanSplitLine" />
+            android:id="@+id/gender_btw_woman"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="女"
+            android:gravity="center"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/manSplitLine" />
+
         <View
-          android:id="@+id/cancelSplitLine"
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:layout_marginTop="10dp"
-          android:background="#ECE9E9"
-          app:layout_constraintTop_toBottomOf="@id/gender_btw_cancel" />
+            android:id="@+id/womanSplitLine"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginTop="10dp"
+            android:background="#ECE9E9"
+            app:layout_constraintTop_toBottomOf="@id/gender_btw_woman" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/gender_btw_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="取消"
+            android:gravity="center"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/womanSplitLine" />
+
+        <View
+            android:id="@+id/cancelSplitLine"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="#ECE9E9"
+            app:layout_constraintTop_toBottomOf="@id/gender_btw_cancel" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

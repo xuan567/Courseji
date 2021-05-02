@@ -1,53 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:layout_marginStart="5dp"
-  android:layout_marginEnd="5dp"
-  app:cardCornerRadius="4dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
+    app:cardCornerRadius="4dp">
+
     <androidx.constraintlayout.widget.ConstraintLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
-        <androidx.appcompat.widget.AppCompatTextView
-          android:id="@+id/display_btw_save"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:padding="8dp"
-          android:text="保存到相册"
-          android:gravity="center"
-          android:textColor="@color/blue"
-          android:textSize="18sp"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toTopOf="parent" />
-        <View
-          android:id="@+id/saveSplitLine"
-          android:layout_width="match_parent"
-          android:layout_height="10dp"
-          android:layout_marginTop="10dp"
-          android:background="#191818"
-          app:layout_constraintTop_toBottomOf="@id/display_btw_save" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.AppCompatTextView
-          android:id="@+id/display_btw_cancel"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:padding="8dp"
-          android:text="取消"
-          android:gravity="center"
-          android:textColor="@color/blue"
-          android:textSize="18sp"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/saveSplitLine" />
+            android:id="@+id/display_btw_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="保存到相册"
+            android:gravity="center"
+            android:textColor="@color/blue"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <View
-          android:id="@+id/cancelSplitLine"
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:layout_marginTop="10dp"
-          android:background="#191818"
-          app:layout_constraintTop_toBottomOf="@id/display_btw_cancel" />
+            android:id="@+id/saveSplitLine"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginTop="10dp"
+            android:background="#191818"
+            app:layout_constraintTop_toBottomOf="@id/display_btw_save" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/display_btw_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="取消"
+            android:gravity="center"
+            android:textColor="@color/blue"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/saveSplitLine" />
+
+        <View
+            android:id="@+id/cancelSplitLine"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="#191818"
+            app:layout_constraintTop_toBottomOf="@id/display_btw_cancel" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

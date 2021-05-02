@@ -1,90 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:layout_marginStart="5dp"
-  android:layout_marginEnd="5dp"
-  app:cardCornerRadius="4dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
+    app:cardCornerRadius="4dp">
+
     <androidx.constraintlayout.widget.ConstraintLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
         <androidx.appcompat.widget.AppCompatTextView
-          android:id="@+id/picture_btw_photo"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:padding="8dp"
-          android:text="拍照"
-          android:gravity="center"
-          android:textColor="?android:attr/textColorPrimary"
-          android:textSize="18sp"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toTopOf="parent" />
+            android:id="@+id/picture_btw_photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="拍照"
+            android:gravity="center"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <View
-          android:id="@+id/photoSplitLine"
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:layout_marginTop="10dp"
-          android:background="#ECE9E9"
-          app:layout_constraintTop_toBottomOf="@id/picture_btw_photo" />
+            android:id="@+id/photoSplitLine"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="#ECE9E9"
+            app:layout_constraintTop_toBottomOf="@id/picture_btw_photo" />
+
         <androidx.appcompat.widget.AppCompatTextView
-          android:id="@+id/picture_btw_album"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:padding="8dp"
-          android:text="从相册选择"
-          android:gravity="center"
-          android:textColor="?android:attr/textColorPrimary"
-          android:textSize="18sp"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/photoSplitLine" />
+            android:id="@+id/picture_btw_album"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="从相册选择"
+            android:gravity="center"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/photoSplitLine" />
+
         <View
-          android:id="@+id/albumSplitLine"
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:layout_marginTop="10dp"
-          android:background="#ECE9E9"
-          app:layout_constraintTop_toBottomOf="@id/picture_btw_album" />
+            android:id="@+id/albumSplitLine"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="#ECE9E9"
+            app:layout_constraintTop_toBottomOf="@id/picture_btw_album" />
+
         <androidx.appcompat.widget.AppCompatTextView
-          android:id="@+id/picture_btw_original"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:padding="8dp"
-          android:text="查看原图"
-          android:gravity="center"
-          android:textColor="?android:attr/textColorPrimary"
-          android:textSize="18sp"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/albumSplitLine" />
+            android:id="@+id/picture_btw_original"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="查看原图"
+            android:gravity="center"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/albumSplitLine" />
+
         <View
-          android:id="@+id/originalSplitLine"
-          android:layout_width="match_parent"
-          android:layout_height="10dp"
-          android:layout_marginTop="10dp"
-          android:background="#ECE9E9"
-          app:layout_constraintTop_toBottomOf="@id/picture_btw_original" />
+            android:id="@+id/originalSplitLine"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginTop="10dp"
+            android:background="#ECE9E9"
+            app:layout_constraintTop_toBottomOf="@id/picture_btw_original" />
+
         <androidx.appcompat.widget.AppCompatTextView
-          android:id="@+id/picture_btw_cancel"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:padding="8dp"
-          android:text="取消"
-          android:gravity="center"
-          android:textColor="?android:attr/textColorPrimary"
-          android:textSize="18sp"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/originalSplitLine" />
+            android:id="@+id/picture_btw_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="取消"
+            android:gravity="center"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/originalSplitLine" />
+
         <View
-          android:id="@+id/cancelSplitLine"
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:layout_marginTop="10dp"
-          android:background="#ECE9E9"
-          app:layout_constraintTop_toBottomOf="@id/cancelSplitLine" />
+            android:id="@+id/cancelSplitLine"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="#ECE9E9"
+            app:layout_constraintTop_toBottomOf="@id/cancelSplitLine" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

@@ -1,109 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <androidx.appcompat.widget.AppCompatImageView
-      android:id="@+id/my_bg"
-      android:layout_width="0dp"
-      android:layout_height="0dp"
-      android:scaleType="centerCrop"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="1.0"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintVertical_bias="1.0" />
+        android:id="@+id/my_bg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
     <RelativeLayout
-      android:id="@+id/topLayout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      app:layout_constraintTop_toTopOf="parent"
-      android:background="@color/blue"
-      android:orientation="horizontal">
-        <androidx.appcompat.widget.AppCompatTextView
-          android:id="@+id/my_advice_returnButton"
-          android:layout_width="32dp"
-          android:layout_height="32dp"
-          android:layout_marginTop="6dp"
-          android:layout_marginBottom="6dp"
-          android:fontFamily="@font/iconfont"
-          android:gravity="center"
-          android:includeFontPadding="false"
-          android:text=""
-          android:textColor="#000"
-          android:textSize="30sp"
-          android:layout_alignParentLeft="true"
-          android:layout_alignParentTop="true" />
+        android:id="@+id/topLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/blue"
+        android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatTextView
-          android:layout_width="wrap_content"
-          android:layout_height="32dp"
-          android:layout_marginTop="6dp"
-          android:layout_marginBottom="6dp"
-          android:text="建议与反馈"
-          android:gravity="center"
-          android:textColor="?android:attr/textColorPrimary"
-          android:textSize="20sp"
-          android:layout_gravity="center"
-          android:layout_alignParentTop="true"
-          android:layout_centerInParent="true" />
+            android:id="@+id/my_advice_returnButton"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:fontFamily="@font/iconfont"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text=""
+            android:textColor="#000"
+            android:textSize="30sp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:text="建议与反馈"
+            android:gravity="center"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true" />
     </RelativeLayout>
 
 
     <androidx.core.widget.NestedScrollView
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      app:layout_constraintTop_toBottomOf="@id/topLayout">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/topLayout">
+
         <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatEditText
-              android:layout_width="match_parent"
-              android:layout_height="120dp"
-              android:layout_marginLeft="10dp"
-              android:layout_marginRight="10dp"
-              android:id="@+id/my_advice_editView"
-              android:background="@color/white"
-              android:textSize="18sp"
-              android:ellipsize="start" />
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:id="@+id/my_advice_editView"
+                android:background="@color/white"
+                android:textSize="18sp"
+                android:ellipsize="start" />
+
             <View
-              android:id="@+id/adviceSplitLine2"
-              android:layout_width="match_parent"
-              android:layout_height="1dp"
-              android:layout_marginTop="0dp"
-              android:background="#ECE9E9" />
+                android:id="@+id/adviceSplitLine2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="0dp"
+                android:background="#ECE9E9" />
+
             <androidx.recyclerview.widget.RecyclerView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_margin="6dp"
-              android:id="@+id/my_advice_RecyclerView" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:id="@+id/my_advice_RecyclerView" />
+
             <androidx.appcompat.widget.AppCompatTextView
-              android:id="@+id/my_advice_getPicture"
-              android:layout_width="50dp"
-              android:layout_height="50dp"
-              android:layout_margin="6dp"
-              android:fontFamily="@font/iconfont"
-              android:gravity="center"
-              android:includeFontPadding="false"
-              android:text=""
-              android:background="#ECE9E9"
-              android:textColor="#000"
-              android:textSize="30sp"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toTopOf="parent" />
+                android:id="@+id/my_advice_getPicture"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="6dp"
+                android:fontFamily="@font/iconfont"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text=""
+                android:background="#ECE9E9"
+                android:textColor="#000"
+                android:textSize="30sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:id="@+id/my_advice_SureButton"
-              android:layout_margin="40dp"
-              android:textColor="@color/white"
-              android:text="提交"
-              android:textSize="20sp"
-              android:background="#4CAF50" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/my_advice_SureButton"
+                android:layout_margin="40dp"
+                android:textColor="@color/white"
+                android:text="提交"
+                android:textSize="20sp"
+                android:background="#4CAF50" />
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

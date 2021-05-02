@@ -1,167 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.scwang.smart.refresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:id="@+id/refreshLayout"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/refreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
     <com.scwang.smart.refresh.header.ClassicsHeader
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:background="#E3DDDD">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#E3DDDD">
+
         <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:id="@+id/head"
-          android:background="@color/blue"
-          app:layout_constraintTop_toTopOf="parent">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/head"
+            android:background="@color/blue"
+            app:layout_constraintTop_toTopOf="parent">
+
             <androidx.appcompat.widget.AppCompatTextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:text="个人中心"
-              android:textSize="18sp"
-              android:textColor="@color/white"
-              android:id="@+id/title"
-              android:gravity="center"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toTopOf="parent"
-              android:layout_marginStart="10dp"
-              android:layout_marginTop="6dp"
-              android:layout_marginBottom="6dp" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="个人中心"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:id="@+id/title"
+                android:gravity="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp" />
         </LinearLayout>
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-          android:id="@+id/my_message"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="20dp"
-          android:background="#F6F1F1"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/head">
+            android:id="@+id/my_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="#F6F1F1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/head">
 
             <androidx.appcompat.widget.AppCompatImageView
-              android:padding="13dp"
-              android:id="@+id/my_picture"
-              android:layout_width="80dp"
-              android:layout_height="80dp"
-              android:scaleType="centerCrop"
-              app:layout_constraintTop_toTopOf="parent"
-              app:layout_constraintStart_toStartOf="parent"
-              android:src="@drawable/my" />
+                android:padding="13dp"
+                android:id="@+id/my_picture"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:src="@drawable/my" />
 
             <androidx.appcompat.widget.AppCompatTextView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="马六"
-              android:textSize="18sp"
-              android:layout_marginTop="15dp"
-              android:textColor="?android:attr/textColorPrimary"
-              app:layout_constraintTop_toTopOf="parent"
-              android:id="@+id/my_name"
-              app:layout_constraintStart_toEndOf="@id/my_picture"
-              app:layout_constraintBottom_toTopOf="@id/my_professional"
-              app:layout_constraintVertical_chainStyle="packed"
-              app:layout_constraintVertical_bias="0" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="马六"
+                android:textSize="18sp"
+                android:layout_marginTop="15dp"
+                android:textColor="?android:attr/textColorPrimary"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/my_name"
+                app:layout_constraintStart_toEndOf="@id/my_picture"
+                app:layout_constraintBottom_toTopOf="@id/my_professional"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintVertical_bias="0" />
+
             <androidx.appcompat.widget.AppCompatTextView
-              android:layout_width="wrap_content"
-              android:layout_height="18dp"
-              android:text="计算机学院"
-              android:id="@+id/my_professional"
-              android:textSize="16sp"
-              app:layout_constraintTop_toBottomOf="@id/my_name"
-              app:layout_constraintBottom_toBottomOf="parent"
-              app:layout_constraintStart_toEndOf="@id/my_picture" />
+                android:layout_width="wrap_content"
+                android:layout_height="18dp"
+                android:text="计算机学院"
+                android:id="@+id/my_professional"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/my_name"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/my_picture" />
 
             <androidx.appcompat.widget.AppCompatButton
-              android:id="@+id/middle_TeacherThemeButton"
-              android:layout_width="32dp"
-              android:layout_height="32dp"
-              android:layout_marginEnd="10dp"
-              android:background="@drawable/my_right"
-              app:layout_constraintTop_toTopOf="parent"
-              app:layout_constraintBottom_toBottomOf="parent"
-              app:layout_constraintEnd_toEndOf="parent" />
+                android:id="@+id/middle_TeacherThemeButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/my_right"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-          android:id="@+id/my_about"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="15dp"
-          android:background="#F6F1F1"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/my_message">
+            android:id="@+id/my_about"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="#F6F1F1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/my_message">
+
             <androidx.appcompat.widget.AppCompatTextView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_margin="10dp"
-              android:background="@drawable/about"
-              android:id="@+id/aboutSrc"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toTopOf="parent"
-              app:layout_constraintBottom_toBottomOf="parent" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/about"
+                android:id="@+id/aboutSrc"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
             <androidx.appcompat.widget.AppCompatTextView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_margin="10dp"
-              android:text="关于"
-              android:textSize="18sp"
-              android:textColor="?android:attr/textColorPrimary"
-              app:layout_constraintStart_toEndOf="@id/aboutSrc"
-              app:layout_constraintTop_toTopOf="parent"
-              app:layout_constraintBottom_toBottomOf="parent" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="关于"
+                android:textSize="18sp"
+                android:textColor="?android:attr/textColorPrimary"
+                app:layout_constraintStart_toEndOf="@id/aboutSrc"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
-              android:id="@+id/middle_TeacherTitleButton"
-              android:layout_width="32dp"
-              android:layout_height="32dp"
-              android:layout_marginEnd="10dp"
-              android:background="@drawable/my_right"
-              app:layout_constraintTop_toTopOf="parent"
-              app:layout_constraintBottom_toBottomOf="parent"
-              app:layout_constraintEnd_toEndOf="parent" />
+                android:id="@+id/middle_TeacherTitleButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/my_right"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-          android:id="@+id/my_addGroup"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="15dp"
-          android:background="#F6F1F1"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/my_about">
+            android:id="@+id/my_addGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="#F6F1F1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/my_about">
+
             <androidx.appcompat.widget.AppCompatTextView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_margin="10dp"
-              android:background="@drawable/group"
-              android:id="@+id/group_src"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toTopOf="parent"
-              app:layout_constraintBottom_toBottomOf="parent" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/group"
+                android:id="@+id/group_src"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
             <androidx.appcompat.widget.AppCompatTextView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_margin="10dp"
-              android:text="添加群组"
-              android:textSize="18sp"
-              android:textColor="?android:attr/textColorPrimary"
-              app:layout_constraintStart_toEndOf="@id/group_src"
-              app:layout_constraintTop_toTopOf="parent"
-              app:layout_constraintBottom_toBottomOf="parent" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="添加群组"
+                android:textSize="18sp"
+                android:textColor="?android:attr/textColorPrimary"
+                app:layout_constraintStart_toEndOf="@id/group_src"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
-              android:layout_width="32dp"
-              android:layout_height="32dp"
-              android:layout_marginEnd="10dp"
-              android:background="@drawable/my_right"
-              app:layout_constraintTop_toTopOf="parent"
-              app:layout_constraintBottom_toBottomOf="parent"
-              app:layout_constraintEnd_toEndOf="parent" />
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/my_right"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

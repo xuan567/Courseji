@@ -1,146 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
     <androidx.constraintlayout.widget.ConstraintLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <androidx.appcompat.widget.AppCompatImageView
-          android:id="@+id/my_SetTheme_bg"
-          android:layout_width="0dp"
-          android:layout_height="0dp"
-          android:scaleType="centerCrop"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintHorizontal_bias="1.0"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          app:layout_constraintVertical_bias="1.0" />
+            android:id="@+id/my_SetTheme_bg"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
         <RelativeLayout
-          android:id="@+id/topLayout"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal"
-          android:background="@color/blue"
-          app:layout_constraintTop_toTopOf="parent">
+            android:id="@+id/topLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/blue"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatTextView
-              android:id="@+id/my_about_returnButton"
-              android:layout_width="32dp"
-              android:layout_height="32dp"
-              android:layout_alignParentLeft="true"
-              android:layout_alignParentTop="true"
-              android:layout_marginTop="6dp"
-              android:layout_marginBottom="6dp"
-              android:fontFamily="@font/iconfont"
-              android:gravity="center"
-              android:includeFontPadding="false"
-              android:text=""
-              android:textColor="#000"
-              android:textSize="30sp" />
+                android:id="@+id/my_about_returnButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+                android:fontFamily="@font/iconfont"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text=""
+                android:textColor="#000"
+                android:textSize="30sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
-              android:layout_width="wrap_content"
-              android:layout_height="32dp"
-              android:layout_alignParentTop="true"
-              android:layout_centerInParent="true"
-              android:layout_gravity="center"
-              android:layout_marginTop="6dp"
-              android:layout_marginBottom="6dp"
-              android:gravity="center"
-              android:text="添加班级"
-              android:textColor="?android:attr/textColorPrimary"
-              android:textSize="20sp" />
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+                android:gravity="center"
+                android:text="添加班级"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="20sp" />
         </RelativeLayout>
 
 
         <androidx.appcompat.widget.AppCompatTextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="输入班级邀请码"
-          android:layout_marginTop="20dp"
-          android:textColor="?android:attr/textColorPrimary"
-          android:textSize="20sp"
-          android:id="@+id/text"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          app:layout_constraintVertical_bias="0.15"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintEnd_toEndOf="parent" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="输入班级邀请码"
+            android:layout_marginTop="20dp"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="20sp"
+            android:id="@+id/text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.15"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <View
-          android:id="@+id/SplitLine1"
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:layout_marginTop="10dp"
-          android:background="#ECE9E9"
-          app:layout_constraintTop_toBottomOf="@id/text" />
+            android:id="@+id/SplitLine1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="#ECE9E9"
+            app:layout_constraintTop_toBottomOf="@id/text" />
 
         <androidx.appcompat.widget.AppCompatImageView
-          android:layout_width="32dp"
-          android:layout_height="32dp"
-          android:layout_marginStart="10dp"
-          android:id="@+id/imageView"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="@id/SplitLine1"
-          app:layout_constraintBottom_toBottomOf="@id/SplitLine2"
-          android:src="@drawable/my_describe" />
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="10dp"
+            android:id="@+id/imageView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/SplitLine1"
+            app:layout_constraintBottom_toBottomOf="@id/SplitLine2"
+            android:src="@drawable/my_describe" />
+
         <FrameLayout
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:id="@+id/frameLayout"
-          app:layout_constraintTop_toTopOf="@id/SplitLine1"
-          app:layout_constraintBottom_toBottomOf="@id/SplitLine2"
-          app:layout_constraintStart_toEndOf="@id/imageView"
-          app:layout_constraintEnd_toEndOf="parent">
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/frameLayout"
+            app:layout_constraintTop_toTopOf="@id/SplitLine1"
+            app:layout_constraintBottom_toBottomOf="@id/SplitLine2"
+            app:layout_constraintStart_toEndOf="@id/imageView"
+            app:layout_constraintEnd_toEndOf="parent">
+
             <androidx.appcompat.widget.AppCompatEditText
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:id="@+id/my_describe_EditText"
-              android:hint="描述"
-              android:singleLine="true"
-              android:textSize="20sp"
-              android:textColor="?android:attr/textColorPrimary"
-              android:cursorVisible="true"
-              android:maxLength="50"
-              android:ellipsize="start"
-              android:layout_marginStart="15dp"
-              android:layout_marginEnd="30dp"
-              android:background="#fff"
-              android:textCursorDrawable="@drawable/my_shapecursor" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/my_describe_EditText"
+                android:hint="描述"
+                android:singleLine="true"
+                android:textSize="20sp"
+                android:textColor="?android:attr/textColorPrimary"
+                android:cursorVisible="true"
+                android:maxLength="50"
+                android:ellipsize="start"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="30dp"
+                android:background="#fff"
+                android:textCursorDrawable="@drawable/my_shapecursor" />
         </FrameLayout>
 
         <View
-          android:id="@+id/SplitLine2"
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:layout_marginTop="10dp"
-          android:background="#ECE9E9"
-          app:layout_constraintTop_toBottomOf="@id/frameLayout" />
+            android:id="@+id/SplitLine2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="#ECE9E9"
+            app:layout_constraintTop_toBottomOf="@id/frameLayout" />
 
         <!--
                 在解决软键盘遮挡下面按钮时，发现使用CoordinatorLayout布局，并在布局中添加ScrollView，
                 他会自动帮我们做出合理的响应。
         -->
         <ScrollView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          app:layout_constraintVertical_bias="0.75">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.75">
 
             <androidx.appcompat.widget.AppCompatButton
-              android:layout_width="180dp"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="20dp"
-              android:alpha="0.5"
-              android:textColor="#fff"
-              android:text="完成"
-              android:id="@+id/my_describe_SureButton" />
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:alpha="0.5"
+                android:textColor="#fff"
+                android:text="完成"
+                android:id="@+id/my_describe_SureButton" />
         </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,120 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:layout_marginStart="5dp"
-  android:layout_marginTop="15dp"
-  android:layout_marginEnd="5dp"
-  app:cardCornerRadius="4dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="5dp"
+    android:layout_marginTop="15dp"
+    android:layout_marginEnd="5dp"
+    app:cardCornerRadius="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
-          android:id="@+id/my_about_advice"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:padding="10dp"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent">
+            android:id="@+id/my_about_advice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
             <androidx.appcompat.widget.AppCompatButton
-              android:layout_width="24dp"
-              android:layout_height="24dp"
-              android:layout_marginEnd="5dp"
-              android:background="@drawable/my_right"
-              app:layout_constraintBaseline_toBaselineOf="@id/advice"
-              app:layout_constraintEnd_toEndOf="parent" />
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/my_right"
+                app:layout_constraintBaseline_toBaselineOf="@id/advice"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <androidx.appcompat.widget.AppCompatTextView
-              android:id="@+id/advice"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginStart="10dp"
-              android:text="建议与反馈"
-              android:textColor="?android:attr/textColorPrimary"
-              android:textSize="18sp"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toTopOf="parent"
-              app:layout_constraintBottom_toBottomOf="parent" />
+                android:id="@+id/advice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="建议与反馈"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <View
-          android:id="@+id/adviceSplitLine"
-          android:layout_width="match_parent"
-          android:layout_height="10dp"
-          android:background="#ECE9E9"
-          app:layout_constraintTop_toBottomOf="@id/my_about_advice" />
+            android:id="@+id/adviceSplitLine"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="#ECE9E9"
+            app:layout_constraintTop_toBottomOf="@id/my_about_advice" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-          android:id="@+id/my_about_version"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:padding="10dp"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/adviceSplitLine">
+            android:id="@+id/my_about_version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/adviceSplitLine">
+
             <androidx.appcompat.widget.AppCompatTextView
-              android:id="@+id/version"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginStart="10dp"
-              android:text="本机版本"
-              android:textColor="?android:attr/textColorPrimary"
-              android:textSize="18sp"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toTopOf="parent"
-              app:layout_constraintBottom_toBottomOf="parent" />
+                android:id="@+id/version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="本机版本"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
             <androidx.appcompat.widget.AppCompatTextView
-              android:id="@+id/versionNumber"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginEnd="5dp"
-              android:text="4.5"
-              android:textColor="?android:attr/textColorPrimary"
-              android:textSize="18sp"
-              app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintTop_toTopOf="parent"
-              app:layout_constraintBottom_toBottomOf="parent" />
+                android:id="@+id/versionNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:text="4.5"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <View
-          android:id="@+id/versionSplitLine"
-          android:layout_width="match_parent"
-          android:layout_height="10dp"
-          android:background="#ECE9E9"
-          app:layout_constraintTop_toBottomOf="@id/my_about_version" />
+            android:id="@+id/versionSplitLine"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="#ECE9E9"
+            app:layout_constraintTop_toBottomOf="@id/my_about_version" />
 
         <androidx.appcompat.widget.AppCompatTextView
-          android:id="@+id/updateTitle"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="20dp"
-          android:textIsSelectable="true"
-          android:text="下载更新"
-          android:textColor="@color/blue"
-          android:textSize="18sp"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/versionSplitLine" />
+            android:id="@+id/updateTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textIsSelectable="true"
+            android:text="下载更新"
+            android:textColor="@color/blue"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/versionSplitLine" />
+
         <androidx.appcompat.widget.AppCompatTextView
-          android:id="@+id/my_about_update"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="5dp"
-          android:text="www.baidu.com"
-          android:textColor="@color/blue"
-          android:textSize="18sp"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/updateTitle" />
+            android:id="@+id/my_about_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="www.baidu.com"
+            android:textColor="@color/blue"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/updateTitle" />
+
         <androidx.appcompat.widget.AppCompatTextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="5dp"
-          android:text="长按可复制"
-          android:textSize="16sp"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/my_about_update" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="长按可复制"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/my_about_update" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>
