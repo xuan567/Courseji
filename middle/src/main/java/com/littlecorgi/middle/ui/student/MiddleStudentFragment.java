@@ -24,6 +24,7 @@ import com.littlecorgi.middle.logic.dao.Tool;
 import com.littlecorgi.middle.logic.dao.WindowHelp;
 import com.littlecorgi.middle.logic.model.Details;
 import com.littlecorgi.middle.logic.model.ItemData;
+import com.littlecorgi.middle.logic.model.Sign;
 import com.littlecorgi.middle.logic.network.RetrofitHelp;
 import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
@@ -54,7 +55,24 @@ public class MiddleStudentFragment extends Fragment {
                             Intent intent = result.getData();
                             assert intent != null;
                             Uri picUri = intent.getParcelableExtra("uri");
+                            int position = intent.getIntExtra("position", -1);
                             Log.d("MiddleStudentFragment", "从GalleryFragment获取到的图片: " + picUri);
+
+                            if (position == -1) {
+                                Toast.makeText(requireContext(), "数据错误", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+
+                            ItemData.AllSignData itemData = list.get(position);
+                            Sign sign = new Sign();
+                            sign.setState(itemData.getMyLabel());
+                            sign.setLabel(itemData.getLabel());
+                            sign.setEndTime(itemData.getEndTime());
+                            sign.setFinishTime(itemData.getFinishTime());
+                            // sign.setTakePhoto(itemData.getBgImage());
+                            sign.setLat(itemData.getLat());
+                            sign.setLng(itemData.getIng());
+                            MiddleSignActivity.startSign(getContext(), sign);
                         }
                     });
 
@@ -285,7 +303,8 @@ public class MiddleStudentFragment extends Fragment {
                 (adapter, view, position) -> {
                     // Pass in the mime type you'd like to allow the user to select
                     // as the input
-                    mGetContent.launch(new Intent(requireContext(), CameraActivity.class));
+                    mGetContent.launch(new Intent(requireContext(), CameraActivity.class)
+                            .putExtra("position", position));
                 });
     }
 }
