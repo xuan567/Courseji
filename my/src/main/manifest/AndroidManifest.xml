@@ -16,6 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Courseji"
         tools:replace="android:allowBackup">
+        <activity
+            android:name=".ui.signup.ui.login.LoginActivity"
+            android:exported="true"
+            android:label="@string/title_activity_login" />
         <activity android:name=".ui.addgroup.AddGroupActivity" />
         <activity android:name=".ui.message.OriginalActivity" />
         <activity android:name=".ui.message.DescribeActivity" />
