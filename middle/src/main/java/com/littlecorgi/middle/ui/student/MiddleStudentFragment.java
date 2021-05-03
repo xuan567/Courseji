@@ -113,7 +113,7 @@ public class MiddleStudentFragment extends Fragment {
         returnButton.setOnClickListener(v -> requireActivity().finish());
         history.setOnClickListener(
                 v -> {
-                    // 跳转到统计界面
+                    // todo 跳转到统计界面
                 });
     }
 

@@ -82,6 +82,19 @@ public class MyMainFragment extends Fragment {
         initClick();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (studentId != -1) {
+            student.getData().setAvatar(sp.getString(UserSPConstant.STUDENT_AVATAR, ""));
+            if (student.getData().getAvatar().isEmpty()) {
+                Glide.with(this).load(R.drawable.my).into(mIvAvatar);
+            } else {
+                Glide.with(this).load(student.getData().getAvatar()).into(mIvAvatar);
+            }
+        }
+    }
+
     private void initView() {
         studentId = sp.getLong(UserSPConstant.STUDENT_USER_ID, -1L);
         refreshLayout = mView.findViewById(R.id.refreshLayout);
@@ -140,11 +153,6 @@ public class MyMainFragment extends Fragment {
     private void initData() {
         if (studentId != -1) {
             student = UserRetrofitRepository.getStudentFromSP(sp);
-            if (student.getData().getAvatar().isEmpty()) {
-                Glide.with(this).load(R.drawable.my).into(mIvAvatar);
-            } else {
-                Glide.with(this).load(student.getData().getAvatar()).into(mIvAvatar);
-            }
             if (student.getData().getName().isEmpty()) {
                 mTvName.setText("数据异常，请上报");
             } else {

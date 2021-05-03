@@ -1,4 +1,4 @@
-package com.littlecorgi.middle.ui.utils;
+package com.littlecorgi.commonlib.util;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -9,7 +9,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import com.littlecorgi.middle.R;
+import com.littlecorgi.commonlib.R;
 
 /**
  * Dialog帮助类
@@ -36,11 +36,11 @@ public class DialogUtil {
         }
         LayoutInflater inflater = LayoutInflater.from(context);
         View v = inflater.inflate(R.layout.dialog_loading, null);
-        LinearLayout layout = (LinearLayout) v.findViewById(R.id.ll_dialog);
-        ProgressBar pbProgressBar = (ProgressBar) v.findViewById(R.id.pb_progress_bar);
+        LinearLayout layout = v.findViewById(R.id.ll_dialog);
+        ProgressBar pbProgressBar = v.findViewById(R.id.pb_progress_bar);
         pbProgressBar.setVisibility(View.VISIBLE);
 
-        TextView tv = (TextView) v.findViewById(R.id.tv_loading);
+        TextView tv = v.findViewById(R.id.tv_loading);
 
         if (message == null || message.equals("")) {
             tv.setVisibility(View.GONE);
