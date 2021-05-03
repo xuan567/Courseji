@@ -7,20 +7,26 @@ import static com.littlecorgi.my.ui.about.AboutActivity.startAboutActivity;
 import static com.littlecorgi.my.ui.message.MessageActivity.startMessageActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import com.littlecorgi.commonlib.util.UserSPConstant;
 import com.littlecorgi.my.R;
 import com.littlecorgi.my.logic.model.MyMessage;
+import com.littlecorgi.my.ui.signup.ui.login.LoginActivity;
 import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import java.io.File;
@@ -39,7 +45,16 @@ public class MyMainFragment extends Fragment {
     */
     private View mView;
     private MyMessage mMyMessage;
+    private long studentId;
     public static final String SHARED_PREFERENCES_FILE = "myMessageData";
+
+    ActivityResultLauncher<Intent> mGetContent =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        if (result.getResultCode() == Activity.RESULT_OK) {
+                            initView();
+                        }
+                    });
 
     @Nullable
     @Override
@@ -60,6 +75,17 @@ public class MyMainFragment extends Fragment {
     }
 
     private void initView() {
+        SharedPreferences sp = requireContext()
+                .getSharedPreferences(UserSPConstant.FILE_NAME, MODE_PRIVATE);
+        studentId = sp.getLong(UserSPConstant.STUDENT_USER_ID, -1L);
+        if (studentId == -1) {
+            // 没有登录
+            mView.findViewById(R.id.no_login).setVisibility(View.VISIBLE);
+            mView.findViewById(R.id.has_login).setVisibility(View.GONE);
+        } else {
+            mView.findViewById(R.id.no_login).setVisibility(View.GONE);
+            mView.findViewById(R.id.has_login).setVisibility(View.VISIBLE);
+        }
         initBarColor();
         RefreshLayout refreshLayout = mView.findViewById(R.id.refreshLayout);
         refreshLayout.setRefreshHeader(new ClassicsHeader(requireContext()));
@@ -67,44 +93,48 @@ public class MyMainFragment extends Fragment {
             boolean refreshData = getData();
             layout.finishRefresh(refreshData);
         });
-        initImage();
     }
 
     private void initBarColor() {
         setWindowStatusBarColor(getActivity(), R.color.blue);
     }
 
-    private void initImage() {
-        /*
-        设置背景？
-         */
-        AppCompatImageView myAboutBg = mView.findViewById(R.id.my_about_bg);
-    }
-
     private void initClick() {
         ConstraintLayout messageLayout = mView.findViewById(R.id.my_message);
         ConstraintLayout aboutLayout = mView.findViewById(R.id.my_about);
-        messageLayout
-                .setOnClickListener(v -> startMessageActivity(getContext(), mMyMessage));
-        aboutLayout.setOnClickListener(v -> startAboutActivity(getContext(), mMyMessage));
+        messageLayout.setOnClickListener(v -> {
+            if (studentId == -1) {
+                mGetContent.launch(new Intent(requireContext(), LoginActivity.class));
+            } else {
+                startMessageActivity(getContext(), mMyMessage);
+            }
+        });
+        aboutLayout.setOnClickListener(v -> startAboutActivity(getContext()));
     }
 
     private void initData() {
-        mMyMessage = new MyMessage();
-        // 先从本地获取本地没有从服务器获取
-        getLocalData();
-        if (!getLocalData()) {
-            getData();
+        getStudentInfoFromIntent();
+        if (studentId != -1) {
+            mMyMessage = new MyMessage();
+            // 先从本地获取本地没有从服务器获取
+            getLocalData();
+            if (!getLocalData()) {
+                getData();
+            }
+            // 图像
+            AppCompatImageView imageView = mView.findViewById(R.id.my_picture);
+            imageView.setImageResource(mMyMessage.getMyImage());
+            // 名字
+            AppCompatTextView name = mView.findViewById(R.id.my_name);
+            name.setText(mMyMessage.getName());
+            // 专业
+            AppCompatTextView professional = mView.findViewById(R.id.my_professional);
+            professional.setText(mMyMessage.getProfessional());
         }
-        // 图像
-        AppCompatImageView imageView = mView.findViewById(R.id.my_picture);
-        imageView.setImageResource(mMyMessage.getMyImage());
-        // 名字
-        AppCompatTextView name = mView.findViewById(R.id.my_name);
-        name.setText(mMyMessage.getName());
-        // 专业
-        AppCompatTextView professional = mView.findViewById(R.id.my_professional);
-        professional.setText(mMyMessage.getProfessional());
+    }
+
+    private void getStudentInfoFromIntent() {
+        // Call<ResponseBody> responseBodyCall = UserRetrofitRepository.getUserSignUpCall()
     }
 
     private boolean getData() {

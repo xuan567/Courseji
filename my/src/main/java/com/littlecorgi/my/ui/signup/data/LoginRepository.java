@@ -32,15 +32,6 @@ public class LoginRepository {
         return instance;
     }
 
-    public boolean isLoggedIn() {
-        return user != null;
-    }
-
-    public void logout() {
-        user = null;
-        dataSource.logout();
-    }
-
     private void setLoggedInUser(Context context, Student user) {
         SharedPreferences sp = context.getSharedPreferences(
                 UserSPConstant.FILE_NAME, Context.MODE_PRIVATE);
