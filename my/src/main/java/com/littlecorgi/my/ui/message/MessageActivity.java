@@ -33,6 +33,7 @@ import com.littlecorgi.commonlib.BaseActivity;
 import com.littlecorgi.my.R;
 import com.littlecorgi.my.logic.model.MessageChange;
 import com.littlecorgi.my.logic.model.MyMessage;
+import com.littlecorgi.my.logic.model.Student;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.tools.PictureFileUtils;
@@ -312,7 +313,7 @@ public class MessageActivity extends BaseActivity {
 
     private void initData() {
         Intent intent = getIntent();
-        mMyMessage = (MyMessage) intent.getSerializableExtra("myMessage");
+        mMyMessage = (MyMessage) intent.getSerializableExtra("studentInfo");
         assert mMyMessage != null;
         // pictureView.setImageResource(myMessage.getMyImage());
         Glide.with(this).load(mMyMessage.getImagePath()).into(mPictureView);
@@ -328,12 +329,12 @@ public class MessageActivity extends BaseActivity {
     /**
      * 跳转到MessageActivity
      *
-     * @param context   上下文
-     * @param myMessage 我的消息
+     * @param context 上下文
+     * @param student 我的信息
      */
-    public static void startMessageActivity(Context context, MyMessage myMessage) {
+    public static void startMessageActivity(Context context, Student student) {
         Intent intent = new Intent(context, MessageActivity.class);
-        intent.putExtra("myMessage", myMessage);
+        intent.putExtra("studentInfo", student);
         context.startActivity(intent);
     }
 

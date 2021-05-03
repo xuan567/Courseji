@@ -1,5 +1,7 @@
 package com.littlecorgi.my.logic.model;
 
+import java.io.Serializable;
+
 /**
  * 学生实体类
  *
@@ -7,7 +9,9 @@ package com.littlecorgi.my.logic.model;
  */
 @lombok.NoArgsConstructor
 @lombok.Data
-public class Student {
+public class Student implements Serializable {
+
+    private static final long serialVersionUID = 1234567890601L;
 
     private Integer status;
     private String msg;

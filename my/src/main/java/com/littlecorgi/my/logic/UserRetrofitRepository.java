@@ -1,6 +1,8 @@
 package com.littlecorgi.my.logic;
 
+import android.content.SharedPreferences;
 import com.littlecorgi.commonlib.logic.TencentServerRetrofitKt;
+import com.littlecorgi.commonlib.util.UserSPConstant;
 import com.littlecorgi.my.logic.model.Student;
 import com.littlecorgi.my.logic.network.UserRequestInterface;
 import okhttp3.MediaType;
@@ -27,9 +29,23 @@ public class UserRetrofitRepository {
         UserRequestInterface userRequestInterface =
                 TencentServerRetrofitKt.getTencentCloudRetrofit()
                         .create(UserRequestInterface.class);
-        RequestBody body = RequestBody
-                .create(MediaType.parse("application/json"), password);
+        MediaType mediaType = MediaType.Companion.parse("application/json;charset=utf-8");
+        RequestBody stringBody = RequestBody.Companion.create(password, mediaType);
         // 执行请求
-        return userRequestInterface.signIn(email, body);
+        return userRequestInterface.signIn(email, stringBody);
+    }
+
+    public static Student getStudentFromSP(SharedPreferences sp) {
+        Student student = new Student();
+        student.setStatus(800);
+        Student.DataBean data = new Student.DataBean();
+        data.setId(sp.getLong(UserSPConstant.STUDENT_USER_ID, -1));
+        data.setName(sp.getString(UserSPConstant.STUDENT_NAME, ""));
+        data.setPassword(sp.getString(UserSPConstant.STUDENT_PASSWORD, ""));
+        data.setPhone(sp.getString(UserSPConstant.STUDENT_PHONE, ""));
+        data.setAvatar(sp.getString(UserSPConstant.STUDENT_AVATAR, ""));
+        data.setPicture(sp.getString(UserSPConstant.STUDENT_PICTURE, ""));
+        student.setData(data);
+        return student;
     }
 }
