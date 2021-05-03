@@ -30,7 +30,7 @@ import com.littlecorgi.my.logic.model.Student;
 import com.littlecorgi.my.logic.LoginDataSource;
 import com.littlecorgi.my.logic.LoginRepository;
 import com.littlecorgi.my.logic.Result;
-import com.littlecorgi.my.ui.signup.LoginActivity;
+import com.littlecorgi.my.ui.signin.LoginActivity;
 import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 

@@ -1,4 +1,4 @@
-package com.littlecorgi.my.ui.signup;
+package com.littlecorgi.my.ui.signin;
 
 /**
  * Class exposing authenticated user details to the UI.

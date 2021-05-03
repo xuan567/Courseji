@@ -1,4 +1,4 @@
-package com.littlecorgi.my.ui.signup;
+package com.littlecorgi.my.ui.signin;
 
 import androidx.annotation.Nullable;
 

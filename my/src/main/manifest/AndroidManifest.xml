@@ -17,7 +17,7 @@
         android:theme="@style/Theme.Courseji"
         tools:replace="android:allowBackup">
         <activity
-            android:name=".ui.signup.LoginActivity"
+            android:name=".ui.signin.LoginActivity"
             android:exported="true"
             android:label="@string/title_activity_login" />
         <activity android:name=".ui.addgroup.AddGroupActivity" />

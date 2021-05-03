@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".ui.signup.LoginActivity">
+    tools:context=".ui.signin.LoginActivity">
 
     <EditText
         android:id="@+id/username"
