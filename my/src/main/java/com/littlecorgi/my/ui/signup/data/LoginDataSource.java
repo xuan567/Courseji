@@ -14,6 +14,13 @@ import retrofit2.Response;
  */
 public class LoginDataSource {
 
+    /**
+     * 登录
+     *
+     * @param username 用户名/邮箱
+     * @param password 密码
+     * @return 是否登录成功
+     */
     public Result login(String username, String password) {
         Result result;
 

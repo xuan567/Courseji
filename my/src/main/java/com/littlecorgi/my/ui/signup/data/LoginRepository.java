@@ -25,6 +25,12 @@ public class LoginRepository {
         this.dataSource = dataSource;
     }
 
+    /**
+     * 获取单例
+     *
+     * @param dataSource 数据源
+     * @return 单例
+     */
     public static LoginRepository getInstance(LoginDataSource dataSource) {
         if (instance == null) {
             instance = new LoginRepository(dataSource);
@@ -63,6 +69,14 @@ public class LoginRepository {
         // @see https://developer.android.com/training/articles/keystore
     }
 
+    /**
+     * 登录
+     *
+     * @param context  上下文
+     * @param username 用户名
+     * @param password 密码
+     * @return 是否正确
+     */
     public Result<LoggedInUser> login(Context context, String username, String password) {
         // handle login
         Result result = dataSource.login(username, password);

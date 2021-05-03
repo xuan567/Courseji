@@ -17,6 +17,11 @@ import retrofit2.Call;
  */
 public class UserRetrofitRepository {
 
+    /**
+     * 获取用户注册的Call
+     *
+     * @param student 注册所需的用户信息
+     */
     public static Call<ResponseBody> getUserSignUpCall(Student student) {
         UserRequestInterface userRequestInterface =
                 TencentServerRetrofitKt.getTencentCloudRetrofit()
@@ -25,6 +30,12 @@ public class UserRetrofitRepository {
         return userRequestInterface.signUp(student);
     }
 
+    /**
+     * 获取用户登录Call
+     *
+     * @param email    账号
+     * @param password 密码
+     */
     public static Call<ResponseBody> getUserSignInCall(String email, String password) {
         UserRequestInterface userRequestInterface =
                 TencentServerRetrofitKt.getTencentCloudRetrofit()
@@ -35,6 +46,11 @@ public class UserRetrofitRepository {
         return userRequestInterface.signIn(email, stringBody);
     }
 
+    /**
+     * 从SharedPreferences中获取Student数据
+     *
+     * @param sp SharedPreferences
+     */
     public static Student getStudentFromSP(SharedPreferences sp) {
         Student student = new Student();
         student.setStatus(800);

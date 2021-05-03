@@ -98,32 +98,36 @@ public class PickerViewHelp {
         pvOptions.setPicker(getNationalList());
         pvOptions.show();
 
-        /*pvOptions.setTitleText("城市选择")
-                .setContentTextSize(20)//设置滚轮文字大小
-                .setDividerColor(Color.LTGRAY)//设置分割线的颜色
-                .setSelectOptions(0, 1)//默认选中项
-                .setBgColor(Color.BLACK)
-                .setTitleBgColor(Color.DKGRAY)
-                .setTitleColor(Color.LTGRAY)
-                .setCancelColor(Color.YELLOW)
-                .setSubmitColor(Color.YELLOW)
-                .setTextColorCenter(Color.LTGRAY)
-                .isRestoreItem(true)//切换时是否还原，设置默认选中第一项。
-                .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
-                .setLabels("省", "市", "区")
-                .setOutSideColor(0x00000000) //设置外部遮罩颜色
-                .setOptionsSelectChangeListener(new OnOptionsSelectChangeListener() {
-                    @Override
-                    public void onOptionsSelectChanged(int options1, int options2, int options3) {
-                        String str = "options1: " + options1 + "\noptions2: " + options2 + "\noptions3: " + options3;
-                        Toast.makeText(MainActivity.this, str, Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .build();
-
-        pvOptions.setSelectOptions(1, 1);
-        pvOptions.setPicker(options1Items);//一级选择器
-        pvOptions.setPicker(options1Items, options2Items);//二级选择器
-        /*pvOptions.setPicker(options1Items, options2Items,options3Items);//三级选择器*/
+        // pvOptions.setTitleText("城市选择")
+        //         .setContentTextSize(20)//设置滚轮文字大小
+        //         .setDividerColor(Color.LTGRAY)//设置分割线的颜色
+        //         .setSelectOptions(0, 1)//默认选中项
+        //         .setBgColor(Color.BLACK)
+        //         .setTitleBgColor(Color.DKGRAY)
+        //         .setTitleColor(Color.LTGRAY)
+        //         .setCancelColor(Color.YELLOW)
+        //         .setSubmitColor(Color.YELLOW)
+        //         .setTextColorCenter(Color.LTGRAY)
+        //         .isRestoreItem(true)//切换时是否还原，设置默认选中第一项。
+        //         .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
+        //         .setLabels("省", "市", "区")
+        //         .setOutSideColor(0x00000000) //设置外部遮罩颜色
+        //         .setOptionsSelectChangeListener(new OnOptionsSelectChangeListener() {
+        //             @Override
+        //             public void onOptionsSelectChanged(
+        //             int options1,
+        //             int options2,
+        //             int options3) {
+        //                 String str = "options1: " + options1 + "\noptions2: " + options2
+        //                         + "\noptions3: " + options3;
+        //                 Toast.makeText(MainActivity.this, str, Toast.LENGTH_SHORT).show();
+        //             }
+        //         })
+        //         .build();
+        //
+        // pvOptions.setSelectOptions(1, 1);
+        // pvOptions.setPicker(options1Items);//一级选择器
+        // pvOptions.setPicker(options1Items, options2Items);//二级选择器
+        // /*pvOptions.setPicker(options1Items, options2Items,options3Items);//三级选择器*/
     }
 }
