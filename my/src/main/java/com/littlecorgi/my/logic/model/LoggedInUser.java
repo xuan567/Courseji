@@ -1,4 +1,4 @@
-package com.littlecorgi.my.ui.signup.data.model;
+package com.littlecorgi.my.logic.model;
 
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository

@@ -1,10 +1,10 @@
-package com.littlecorgi.my.ui.signup.data;
+package com.littlecorgi.my.logic;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import com.littlecorgi.commonlib.util.UserSPConstant;
 import com.littlecorgi.my.logic.model.Student;
-import com.littlecorgi.my.ui.signup.data.model.LoggedInUser;
+import com.littlecorgi.my.logic.model.LoggedInUser;
 
 /**
  * Class that requests authentication and user information from the remote data source and

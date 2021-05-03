@@ -1,4 +1,4 @@
-package com.littlecorgi.my.ui.signup.ui.login;
+package com.littlecorgi.my.ui.signup;
 
 import android.content.Context;
 import android.os.Handler;
@@ -7,9 +7,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import com.littlecorgi.my.R;
-import com.littlecorgi.my.ui.signup.data.LoginRepository;
-import com.littlecorgi.my.ui.signup.data.Result;
-import com.littlecorgi.my.ui.signup.data.model.LoggedInUser;
+import com.littlecorgi.my.logic.LoginRepository;
+import com.littlecorgi.my.logic.Result;
+import com.littlecorgi.my.logic.model.LoggedInUser;
 
 /**
  * 登录ViewModel

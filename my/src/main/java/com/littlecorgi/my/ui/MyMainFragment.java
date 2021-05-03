@@ -27,10 +27,10 @@ import com.littlecorgi.commonlib.util.UserSPConstant;
 import com.littlecorgi.my.R;
 import com.littlecorgi.my.logic.UserRetrofitRepository;
 import com.littlecorgi.my.logic.model.Student;
-import com.littlecorgi.my.ui.signup.data.LoginDataSource;
-import com.littlecorgi.my.ui.signup.data.LoginRepository;
-import com.littlecorgi.my.ui.signup.data.Result;
-import com.littlecorgi.my.ui.signup.ui.login.LoginActivity;
+import com.littlecorgi.my.logic.LoginDataSource;
+import com.littlecorgi.my.logic.LoginRepository;
+import com.littlecorgi.my.logic.Result;
+import com.littlecorgi.my.ui.signup.LoginActivity;
 import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 

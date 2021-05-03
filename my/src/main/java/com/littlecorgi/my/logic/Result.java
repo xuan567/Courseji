@@ -1,4 +1,4 @@
-package com.littlecorgi.my.ui.signup.data;
+package com.littlecorgi.my.logic;
 
 import androidx.annotation.NonNull;
 

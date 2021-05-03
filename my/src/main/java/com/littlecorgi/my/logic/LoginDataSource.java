@@ -1,8 +1,7 @@
-package com.littlecorgi.my.ui.signup.data;
+package com.littlecorgi.my.logic;
 
 import android.util.Log;
 import com.google.gson.Gson;
-import com.littlecorgi.my.logic.UserRetrofitRepository;
 import com.littlecorgi.my.logic.model.Student;
 import java.io.IOException;
 import okhttp3.ResponseBody;

@@ -1,10 +1,10 @@
-package com.littlecorgi.my.ui.signup.ui.login;
+package com.littlecorgi.my.ui.signup;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
-import com.littlecorgi.my.ui.signup.data.LoginDataSource;
-import com.littlecorgi.my.ui.signup.data.LoginRepository;
+import com.littlecorgi.my.logic.LoginDataSource;
+import com.littlecorgi.my.logic.LoginRepository;
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.
