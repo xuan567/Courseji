@@ -10,6 +10,7 @@ object UserSPConstant {
     const val STUDENT_USER_ID = "student_user_id"
     const val STUDENT_NAME = "student_name"
     const val STUDENT_EMAIL = "student_email"
+    const val STUDENT_PASSWORD = "student_password"
     const val STUDENT_PHONE = "student_phone"
     const val STUDENT_AVATAR = "student_avatar"
     const val STUDENT_PICTURE = "student_picture"

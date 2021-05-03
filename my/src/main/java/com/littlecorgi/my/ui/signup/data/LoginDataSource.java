@@ -57,8 +57,4 @@ public class LoginDataSource {
         }
         return result;
     }
-
-    public void logout() {
-        // TODO: revoke authentication
-    }
 }

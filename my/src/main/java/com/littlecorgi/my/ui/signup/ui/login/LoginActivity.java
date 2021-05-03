@@ -3,7 +3,9 @@ package com.littlecorgi.my.ui.signup.ui.login;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import com.littlecorgi.commonlib.util.UserSPConstant;
 import com.littlecorgi.my.R;
 import com.littlecorgi.my.databinding.ActivityLoginBinding;
 
@@ -42,6 +45,16 @@ public class LoginActivity extends AppCompatActivity {
         final EditText passwordEditText = binding.password;
         final Button loginButton = binding.login;
         final ProgressBar loadingProgressBar = binding.loading;
+
+        SharedPreferences sp = getSharedPreferences(UserSPConstant.FILE_NAME, MODE_PRIVATE);
+        String email = sp.getString(UserSPConstant.STUDENT_EMAIL, "");
+        String password = sp.getString(UserSPConstant.STUDENT_PASSWORD, "");
+        if (!email.isEmpty()) {
+            usernameEditText.setText(email);
+        }
+        if (!password.isEmpty()) {
+            passwordEditText.setText(password);
+        }
 
         loginViewModel.getLoginFormState().observe(this, loginFormState -> {
             if (loginFormState == null) {
@@ -93,7 +106,8 @@ public class LoginActivity extends AppCompatActivity {
         passwordEditText.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 new Thread(() -> loginViewModel
-                        .login(LoginActivity.this, usernameEditText.getText().toString(),
+                        .login(LoginActivity.this, new Handler(getMainLooper()),
+                                usernameEditText.getText().toString(),
                                 passwordEditText.getText().toString())).start();
             }
             return false;
@@ -102,7 +116,8 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(v -> {
             loadingProgressBar.setVisibility(View.VISIBLE);
             new Thread(() -> loginViewModel
-                    .login(LoginActivity.this, usernameEditText.getText().toString(),
+                    .login(LoginActivity.this, new Handler(getMainLooper()),
+                            usernameEditText.getText().toString(),
                             passwordEditText.getText().toString())).start();
 
         });

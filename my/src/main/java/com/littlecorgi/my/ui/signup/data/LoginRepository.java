@@ -63,6 +63,9 @@ public class LoginRepository {
         if (user.getData().getPicture() != null) {
             editor.putString(UserSPConstant.STUDENT_PICTURE, user.getData().getPicture());
         }
+        if (user.getData().getPassword() != null) {
+            editor.putString(UserSPConstant.STUDENT_PASSWORD, user.getData().getPassword());
+        }
         editor.apply();
 
         // If user credentials will be cached in local storage, it is recommended it be encrypted

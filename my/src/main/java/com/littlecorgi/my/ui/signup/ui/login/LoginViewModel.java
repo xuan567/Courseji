@@ -1,6 +1,7 @@
 package com.littlecorgi.my.ui.signup.ui.login;
 
 import android.content.Context;
+import android.os.Handler;
 import android.util.Patterns;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -39,16 +40,18 @@ public class LoginViewModel extends ViewModel {
      * @param username 用户名
      * @param password 密码
      */
-    public void login(Context context, String username, String password) {
+    public void login(Context context, Handler handler, String username, String password) {
         // 可以在一个单独的异步作业中启动
         Result<LoggedInUser> result = loginRepository.login(context, username, password);
 
-        if (result instanceof Result.Success) {
-            LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
-            loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
-        } else {
-            loginResult.setValue(new LoginResult(R.string.login_failed));
-        }
+        handler.post(() -> {
+            if (result instanceof Result.Success) {
+                LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
+                loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
+            } else {
+                loginResult.setValue(new LoginResult(R.string.login_failed));
+            }
+        });
     }
 
     /**
