@@ -122,7 +122,7 @@ dependencies {
     // Retrofit
     api rootProject.ext.dependencies["Retrofit"]
     api rootProject.ext.dependencies["Retrofit-converter-gson"]
-    api 'com.squareup.okhttp3:logging-interceptor:4.9.1'
+    api 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2'
 
     //ButterKnife
     api rootProject.ext.dependencies["butterknife"]
