@@ -3,11 +3,11 @@ package com.littlecorgi.my.logic;
 import android.content.SharedPreferences;
 import com.littlecorgi.commonlib.logic.TencentServerRetrofitKt;
 import com.littlecorgi.commonlib.util.UserSPConstant;
+import com.littlecorgi.my.logic.model.SignUpResponse;
 import com.littlecorgi.my.logic.model.Student;
 import com.littlecorgi.my.logic.network.UserRequestInterface;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 
 /**
@@ -22,7 +22,7 @@ public class UserRetrofitRepository {
      *
      * @param student 注册所需的用户信息
      */
-    public static Call<ResponseBody> getUserSignUpCall(Student student) {
+    public static Call<SignUpResponse> getUserSignUpCall(Student.DataBean student) {
         UserRequestInterface userRequestInterface =
                 TencentServerRetrofitKt.getTencentCloudRetrofit()
                         .create(UserRequestInterface.class);

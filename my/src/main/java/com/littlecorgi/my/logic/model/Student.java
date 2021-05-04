@@ -26,11 +26,11 @@ public class Student implements Serializable {
     public static class DataBean implements Serializable {
         private static final long serialVersionUID = 1234567890602L;
         private long id;
-        private String name;
-        private String email;
-        private String password;
-        private String phone;
-        private String avatar;
-        private String picture;
+        private String name = "";
+        private String email = "";
+        private String password = "";
+        private String phone = "";
+        private String avatar = "";
+        private String picture = "";
     }
 }

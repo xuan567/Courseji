@@ -1,8 +1,8 @@
 package com.littlecorgi.my.logic.network;
 
+import com.littlecorgi.my.logic.model.SignUpResponse;
 import com.littlecorgi.my.logic.model.Student;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -20,7 +20,7 @@ public interface UserRequestInterface {
      * @return 响应结果，包含Sting类型的结果
      */
     @POST("/student/signUp")
-    Call<ResponseBody> signUp(@Body Student student);
+    Call<SignUpResponse> signUp(@Body Student.DataBean student);
 
     /**
      * 登录

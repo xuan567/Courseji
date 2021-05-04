@@ -129,7 +129,7 @@ public class MessageActivity extends BaseActivity {
             SharedPreferences sp = getSharedPreferences(UserSPConstant.FILE_NAME, MODE_PRIVATE);
             Editor editor = sp.edit();
             if (mMessageChange.getMyImagePath() != null) {
-                // 显示人脸识别Dialog
+                // 显示上传图片Dialog
                 Dialog progressDialog = DialogUtil.writeLoadingDialog(this, false, "图片上传中");
                 progressDialog.show();
                 //设置点击屏幕加载框不会取消（返回键可以取消）

@@ -15,9 +15,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
@@ -25,14 +27,23 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.databinding.DataBindingUtil;
 import com.bumptech.glide.Glide;
 import com.littlecorgi.commonlib.BaseActivity;
+import com.littlecorgi.commonlib.uploadfile.logic.FileRetrofitRepository;
+import com.littlecorgi.commonlib.uploadfile.logic.UploadFileResponse;
+import com.littlecorgi.commonlib.util.DialogUtil;
 import com.littlecorgi.my.R;
 import com.littlecorgi.my.databinding.ActivitySignUpBinding;
+import com.littlecorgi.my.logic.UserRetrofitRepository;
+import com.littlecorgi.my.logic.model.SignUpResponse;
 import com.littlecorgi.my.logic.model.Student;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.entity.LocalMedia;
+import java.io.File;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * 注册页面
@@ -50,6 +61,9 @@ public class SignUpActivity extends BaseActivity {
     private Dialog mNameDialog;
     private Dialog mPhoneDialog;
     private Dialog mPictureDialog;
+
+    private boolean isAvatar = false;
+    private boolean isPicture = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,9 +98,18 @@ public class SignUpActivity extends BaseActivity {
         final AppCompatTextView album = avatarBtw.findViewById(R.id.picture_btw_album);
         final AppCompatTextView original = avatarBtw.findViewById(R.id.picture_btw_original);
         final AppCompatTextView cancel = avatarBtw.findViewById(R.id.picture_btw_cancel);
-        photo.setOnClickListener(v1 -> photoHelp());
-        album.setOnClickListener(v1 -> albumHelp());
-        original.setOnClickListener(v1 -> originalHelp());
+        photo.setOnClickListener(v1 -> {
+            isAvatar = true;
+            photoHelp();
+        });
+        album.setOnClickListener(v1 -> {
+            isAvatar = true;
+            albumHelp();
+        });
+        original.setOnClickListener(v1 -> {
+            isAvatar = true;
+            originalHelp();
+        });
         cancel.setOnClickListener(v1 -> mAvatarDialog.dismiss());
 
         mBinding.signUpAvatar.setOnClickListener(v -> {
@@ -155,7 +178,7 @@ public class SignUpActivity extends BaseActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() < 8) {
-                    editText.setError("邮箱格式不合法");
+                    editText.setError("长度不足8位");
                     isPasswordOk[0] = false;
                     return;
                 }
@@ -290,9 +313,18 @@ public class SignUpActivity extends BaseActivity {
         final AppCompatTextView album = pictureBtw.findViewById(R.id.picture_btw_album);
         final AppCompatTextView original = pictureBtw.findViewById(R.id.picture_btw_original);
         final AppCompatTextView cancel = pictureBtw.findViewById(R.id.picture_btw_cancel);
-        photo.setOnClickListener(v1 -> photoHelp());
-        album.setOnClickListener(v1 -> albumHelp());
-        original.setOnClickListener(v1 -> originalHelp());
+        photo.setOnClickListener(v1 -> {
+            isPicture = true;
+            photoHelp();
+        });
+        album.setOnClickListener(v1 -> {
+            isPicture = true;
+            albumHelp();
+        });
+        original.setOnClickListener(v1 -> {
+            isPicture = true;
+            originalHelp();
+        });
         cancel.setOnClickListener(v1 -> mPictureDialog.dismiss());
 
         mBinding.signUpPicture.setOnClickListener(v -> {
@@ -309,7 +341,12 @@ public class SignUpActivity extends BaseActivity {
         拍照
          */
         openCamera(this, OPEN_CAMERA);
-        mAvatarDialog.dismiss();
+        if (isAvatar) {
+            mAvatarDialog.dismiss();
+        }
+        if (isAvatar) {
+            mPictureDialog.dismiss();
+        }
     }
 
     private void albumHelp() {
@@ -317,7 +354,12 @@ public class SignUpActivity extends BaseActivity {
         打开相册
          */
         openAlbum(this, OPEN_ALBUM);
-        mAvatarDialog.dismiss();
+        if (isAvatar) {
+            mAvatarDialog.dismiss();
+        }
+        if (isPicture) {
+            mPictureDialog.dismiss();
+        }
     }
 
     private void originalHelp() {
@@ -325,7 +367,12 @@ public class SignUpActivity extends BaseActivity {
         查看大图
          */
         startOriginalActivity(this, mSignUpInfo.getAvatar());
-        mAvatarDialog.dismiss();
+        if (isAvatar) {
+            mAvatarDialog.dismiss();
+        }
+        if (isAvatar) {
+            mPictureDialog.dismiss();
+        }
     }
 
     private void initData() {
@@ -347,7 +394,117 @@ public class SignUpActivity extends BaseActivity {
      * 进行网络请求
      */
     private void signUp() {
+        if (mSignUpInfo.getName().isEmpty() || mSignUpInfo.getAvatar().isEmpty()
+                || mSignUpInfo.getEmail().isEmpty() || mSignUpInfo.getPassword().isEmpty()
+                || mSignUpInfo.getPhone().isEmpty() || mSignUpInfo.getPicture().isEmpty()) {
+            showErrorToast(this, "信息不完善，请填完再注册", true, Toast.LENGTH_SHORT);
+            return;
+        }
+        // 显示网络加载Dialog
+        Dialog progressDialog = DialogUtil.writeLoadingDialog(this, false, "注册中");
+        progressDialog.show();
+        //设置点击屏幕加载框不会取消（返回键可以取消）
+        progressDialog.setCanceledOnTouchOutside(true);
 
+        // 两个图片异步上传
+        final boolean[] avatarUploadOk = {false};
+        final boolean[] pictureUploadOk = {false};
+        if (mSignUpInfo.getAvatar() != null && !mSignUpInfo.getAvatar().isEmpty()) {
+            FileRetrofitRepository.INSTANCE
+                    .getUploadCall(new File(mSignUpInfo.getAvatar()))
+                    .enqueue(new Callback<UploadFileResponse>() {
+                        @Override
+                        public void onResponse(
+                                @NonNull Call<UploadFileResponse> call,
+                                @NonNull Response<UploadFileResponse> response) {
+                            assert response.body() != null;
+                            UploadFileResponse uploadFileResponse = response.body();
+                            Log.d("MessageActivity",
+                                    "onResponse: json= 图片上传结果: " + response.body().toString());
+                            mSignUpInfo.setAvatar(uploadFileResponse.getData());
+                            avatarUploadOk[0] = true;
+                            // 其实必须两个都满足才行，但是avatar肯定满足
+                            if (pictureUploadOk[0]) {
+                                Log.d("SignUpActivity", "onResponse: 开始注册");
+                                doRealSignUp(progressDialog);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(
+                                @NonNull Call<UploadFileResponse> call, @NonNull
+                                Throwable t) {
+                            t.printStackTrace();
+                            Log.d("MessageActivity", "onFailure: 网络异常");
+                            showErrorToast(SignUpActivity.this, "网络错误",
+                                    true, Toast.LENGTH_SHORT);
+                        }
+                    });
+        }
+        if (mSignUpInfo.getPicture() != null && !mSignUpInfo.getPicture().isEmpty()) {
+            FileRetrofitRepository.INSTANCE
+                    .getUploadCall(new File(mSignUpInfo.getPicture()))
+                    .enqueue(new Callback<UploadFileResponse>() {
+                        @Override
+                        public void onResponse(
+                                @NonNull Call<UploadFileResponse> call,
+                                @NonNull Response<UploadFileResponse> response) {
+                            assert response.body() != null;
+                            UploadFileResponse uploadFileResponse = response.body();
+                            Log.d("MessageActivity",
+                                    "onResponse: json= 图片上传结果: " + response.body().toString());
+                            mSignUpInfo.setPicture(uploadFileResponse.getData());
+                            pictureUploadOk[0] = true;
+                            // 其实必须两个都满足才行，但是picture肯定满足
+                            if (avatarUploadOk[0]) {
+                                Log.d("SignUpActivity", "onResponse: 开始注册");
+                                doRealSignUp(progressDialog);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(
+                                @NonNull Call<UploadFileResponse> call, @NonNull
+                                Throwable t) {
+                            t.printStackTrace();
+                            Log.d("MessageActivity", "onFailure: 网络异常");
+                            showErrorToast(SignUpActivity.this, "网络错误",
+                                    true, Toast.LENGTH_SHORT);
+                        }
+                    });
+        }
+    }
+
+    private void doRealSignUp(Dialog progressDialog) {
+        Call<SignUpResponse> signUpResponseCall =
+                UserRetrofitRepository.getUserSignUpCall(mSignUpInfo);
+        signUpResponseCall.enqueue(new Callback<SignUpResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<SignUpResponse> call,
+                                   @NonNull Response<SignUpResponse> response) {
+                progressDialog.cancel();
+                Log.d("SignUpActivity", "onResponse: " + response.body());
+                SignUpResponse signUpResponse = response.body();
+                assert signUpResponse != null;
+                if (signUpResponse.getStatus() == 800) {
+                    showSuccessToast(SignUpActivity.this, "注册成功，请重新登录", true, Toast.LENGTH_SHORT);
+                    finish();
+                } else {
+                    String errorMsg =
+                            (signUpResponse.getErrorMsg().isEmpty()) ? signUpResponse.getMsg() :
+                                    signUpResponse.getErrorMsg();
+                    showSuccessToast(SignUpActivity.this, "失败：" + errorMsg,
+                            true, Toast.LENGTH_SHORT);
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<SignUpResponse> call, @NonNull Throwable t) {
+                progressDialog.cancel();
+                t.printStackTrace();
+                showErrorToast(SignUpActivity.this, "网络错误", true, Toast.LENGTH_SHORT);
+            }
+        });
     }
 
     @Override
@@ -356,8 +513,16 @@ public class SignUpActivity extends BaseActivity {
         if (resultCode == RESULT_OK) {
             if (requestCode == OPEN_CAMERA || requestCode == OPEN_ALBUM) {
                 String path = getImagePath(data);
-                Glide.with(this).load(path).into(mBinding.signUpIvAvatar);
-                mSignUpInfo.setAvatar(path);
+                if (isAvatar) {
+                    Glide.with(this).load(path).into(mBinding.signUpIvAvatar);
+                    mSignUpInfo.setAvatar(path);
+                    isAvatar = false;
+                }
+                if (isPicture) {
+                    Glide.with(this).load(path).into(mBinding.signUpIvPicture);
+                    mSignUpInfo.setPicture(path);
+                    isPicture = false;
+                }
             }
         }
     }
