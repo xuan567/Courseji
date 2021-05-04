@@ -30,5 +30,5 @@ public interface UserRequestInterface {
      * @return 响应结果，包含{@link com.littlecorgi.my.logic.model.Student}类型的结果
      */
     @POST("/student/signIn")
-    Call<ResponseBody> signIn(@Query("email") String email, @Body RequestBody password);
+    Call<Student> signIn(@Query("email") String email, @Body RequestBody password);
 }

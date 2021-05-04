@@ -19,7 +19,7 @@ import com.littlecorgi.commonlib.BaseActivity;
 import com.littlecorgi.my.R;
 
 /**
- *
+ * 图片查看Activity
  */
 public class OriginalActivity extends BaseActivity {
 

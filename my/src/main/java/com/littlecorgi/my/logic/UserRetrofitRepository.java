@@ -36,7 +36,7 @@ public class UserRetrofitRepository {
      * @param email    账号
      * @param password 密码
      */
-    public static Call<ResponseBody> getUserSignInCall(String email, String password) {
+    public static Call<Student> getUserSignInCall(String email, String password) {
         UserRequestInterface userRequestInterface =
                 TencentServerRetrofitKt.getTencentCloudRetrofit()
                         .create(UserRequestInterface.class);

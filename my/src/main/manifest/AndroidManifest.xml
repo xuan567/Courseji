@@ -16,13 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Courseji"
         tools:replace="android:allowBackup">
+        <activity android:name=".ui.signup.SignUpActivity" />
         <activity
             android:name=".ui.signin.LoginActivity"
-            android:exported="true"
             android:label="@string/title_activity_login" />
         <activity android:name=".ui.addgroup.AddGroupActivity" />
         <activity android:name=".ui.message.OriginalActivity" />
-        <activity android:name=".ui.message.DescribeActivity" />
         <activity android:name=".ui.about.AdviceActivity" />
         <activity android:name=".ui.about.AboutActivity" />
         <activity android:name=".ui.message.MessageActivity" />
