@@ -1,10 +1,8 @@
 package com.littlecorgi.my.logic;
 
 import android.util.Log;
-import com.google.gson.Gson;
 import com.littlecorgi.my.logic.model.Student;
 import java.io.IOException;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -23,32 +21,27 @@ public class LoginDataSource {
     public Result login(String username, String password) {
         Result result;
 
-        Call<ResponseBody> responseBodyCall =
+        Call<Student> responseBodyCall =
                 UserRetrofitRepository.getUserSignInCall(username, password);
 
         try {
-            Response<ResponseBody> response = responseBodyCall.execute();
+            Response<Student> response = responseBodyCall.execute();
             Log.d("LoginDataSource", "onResponse: " + response);
             if (response.body() != null) {
-                try {
-                    String json = response.body().string();
-                    Log.d("LoginDataSource", "onResponse: json= " + json);
-                    Student student =
-                            new Gson().fromJson(json, Student.class);
-                    Log.d("LoginDataSource", "onResponse: " + student);
-                    if (student.getStatus() == 800) {
-                        Log.d("LoginDataSource", "onResponse: 登录成功");
-                        result = new Result.Success<>(student);
-                    } else {
-                        result = new Result.Error(
-                                new IOException("登录失败" + student.getMsg()));
-                    }
-                } catch (IOException exception) {
-                    exception.printStackTrace();
-                    Log.d("LoginDataSource", "onResponse: " + exception.getMessage());
-                    exception.printStackTrace();
-                    result =
-                            new Result.Error(new IOException("登录失败", exception));
+                Student student = response.body();
+                Log.d("LoginDataSource", "onResponse: " + student);
+                if (student.getStatus() == 800) {
+                    Log.d("LoginDataSource", "onResponse: 登录成功");
+                    result = new Result.Success<>(student);
+                } else if (student.getStatus() == 1002) {
+                    // 用户不存在，转注册
+                    student.setData(new Student.DataBean());
+                    student.getData().setEmail(username);
+                    student.getData().setPassword(password);
+                    result = new Result.Success<>(student);
+                } else {
+                    result = new Result.Error(
+                            new IOException("登录失败" + student.getMsg()));
                 }
             } else {
                 Log.d("LoginDataSource", "onResponse: 响应为空");

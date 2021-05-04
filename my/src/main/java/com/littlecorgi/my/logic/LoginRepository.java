@@ -3,8 +3,8 @@ package com.littlecorgi.my.logic;
 import android.content.Context;
 import android.content.SharedPreferences;
 import com.littlecorgi.commonlib.util.UserSPConstant;
-import com.littlecorgi.my.logic.model.Student;
 import com.littlecorgi.my.logic.model.LoggedInUser;
+import com.littlecorgi.my.logic.model.Student;
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -83,8 +83,14 @@ public class LoginRepository {
         if (result instanceof Result.Success) {
             Student student = ((Result.Success<Student>) result).getData();
             setLoggedInUser(context, student);
-            LoggedInUser loggedInUser =
-                    new LoggedInUser("" + student.getData().getId(), student.getData().getName());
+            LoggedInUser loggedInUser = null;
+            if (student.getStatus() == 800) {
+                loggedInUser = new LoggedInUser("" + student.getData().getId(),
+                        student.getData().getName());
+            } else if (student.getStatus() == 1002) {
+                loggedInUser = new LoggedInUser("" + student.getData().getId(),
+                        "用户不存在！");
+            }
             this.user = loggedInUser;
             return new Result.Success<LoggedInUser>(loggedInUser);
         }

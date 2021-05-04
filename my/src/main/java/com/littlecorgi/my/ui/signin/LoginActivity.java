@@ -14,12 +14,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import com.littlecorgi.commonlib.util.UserSPConstant;
 import com.littlecorgi.my.R;
 import com.littlecorgi.my.databinding.ActivityLoginBinding;
+import com.littlecorgi.my.ui.signup.SignUpActivity;
 
 /**
  * 登录Activity
@@ -78,7 +78,15 @@ public class LoginActivity extends AppCompatActivity {
                 showLoginFailed(loginResult.getError());
             }
             if (loginResult.getSuccess() != null) {
-                updateUiWithUser(loginResult.getSuccess());
+                if (loginResult.getSuccess().getDisplayName().equals("用户不存在！")) {
+                    showLoginFailed("用户不存在！转为注册");
+                    SignUpActivity
+                            .startSignUpActivity(this,
+                                    sp.getString(UserSPConstant.STUDENT_EMAIL, ""),
+                                    sp.getString(UserSPConstant.STUDENT_PASSWORD, ""));
+                } else {
+                    updateUiWithUser(loginResult.getSuccess());
+                }
             }
             setResult(Activity.RESULT_OK);
 
@@ -129,7 +137,7 @@ public class LoginActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
     }
 
-    private void showLoginFailed(@StringRes Integer errorString) {
+    private void showLoginFailed(String errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
     }
 
