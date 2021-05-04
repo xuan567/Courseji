@@ -10,8 +10,8 @@ import android.os.Bundle;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import com.littlecorgi.commonlib.App;
 import com.littlecorgi.commonlib.BaseActivity;
-import com.littlecorgi.my.BuildConfig;
 import com.littlecorgi.my.R;
 
 /**
@@ -50,7 +50,7 @@ public class AboutActivity extends BaseActivity {
 
     private void initData() {
         AppCompatTextView textView = findViewById(R.id.versionNumber);
-        textView.setText(BuildConfig.VERSION_NAME);
+        textView.setText(App.versionCodes);
         update = findViewById(R.id.my_about_update);
         update.setText("https://github.com/xuan567/Courseji");
     }
