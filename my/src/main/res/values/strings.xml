@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My</string>
+    <string name="app_name">My 学生端</string>
     <string name="title_activity_login">登录/注册</string>
     <string name="prompt_email">邮箱</string>
     <string name="prompt_password">密码</string>

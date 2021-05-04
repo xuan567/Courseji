@@ -1,7 +1,6 @@
 package com.littlecorgi.courseji.schedule_import.logic.parse
 
 import android.content.Context
-import android.util.Log
 import com.littlecorgi.commonlib.util.ViewUtils
 import com.littlecorgi.courseji.schedule.logic.model.bean.CourseBaseBean
 import com.littlecorgi.courseji.schedule.logic.model.bean.CourseDetailBean
@@ -61,13 +60,9 @@ abstract class Parser(val source: String) {
             detailList: List<CourseDetailBean>
         ) -> Unit
     ): Int {
-        Log.d("Parse8888", "saveCourse: 1")
         convertCourse(context, tableId)
-        Log.d("Parse8888", "saveCourse: 2")
         if (_baseList.isEmpty()) throw Exception("导入数据为空>_<请确保选择正确的教务类型\n以及到达显示课程的页面")
-        Log.d("Parse8888", "saveCourse: 3")
         block(_baseList, _detailList)
-        Log.d("Parse8888", "saveCourse: ${_baseList.size}")
         return _baseList.size
     }
 }

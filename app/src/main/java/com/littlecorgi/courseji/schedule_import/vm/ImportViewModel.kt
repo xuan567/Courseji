@@ -30,8 +30,8 @@ class ImportViewModel(application: Application) : AndroidViewModel(application) 
             Common.TYPE_ZF_NEW -> ZFParse(source)
             else -> null
         }
-        Log.d("ImportViewModel8888", "importSchedule: $parser ${importType ?: "1234"}")
-        Log.d("ImportViewModel8888", "importSchedule1234: $newFlag $importId 1234")
+        Log.d("ImportViewModel", "importSchedule: $parser ${importType ?: "1234"}")
+        Log.d("ImportViewModel", "importSchedule1234: $newFlag $importId 1234")
         return parser?.saveCourse(getApplication(), importId) { baseList, detailList ->
             if (!newFlag) {
                 courseDao.coverImport(baseList, detailList)
