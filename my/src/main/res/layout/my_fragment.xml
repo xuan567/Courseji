@@ -122,7 +122,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="添加群组"
+                android:text="加入班级"
                 android:textSize="18sp"
                 android:textColor="?android:attr/textColorPrimary"
                 app:layout_constraintStart_toEndOf="@id/group_src"

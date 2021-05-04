@@ -8,6 +8,8 @@ import java.util.Map;
  */
 public class MyMessage implements Serializable {
 
+    private static final long serialVersionUID = 1234567890604L;
+
     private String picture;
 
     private int myImage; // 图片

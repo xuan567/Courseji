@@ -30,6 +30,7 @@ import com.littlecorgi.my.logic.LoginRepository;
 import com.littlecorgi.my.logic.Result;
 import com.littlecorgi.my.logic.UserRetrofitRepository;
 import com.littlecorgi.my.logic.model.Student;
+import com.littlecorgi.my.ui.addgroup.GroupActivity;
 import com.littlecorgi.my.ui.signin.LoginActivity;
 import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
@@ -140,6 +141,7 @@ public class MyMainFragment extends Fragment {
     private void initClick() {
         ConstraintLayout messageLayout = mView.findViewById(R.id.my_message);
         ConstraintLayout aboutLayout = mView.findViewById(R.id.my_about);
+        ConstraintLayout groupLayout = mView.findViewById(R.id.my_addGroup);
         messageLayout.setOnClickListener(v -> {
             if (studentId == -1) {
                 mGetContent.launch(new Intent(requireContext(), LoginActivity.class));
@@ -148,6 +150,7 @@ public class MyMainFragment extends Fragment {
             }
         });
         aboutLayout.setOnClickListener(v -> startAboutActivity(getContext()));
+        groupLayout.setOnClickListener(v -> GroupActivity.startGroupActivity(getContext()));
     }
 
     private void initData() {
