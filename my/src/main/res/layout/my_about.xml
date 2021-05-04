@@ -23,21 +23,9 @@
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintTop_toTopOf="parent"
         android:background="@color/blue"
-        app:navigationIcon="@drawable/ic_baseline_arrow_back_24_back">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="6dp"
-            android:gravity="center"
-            android:text="关于"
-            android:textColor="?android:attr/textColorPrimary"
-            android:textSize="20sp" />
-    </androidx.appcompat.widget.Toolbar>
+        app:title="关于"
+        app:titleTextColor="@color/white"
+        app:navigationIcon="@drawable/ic_back" />
 
     <FrameLayout
         android:id="@+id/my_messageLayout"
