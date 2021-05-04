@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/my_picture"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:padding="13dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/my" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/my_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="马六"
+        android:textSize="18sp"
+        android:layout_marginTop="15dp"
+        android:textColor="?android:attr/textColorPrimary"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/my_picture"
+        app:layout_constraintBottom_toTopOf="@id/my_professional"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintVertical_bias="0" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/my_professional"
+        android:layout_width="wrap_content"
+        android:layout_height="18dp"
+        android:text="计算机学院"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/my_name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/my_picture" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/middle_TeacherThemeButton"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/my_right"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,47 +1,48 @@
 package com.littlecorgi.my.ui.message;
 
 import static com.littlecorgi.my.logic.dao.BTWHelp.dialogBtw;
-import static com.littlecorgi.my.logic.dao.PickerViewHelp.getNationalList;
 import static com.littlecorgi.my.logic.dao.PictureSelectorHelp.OPEN_ALBUM;
 import static com.littlecorgi.my.logic.dao.PictureSelectorHelp.OPEN_CAMERA;
 import static com.littlecorgi.my.logic.dao.PictureSelectorHelp.openAlbum;
 import static com.littlecorgi.my.logic.dao.PictureSelectorHelp.openCamera;
 import static com.littlecorgi.my.logic.dao.WindowHelp.setWindowStatusBarColor;
-import static com.littlecorgi.my.logic.network.RetrofitHelp.messageRetrofit;
-import static com.littlecorgi.my.ui.message.DescribeActivity.REQUEST_CODE;
-import static com.littlecorgi.my.ui.message.DescribeActivity.REQUEST_DATA;
-import static com.littlecorgi.my.ui.message.DescribeActivity.startDescribeActivity;
 import static com.littlecorgi.my.ui.message.OriginalActivity.startOriginalActivity;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import com.bigkoo.pickerview.adapter.ArrayWheelAdapter;
 import com.bumptech.glide.Glide;
-import com.contrarywind.view.WheelView;
 import com.littlecorgi.commonlib.BaseActivity;
+import com.littlecorgi.commonlib.uploadfile.logic.FileRetrofitRepository;
+import com.littlecorgi.commonlib.uploadfile.logic.UploadFileResponse;
+import com.littlecorgi.commonlib.util.DialogUtil;
+import com.littlecorgi.commonlib.util.UserSPConstant;
 import com.littlecorgi.my.R;
 import com.littlecorgi.my.logic.model.MessageChange;
-import com.littlecorgi.my.logic.model.MyMessage;
+import com.littlecorgi.my.logic.model.Student;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.tools.PictureFileUtils;
-import java.util.HashMap;
+import java.io.File;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-import okhttp3.ResponseBody;
-import org.jetbrains.annotations.NotNull;
+import java.util.regex.Pattern;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -61,38 +62,25 @@ public class MessageActivity extends BaseActivity {
     private ConstraintLayout mIdLayout;
     private AppCompatTextView mIdTitle;
 
-    private ConstraintLayout mGenderLayout;
-    private AppCompatTextView mGenderTitle;
-    private AppCompatEditText mProfessionalTitle;
-    private ConstraintLayout mDescribeLayout;
-    private AppCompatTextView mDescribeTitle;
+    private ConstraintLayout mPhoneLayout;
+    private AppCompatTextView mPhoneTitle;
 
-    private ConstraintLayout mNationalLayout;
-    private AppCompatTextView mNationalTitle;
-
-    private MyMessage mMyMessage;
+    private Student.DataBean mMyInfo;
     private MessageChange mMessageChange;
 
     private Dialog mPictureDialog;
-    private Dialog mGenderDialog;
-    private Dialog mNationalDialog;
+    private Dialog mPhoneDialog;
     private boolean mIsChanged = false;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            if (requestCode == REQUEST_CODE) {
-                assert data != null;
-                String describeData = data.getStringExtra(REQUEST_DATA);
-                mDescribeTitle.setText(describeData);
-                mMessageChange.setDescribe(describeData);
-                mIsChanged = true;
-            }
             if (requestCode == OPEN_CAMERA || requestCode == OPEN_ALBUM) {
                 String path = getImagePath(data);
                 Glide.with(this).load(path).into(mPictureView);
                 mMessageChange.setMyImagePath(path);
+                mIsChanged = true;
             }
         }
     }
@@ -122,9 +110,7 @@ public class MessageActivity extends BaseActivity {
         initImageView();
         initNameView();
         initIdVIew();
-        initGenderView();
-        initDescribeView();
-        initNationalView();
+        initPhoneView();
         initClick();
     }
 
@@ -138,65 +124,118 @@ public class MessageActivity extends BaseActivity {
     }
 
     private void saveMessage() {
-        if (!Objects.requireNonNull(mProfessionalTitle.getText())
-                .toString()
-                .equals(mMyMessage.getProfessional())) {
-            mIsChanged = true;
-        }
         if (mIsChanged) {
-            mMessageChange.setProfessional(mProfessionalTitle.getText().toString());
-            Map<String, Object> map = new HashMap<>();
-            map.put("image", mMessageChange.getMyImagePath());
-            map.put("gender", mMessageChange.getGender());
-            map.put("professional", mMessageChange.getProfessional());
-            map.put("describe", mMessageChange.getDescribe());
-            map.put("national", mMessageChange.getNational());
-            Call<ResponseBody> call = messageRetrofit(map);
-            call.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(
-                        @NotNull Call<ResponseBody> call,
-                        @NotNull Response<ResponseBody> response) {
-                    Toast.makeText(MessageActivity.this, "保存成功", Toast.LENGTH_LONG).show();
-                    mIsChanged = false;
-                }
+            // todo 补全资料更新网络请求
+            SharedPreferences sp = getSharedPreferences(UserSPConstant.FILE_NAME, MODE_PRIVATE);
+            Editor editor = sp.edit();
+            if (mMessageChange.getMyImagePath() != null) {
+                // 显示上传图片Dialog
+                Dialog progressDialog = DialogUtil.writeLoadingDialog(this, false, "图片上传中");
+                progressDialog.show();
+                //设置点击屏幕加载框不会取消（返回键可以取消）
+                progressDialog.setCanceledOnTouchOutside(true);
+                FileRetrofitRepository.INSTANCE
+                        .getUploadCall(new File(mMessageChange.getMyImagePath()))
+                        .enqueue(new Callback<UploadFileResponse>() {
+                            @Override
+                            public void onResponse(
+                                    @NonNull Call<UploadFileResponse> call,
+                                    @NonNull Response<UploadFileResponse> response) {
+                                progressDialog.cancel();
+                                assert response.body() != null;
+                                UploadFileResponse uploadFileResponse = response.body();
+                                Log.d("MessageActivity",
+                                        "onResponse: json= 图片上传结果: " + response.body().toString());
+                                mMyInfo.setAvatar(uploadFileResponse.getData());
+                                sp.edit().putString(UserSPConstant.STUDENT_AVATAR,
+                                        uploadFileResponse.getData()).apply();
+                            }
 
-                @Override
-                public void onFailure(@NotNull Call<ResponseBody> call,
-                                      @NotNull Throwable t) {
-                    Toast.makeText(MessageActivity.this, "保存失败，过会在试吧", Toast.LENGTH_LONG)
-                            .show();
-                }
-            });
+                            @Override
+                            public void onFailure(
+                                    @NonNull Call<UploadFileResponse> call, @NonNull
+                                    Throwable t) {
+                                t.printStackTrace();
+                                Log.d("MessageActivity", "onFailure: 网络异常");
+                                showErrorToast(MessageActivity.this, "网络错误",
+                                        true, Toast.LENGTH_SHORT);
+                            }
+                        });
+            }
+            if (mMessageChange.getPhone() != null) {
+                mMyInfo.setPhone(mMessageChange.getPhone());
+                editor.putString(UserSPConstant.STUDENT_PHONE, mMessageChange.getPhone());
+            }
+            editor.apply();
+            finish();
         }
     }
 
-    private void initNationalView() {
-        View nationalBtw = View.inflate(this, R.layout.my_national_btw, null);
-        WheelView wheelView = nationalBtw.findViewById(R.id.national_blw_wheelView);
-        List<String> list = getNationalList();
-        wheelView.setAdapter(new ArrayWheelAdapter<>(list));
-        wheelView.setCurrentItem(0);
-        mNationalLayout.setOnClickListener(v -> {
-            if (mNationalDialog != null) {
-                mNationalDialog.show();
-            } else {
-                mNationalDialog = dialogBtw(nationalBtw, this);
+    private void initPhoneView() {
+        View phoneBtw = View.inflate(this, R.layout.my_phone_btw, null);
+        AppCompatEditText editText = phoneBtw.findViewById(R.id.phone_edit_text);
+        final boolean[] isPhoneOk = {false};
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() != 11) {
+                    editText.setError("长度必须是11位");
+                    isPhoneOk[0] = false;
+                    return;
+                }
+                Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
+                if (!pattern.matcher(s).matches()) {
+                    editText.setError("手机号不能有数字之外的元素");
+                    isPhoneOk[0] = false;
+                    return;
+                }
+                isPhoneOk[0] = true;
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
             }
         });
-        AppCompatButton cancel = nationalBtw.findViewById(R.id.national_blw_cancelButton);
-        AppCompatButton sure = nationalBtw.findViewById(R.id.national_blw_sureButton);
-        cancel.setOnClickListener(v -> mNationalDialog.dismiss());
-        sure.setOnClickListener(v -> {
-            mNationalTitle.setText(list.get(wheelView.getCurrentItem()));
-            mMessageChange.setNational(list.get(wheelView.getCurrentItem()));
-            mIsChanged = true;
-            mNationalDialog.dismiss();
+        mPhoneLayout.setOnClickListener(v -> {
+            if (mPhoneDialog != null) {
+                mPhoneDialog.show();
+            } else {
+                mPhoneDialog = dialogBtw(phoneBtw, this);
+            }
         });
-    }
+        AppCompatButton cancel = phoneBtw.findViewById(R.id.phone_blw_cancelButton);
+        AppCompatButton sure = phoneBtw.findViewById(R.id.phone_blw_sureButton);
+        cancel.setOnClickListener(v -> mPhoneDialog.dismiss());
+        sure.setOnClickListener(v -> {
+            if (isPhoneOk[0]) {
+                String newPhone = Objects.requireNonNull(editText.getText()).toString();
+                mMessageChange.setPhone(newPhone);
+                mIsChanged = true;
+                mPhoneDialog.dismiss();
+                mPhoneTitle.setText(newPhone);
+            } else {
+                showErrorToast(MessageActivity.this, "手机号不合法", true, Toast.LENGTH_SHORT);
+            }
+        });
 
-    private void initDescribeView() {
-        mDescribeLayout.setOnClickListener(v -> startDescribeActivity(this));
+        // // 备用
+        // View nationalBtw = View.inflate(this, R.layout.my_national_btw, null);
+        // WheelView wheelView = nationalBtw.findViewById(R.id.national_blw_wheelView);
+        // List<String> list = getNationalList();
+        // wheelView.setAdapter(new ArrayWheelAdapter<>(list));
+        // wheelView.setCurrentItem(0);
+        // AppCompatButton cancel = nationalBtw.findViewById(R.id.national_blw_cancelButton);
+        // AppCompatButton sure = nationalBtw.findViewById(R.id.national_blw_sureButton);
+        // cancel.setOnClickListener(v -> mPhoneDialog.dismiss());
+        // sure.setOnClickListener(v -> {
+        //     mMessageChange.setNational(list.get(wheelView.getCurrentItem()));
+        //     mIsChanged = true;
+        //     mPhoneDialog.dismiss();
+        // });
     }
 
     private void initFind() {
@@ -212,44 +251,8 @@ public class MessageActivity extends BaseActivity {
         mIdLayout = findViewById(R.id.my_message_id);
         mIdTitle = findViewById(R.id.my_message_idTitle);
 
-        mGenderLayout = findViewById(R.id.my_message_gender);
-        mGenderTitle = findViewById(R.id.my_message_genderTitle);
-
-        mProfessionalTitle = findViewById(R.id.my_message_professionalTitle);
-
-        mDescribeLayout = findViewById(R.id.my_message_Describe);
-        mDescribeTitle = findViewById(R.id.my_message_DescribeTitle);
-
-        mNationalLayout = findViewById(R.id.my_message_national);
-        mNationalTitle = findViewById(R.id.my_message_nationalTitle);
-    }
-
-    private void initGenderView() {
-        View genderBtw = View.inflate(this, R.layout.my_gender_btw, null);
-        mGenderLayout.setOnClickListener(v -> {
-            if (mGenderDialog != null) {
-                mGenderDialog.show();
-            } else {
-                mGenderDialog = dialogBtw(genderBtw, this);
-            }
-        });
-        AppCompatTextView man = genderBtw.findViewById(R.id.gender_btw_man);
-        AppCompatTextView woman = genderBtw.findViewById(R.id.gender_btw_woman);
-        AppCompatTextView cancel = genderBtw.findViewById(R.id.gender_btw_cancel);
-        man.setOnClickListener(v -> {
-            mGenderTitle.setText("男");
-            mMessageChange.setGender("男");
-            mIsChanged = true;
-            mGenderDialog.dismiss();
-        });
-        woman.setOnClickListener(v -> {
-                    mGenderTitle.setText("女");
-                    mMessageChange.setGender("女");
-                    mIsChanged = true;
-                    mGenderDialog.dismiss();
-                }
-        );
-        cancel.setOnClickListener(v -> mGenderDialog.dismiss());
+        mPhoneLayout = findViewById(R.id.my_message_phone);
+        mPhoneTitle = findViewById(R.id.my_message_phoneTitle);
     }
 
     private void initIdVIew() {
@@ -303,7 +306,7 @@ public class MessageActivity extends BaseActivity {
         查看大图
          */
         if (mMessageChange.getMyImagePath() == null) {
-            startOriginalActivity(this, mMyMessage.getImagePath());
+            startOriginalActivity(this, mMyInfo.getAvatar());
         } else {
             startOriginalActivity(this, mMessageChange.getMyImagePath());
         }
@@ -312,28 +315,23 @@ public class MessageActivity extends BaseActivity {
 
     private void initData() {
         Intent intent = getIntent();
-        mMyMessage = (MyMessage) intent.getSerializableExtra("myMessage");
-        assert mMyMessage != null;
-        // pictureView.setImageResource(myMessage.getMyImage());
-        Glide.with(this).load(mMyMessage.getImagePath()).into(mPictureView);
-        mNameTitle.setText(mMyMessage.getName());
-        mIdTitle.setText(mMyMessage.getId());
-        mGenderTitle.setText(mMyMessage.getGender());
-        mProfessionalTitle.setText(mMyMessage.getProfessional());
-        mDescribeTitle.setText(mMyMessage.getDescribe());
-        mNationalTitle.setText(mMyMessage.getNational());
+        mMyInfo = ((Student) intent.getSerializableExtra("studentInfo")).getData();
+        assert mMyInfo != null;
+        Glide.with(this).load(mMyInfo.getAvatar()).into(mPictureView);
+        mNameTitle.setText(mMyInfo.getName());
+        mPhoneTitle.setText(mMyInfo.getPhone());
         mMessageChange = new MessageChange();
     }
 
     /**
      * 跳转到MessageActivity
      *
-     * @param context   上下文
-     * @param myMessage 我的消息
+     * @param context 上下文
+     * @param student 我的信息
      */
-    public static void startMessageActivity(Context context, MyMessage myMessage) {
+    public static void startMessageActivity(Context context, Student student) {
         Intent intent = new Intent(context, MessageActivity.class);
-        intent.putExtra("myMessage", myMessage);
+        intent.putExtra("studentInfo", student);
         context.startActivity(intent);
     }
 

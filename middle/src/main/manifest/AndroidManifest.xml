@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  package="com.littlecorgi.middle">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.littlecorgi.middle">
 
     <!-- 这个权限用于进行网络定位-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -22,29 +22,24 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-      android:name=".MiddleApp"
-      android:allowBackup="true"
-      android:icon="@mipmap/ic_launcher"
-      android:label="@string/app_name"
-      android:roundIcon="@mipmap/ic_launcher_round"
-      android:supportsRtl="true"
-      android:theme="@style/Theme.Courseji"
-      tools:replace="android:allowBackup">
-        <activity android:name=".ui.teacher.LocationActivity" />
-        <activity android:name=".ui.teacher.EndTimeActivity" />
+        android:name=".MiddleApp"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Courseji"
+        tools:replace="android:allowBackup">
 
         <service
-          android:name="com.baidu.location.f"
-          android:enabled="true"
-          android:process=":remote"></service>
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
 
         <meta-data
-          android:name="com.baidu.lbsapi.API_KEY"
-          android:value="u0ybuh76CedcBg4xTKyWcDMRwUZ5vnFs"></meta-data>
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="u0ybuh76CedcBg4xTKyWcDMRwUZ5vnFs" />
 
-
-        <activity android:name=".ui.teacher.StartTimeActivity" />
-        <activity android:name=".ui.teacher.SetTitleActivity" />
         <activity android:name=".ui.student.MiddleDetailsActivity" />
         <activity android:name=".ui.student.MiddleSignActivity" />
         <activity android:name=".MiddleMainActivity">

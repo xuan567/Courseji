@@ -20,6 +20,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.littlecorgi.commonlib.BaseActivity;
@@ -45,12 +46,11 @@ import retrofit2.Response;
  */
 public class AdviceActivity extends BaseActivity implements View.OnClickListener {
 
-    /*
-    未完成：sendAdvice()把建议上传到服务器，需要修改路径
-     */
+    // todo: 未完成：sendAdvice()把建议上传到服务器，需要修改路径
 
     private static final int PHOTO = 1;
     private AppCompatEditText mEditText;
+    private Toolbar mToolbar;
 
     private RecyclerView mRecyclerView;
     private ArrayList<String> mAllSelectList; // 所有的图片集合
@@ -68,12 +68,13 @@ public class AdviceActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void initView() {
-        AppCompatTextView returnButton = findViewById(R.id.my_advice_returnButton);
+        mToolbar = findViewById(R.id.advice_toolbar);
+        setSupportActionBar(mToolbar);
         mEditText = findViewById(R.id.my_advice_editView);
         mRecyclerView = findViewById(R.id.my_advice_RecyclerView);
         AppCompatTextView getPicture = findViewById(R.id.my_advice_getPicture);
         AppCompatButton sureButton = findViewById(R.id.my_advice_SureButton);
-        returnButton.setOnClickListener(this);
+        mToolbar.setNavigationOnClickListener(v -> finish());
         getPicture.setOnClickListener(this);
         sureButton.setOnClickListener(this);
         initBarColor();
@@ -134,9 +135,7 @@ public class AdviceActivity extends BaseActivity implements View.OnClickListener
         // 此处不能使用switch，因为作为library，他的id并不是常量，所以Android并不建议在switch中直接使用id，
         // 可以使用view.setOnClickListener替换，或者使用if-else
         int id = v.getId();
-        if (id == R.id.my_advice_returnButton) {
-            finish();
-        } else if (id == R.id.my_advice_getPicture) {
+        if (id == R.id.my_advice_getPicture) {
             showBtw();
         } else if (id == R.id.my_advice_SureButton) {
             sendAdvice();

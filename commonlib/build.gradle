@@ -79,6 +79,10 @@ dependencies {
     androidTestImplementation rootProject.ext.dependencies["testExtJunit"]
     androidTestImplementation rootProject.ext.dependencies["espressoCore"]
 
+    //noinspection AnnotationProcessorOnCompilePath Lombok只能这么导入
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+
     // Toasty https://github.com/GrenderG/Toasty
     //    api rootProject.ext.dependencies["toasty"]
 
@@ -118,6 +122,7 @@ dependencies {
     // Retrofit
     api rootProject.ext.dependencies["Retrofit"]
     api rootProject.ext.dependencies["Retrofit-converter-gson"]
+    api 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2'
 
     //ButterKnife
     api rootProject.ext.dependencies["butterknife"]

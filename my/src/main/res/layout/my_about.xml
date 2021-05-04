@@ -17,43 +17,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
-    <RelativeLayout
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/topLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"
         android:background="@color/blue"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/my_about_returnButton"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="6dp"
-            android:fontFamily="@font/iconfont"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:text=""
-            android:textColor="#000"
-            android:textSize="30sp" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="6dp"
-            android:gravity="center"
-            android:text="关于"
-            android:textColor="?android:attr/textColorPrimary"
-            android:textSize="20sp" />
-    </RelativeLayout>
-
+        app:title="关于"
+        app:titleTextColor="@color/white"
+        app:navigationIcon="@drawable/ic_back" />
 
     <FrameLayout
         android:id="@+id/my_messageLayout"
