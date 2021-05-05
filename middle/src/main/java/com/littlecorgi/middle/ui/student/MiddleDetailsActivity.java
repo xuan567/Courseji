@@ -9,6 +9,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import com.bumptech.glide.Glide;
 import com.littlecorgi.commonlib.BaseActivity;
+import com.littlecorgi.commonlib.util.TimeUtil;
 import com.littlecorgi.middle.R;
 import com.littlecorgi.middle.logic.model.Details;
 
@@ -52,12 +53,13 @@ public class MiddleDetailsActivity extends BaseActivity {
         Intent intent = getIntent();
         Details details = (Details) intent.getSerializableExtra("details");
         assert details != null;
+
         Glide.with(this).load(details.getImage()).into(imageView); // Glide加载图片
         name.setText(details.getName());
-        occupational.setText(details.getOccupational());
+        occupational.setText("教师");
         label.setText(details.getLabel());
-        startTime.setText(details.getStartTime() + "");
-        endTime.setText(details.getEndTime() + "");
+        startTime.setText(TimeUtil.INSTANCE.getTimeFromTimestamp(details.getStartTime()));
+        endTime.setText(TimeUtil.INSTANCE.getTimeFromTimestamp(details.getEndTime()));
         theme.setText(details.getTheme());
         title.setText(details.getTitle());
     }

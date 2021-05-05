@@ -161,6 +161,8 @@ public class MiddleStudentFragment extends Fragment {
             checkOnDetail.setAttendance(attendance);
             TeacherBean teacher = new TeacherBean();
             teacher.setName("翟社平");
+            teacher.setAvatar(
+                    "https://user-gold-cdn.xitu.io/2018/6/20/1641b2b7bbbd3323?imageView2/1/w/180/h/180/q/85/format/webp/interlace/1");
             ClassModel classModel = new ClassModel();
             classModel.setTeacher(teacher);
             checkOnDetail.getAttendance().setClassDetail(classModel);
@@ -179,6 +181,8 @@ public class MiddleStudentFragment extends Fragment {
             checkOnDetail.setAttendance(attendance);
             TeacherBean teacher = new TeacherBean();
             teacher.setName("翟社平");
+            teacher.setAvatar(
+                    "https://user-gold-cdn.xitu.io/2018/6/20/1641b2b7bbbd3323?imageView2/1/w/180/h/180/q/85/format/webp/interlace/1");
             ClassModel classModel = new ClassModel();
             classModel.setTeacher(teacher);
             checkOnDetail.getAttendance().setClassDetail(classModel);
@@ -197,6 +201,8 @@ public class MiddleStudentFragment extends Fragment {
             checkOnDetail.setAttendance(attendance);
             TeacherBean teacher = new TeacherBean();
             teacher.setName("翟社平");
+            teacher.setAvatar(
+                    "https://user-gold-cdn.xitu.io/2018/6/20/1641b2b7bbbd3323?imageView2/1/w/180/h/180/q/85/format/webp/interlace/1");
             ClassModel classModel = new ClassModel();
             classModel.setTeacher(teacher);
             checkOnDetail.getAttendance().setClassDetail(classModel);
@@ -213,6 +219,8 @@ public class MiddleStudentFragment extends Fragment {
                 if (checkOn.getStudent() != null) {
                     allSignData.setStudentId(checkOn.getStudent().getId());
                 }
+                allSignData.setImage(
+                        checkOn.getAttendance().getClassDetail().getTeacher().getAvatar());
                 allSignData.setAttendanceId(checkOn.getAttendance().getId());
                 allSignData.setTitle(checkOn.getAttendance().getTitle());
                 allSignData
@@ -323,7 +331,6 @@ public class MiddleStudentFragment extends Fragment {
                     details.setStartTime(itemData.getStartTime());
                     details.setLabel(itemData.getLabelTitle());
                     details.setTheme(itemData.getTheme());
-                    details.setOccupational(itemData.getOccupational());
                     details.setTitle(itemData.getTitle());
                     MiddleDetailsActivity.startDetails(getContext(), details);
                 });

@@ -61,11 +61,8 @@ public class ItemData {
         @SerializedName("Name")
         private String name; // 老师的名字
 
-        @SerializedName("Occupational")
-        private String occupational; // 老师的职业
-
         @SerializedName("image")
-        private File image; // 老师的图像
+        private String image; // 老师的图像
 
         @SerializedName("Title")
         private String title; // 签到的内容
