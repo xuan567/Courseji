@@ -12,7 +12,6 @@ import static com.littlecorgi.middle.logic.dao.Tool.SOG;
 import static com.littlecorgi.middle.logic.dao.Tool.STookPhoto;
 import static com.littlecorgi.middle.logic.dao.Tool.SUnFinish;
 import static com.littlecorgi.middle.logic.dao.WindowHelp.setWindowStatusBarColor;
-import static com.littlecorgi.middle.logic.network.RetrofitHelp.postStudentSign;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -40,13 +39,15 @@ import com.google.gson.Gson;
 import com.littlecorgi.commonlib.BaseActivity;
 import com.littlecorgi.commonlib.util.DialogUtil;
 import com.littlecorgi.middle.R;
+import com.littlecorgi.middle.logic.CheckOnRepository;
 import com.littlecorgi.middle.logic.RetrofitRepository;
 import com.littlecorgi.middle.logic.dao.BaiDuMapService;
 import com.littlecorgi.middle.logic.dao.LocationService;
 import com.littlecorgi.middle.logic.dao.PassedIngLat;
+import com.littlecorgi.middle.logic.model.CheckInResponse;
 import com.littlecorgi.middle.logic.model.FaceRecognitionResponse;
+import com.littlecorgi.middle.logic.model.LogAndLat;
 import com.littlecorgi.middle.logic.model.Sign;
-import com.littlecorgi.middle.logic.model.SignResult;
 import com.littlecorgi.middle.logic.network.MyLocationListener;
 import java.io.File;
 import java.io.IOException;
@@ -55,13 +56,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import okhttp3.ResponseBody;
-import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * 登录Activity 这里本来是要根据签到方式的不同展示不同的签页面，把签到方式的页面分为四种，目前使用的是用地图做展示 未完成的： 人脸识别完成签到
+ * 签到Activity 这里本来是要根据签到方式的不同展示不同的签页面，把签到方式的页面分为四种，目前使用的是用地图做展示 未完成的： 人脸识别完成签到
  */
 public class MiddleSignActivity extends BaseActivity {
 
@@ -347,7 +347,7 @@ public class MiddleSignActivity extends BaseActivity {
                                 Log.d(TAG, "location: mSign lat = " + mSign.getLat()
                                         + " ing = " + mSign.getLng());
                                 LatLng center = new LatLng(mSign.getLat(), mSign.getLng());
-                                final int radius = 50;
+                                final int radius = 400;
                                 mBaiDuMapService.addMarker(center);
                                 mBaiDuMapService.setCircle(center, radius);
                                 LatLng point = new LatLng(mLat, mLng);
@@ -379,25 +379,37 @@ public class MiddleSignActivity extends BaseActivity {
      * 签到请求发起
      */
     private void response() {
-        Call<SignResult> call = postStudentSign(new File(path));
-        call.enqueue(
-                new Callback<SignResult>() {
-                    @Override
-                    public void onResponse(
-                            @NotNull Call<SignResult> call,
-                            @NotNull Response<SignResult> response) {
+        Dialog loading = DialogUtil.writeLoadingDialog(this, false, "签到中");
+        loading.show();
+        loading.setCancelable(false);
+        LogAndLat logAndLat = new LogAndLat();
+        logAndLat.setLatitude(mLat);
+        logAndLat.setLongitude(mLng);
+        Call<CheckInResponse> checkInResponseCall =
+                CheckOnRepository.checkIn(mSign.getStudentId(), mSign.getAttendanceId(), logAndLat);
+        checkInResponseCall.enqueue(new Callback<CheckInResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<CheckInResponse> call,
+                                   @NonNull Response<CheckInResponse> response) {
+                loading.cancel();
+                Log.d(TAG, "onResponse: " + response.toString());
+                CheckInResponse check = response.body();
+                assert check != null;
+                if (check.getStatus() == 800) {
+                    showSuccessToast(MiddleSignActivity.this, "签到成功", true, Toast.LENGTH_SHORT);
+                    finish();
+                } else {
+                    showErrorToast(MiddleSignActivity.this, "错误信息：" + check.getMsg(), true,
+                            Toast.LENGTH_SHORT);
+                }
+            }
 
-                        // 删除上个视图
-                        ((ViewGroup) mLastView.getParent()).removeView(mLastView);
-                        initSFinish();
-                    }
-
-                    @Override
-                    public void onFailure(@NotNull Call<SignResult> call, @NotNull Throwable t) {
-                        Toast.makeText(MiddleSignActivity.this, "请检查网络后重试", Toast.LENGTH_LONG)
-                                .show();
-                    }
-                });
+            @Override
+            public void onFailure(@NonNull Call<CheckInResponse> call, @NonNull Throwable t) {
+                loading.cancel();
+                showErrorToast(MiddleSignActivity.this, "网络错误", true, Toast.LENGTH_SHORT);
+            }
+        });
     }
 
     private void initSLeave() {

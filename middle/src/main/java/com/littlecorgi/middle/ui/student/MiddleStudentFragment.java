@@ -210,6 +210,10 @@ public class MiddleStudentFragment extends Fragment {
             for (CheckOnDetail checkOn : mList) {
                 ItemData.AllSignData allSignData = new ItemData.AllSignData();
                 allSignData.setCheckOnId(checkOn.getId());
+                if (checkOn.getStudent() != null) {
+                    allSignData.setStudentId(checkOn.getStudent().getId());
+                }
+                allSignData.setAttendanceId(checkOn.getAttendance().getId());
                 allSignData.setTitle(checkOn.getAttendance().getTitle());
                 allSignData
                         .setName(checkOn.getAttendance().getClassDetail().getTeacher().getName());
@@ -290,6 +294,7 @@ public class MiddleStudentFragment extends Fragment {
                 isSuccess[0] = true;
                 loading.cancel();
                 t.printStackTrace();
+                Log.d("MiddleStudentFragment", "onFailure: " + t.getMessage());
                 Toast.makeText(requireContext(), "网络错误", Toast.LENGTH_SHORT).show();
             }
         });
@@ -347,6 +352,8 @@ public class MiddleStudentFragment extends Fragment {
     private Sign convertSignDataToSign(ItemData.AllSignData itemData) {
         Sign sign = new Sign();
         sign.setCheckOnId(itemData.getCheckOnId());
+        sign.setStudentId(itemData.getStudentId());
+        sign.setAttendanceId(itemData.getAttendanceId());
         sign.setState(itemData.getState());
         sign.setLabel(itemData.getLabel());
         sign.setEndTime(itemData.getEndTime());

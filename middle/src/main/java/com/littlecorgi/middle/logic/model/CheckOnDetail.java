@@ -15,8 +15,8 @@ public class CheckOnDetail implements Serializable {
     private static final long serialVersionUID = 1234567890502L;
     private long id;
     private int checkOnStates;
-    private long longitude;
-    private long latitude;
+    private double longitude;
+    private double latitude;
     private StudentBean student;
     private AttendanceBean attendance;
 }

@@ -9,11 +9,14 @@ import lombok.Data;
  */
 @Data
 public class FaceRecognitionResponse {
+
+    private static final long serialVersionUID = 1234567890508L;
+
     int status;
 
     String msg;
 
-    Float data;
+    float data;
 
     String errorMsg;
 
@@ -33,11 +36,11 @@ public class FaceRecognitionResponse {
         this.msg = msg;
     }
 
-    public Float getData() {
+    public float getData() {
         return data;
     }
 
-    public void setData(Float data) {
+    public void setData(float data) {
         this.data = data;
     }
 
