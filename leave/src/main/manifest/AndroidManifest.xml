@@ -34,7 +34,7 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="E2FgLTZO2dqHCCMz4dGu0kc0tuurco25" />
 
-        <activity android:name=".student.StudentLeaveActivity">
+        <activity android:name=".ui.StudentLeaveActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,10 +1,11 @@
-package com.littlecorgi.leave.student;
+package com.littlecorgi.leave.ui.adapter;
 
 import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
+import com.littlecorgi.leave.ui.util.Tools;
 import com.luck.picture.lib.photoview.PhotoView;
 import java.util.List;
 

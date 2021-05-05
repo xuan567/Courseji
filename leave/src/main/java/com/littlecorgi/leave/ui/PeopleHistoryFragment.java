@@ -1,4 +1,4 @@
-package com.littlecorgi.leave.student;
+package com.littlecorgi.leave.ui;
 
 import static android.content.Context.VIBRATOR_SERVICE;
 
@@ -153,15 +153,14 @@ public class PeopleHistoryFragment extends Fragment {
 
     private void setEvent() {
         mResumptionButton.setOnClickListener(v -> {
-                    mResumptionButton.setText("已销假");
-                    mResumptionButton.setBackgroundResource(R.drawable.button_shape2);
-                    Vibrator vibrator = (Vibrator) requireActivity().getSystemService(VIBRATOR_SERVICE);
-                    vibrator.vibrate(500);
-                    mLocationImage.setVisibility(View.VISIBLE);
-                    requestLocation();
-                    Toast.makeText(requireActivity(), "销假成功", Toast.LENGTH_SHORT).show();
-                }
-        );
+            mResumptionButton.setText("已销假");
+            mResumptionButton.setBackgroundResource(R.drawable.button_shape2);
+            Vibrator vibrator = (Vibrator) requireActivity().getSystemService(VIBRATOR_SERVICE);
+            vibrator.vibrate(500);
+            mLocationImage.setVisibility(View.VISIBLE);
+            requestLocation();
+            Toast.makeText(requireActivity(), "销假成功", Toast.LENGTH_SHORT).show();
+        });
         mButtonReturn.setOnClickListener(v -> {
             FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
             fragmentManager.popBackStack();

@@ -1,4 +1,4 @@
-package com.littlecorgi.leave.student;
+package com.littlecorgi.leave.ui;
 
 import android.content.Intent;
 import android.os.Bundle;

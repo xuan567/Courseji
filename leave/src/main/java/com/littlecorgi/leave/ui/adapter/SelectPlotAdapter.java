@@ -1,4 +1,4 @@
-package com.littlecorgi.leave.student;
+package com.littlecorgi.leave.ui.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.littlecorgi.leave.R;
+import com.littlecorgi.leave.ui.Tools;
 import java.util.List;
 
 /**

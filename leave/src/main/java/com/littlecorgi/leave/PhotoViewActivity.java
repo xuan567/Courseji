@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.viewpager.widget.ViewPager;
 import butterknife.ButterKnife;
 import com.littlecorgi.leave.databinding.PhotoViewBinding;
-import com.littlecorgi.leave.student.MyImageAdapter;
+import com.littlecorgi.leave.ui.adapter.MyImageAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
