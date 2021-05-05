@@ -113,10 +113,10 @@ public class MiddleStudentFragment extends Fragment {
     private void initSmartRefreshLayout() {
         RefreshLayout refreshLayout = mView.findViewById(R.id.refreshLayout);
         refreshLayout.setRefreshHeader(new ClassicsHeader(requireContext()));
-        refreshLayout.setOnRefreshListener(
-                refreshLayout1 -> {
-                    refreshLayout1.finishRefresh(true);
-                });
+        refreshLayout.setOnRefreshListener(v -> {
+            initData();
+            v.finishRefresh(true);
+        });
     }
 
     private void initClick() {
@@ -222,6 +222,7 @@ public class MiddleStudentFragment extends Fragment {
                 allSignData.setEndTime(checkOn.getAttendance().getEndTime());
                 allSignData.setLat(checkOn.getAttendance().getLatitude());
                 allSignData.setLng(checkOn.getAttendance().getLongitude());
+                allSignData.setRadius(checkOn.getAttendance().getRadius());
                 allSignData.setTheme(checkOn.getAttendance().getTitle());
                 allSignData.setState(checkOn.getCheckOnStates());
                 allSignData.setLabel(SFaceLocation);
@@ -360,6 +361,7 @@ public class MiddleStudentFragment extends Fragment {
         sign.setFinishTime(itemData.getFinishTime());
         sign.setLat(itemData.getLat());
         sign.setLng(itemData.getLng());
+        sign.setRadius(itemData.getRadius());
         return sign;
     }
 }

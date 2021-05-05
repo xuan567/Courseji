@@ -79,6 +79,9 @@ public class ItemData {
         @SerializedName("Lng")
         private double lng; // 经度
 
+        @SerializedName("Radius")
+        private int radius; // 签到范围
+
         @SerializedName("signPhoto")
         private File signPhoto; // 如果是拍照签到需要返回图片
     }

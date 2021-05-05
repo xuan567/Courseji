@@ -68,7 +68,6 @@ public class MiddleSignActivity extends BaseActivity {
     private static final String TAG = "MiddleSignActivity";
 
     private AppCompatTextView mReturnButton;
-
     private BaiDuMapService mBaiDuMapService;
     private LocationService mLocationService;
     private MapView mMapView;
@@ -77,6 +76,7 @@ public class MiddleSignActivity extends BaseActivity {
     private int mLabel;
     private double mLat;
     private double mLng;
+    private int mRadius;
     private boolean mIsHaveMapView = false;
     private boolean mIsIn = false;
     private View mLastView; // 被删除前的view
@@ -89,6 +89,7 @@ public class MiddleSignActivity extends BaseActivity {
         Intent intent = getIntent();
         mSign = (Sign) intent.getSerializableExtra("sign");
         mPicUri = intent.getParcelableExtra("picUri");
+        mRadius = mSign.getRadius();
 
         initView();
         initPermission();
@@ -184,7 +185,7 @@ public class MiddleSignActivity extends BaseActivity {
     }
 
     private void onGoingFaceLocation() {
-        // doFaceRecognition();
+        doFaceRecognition();
         doLocation();
     }
 
@@ -347,12 +348,11 @@ public class MiddleSignActivity extends BaseActivity {
                                 Log.d(TAG, "location: mSign lat = " + mSign.getLat()
                                         + " ing = " + mSign.getLng());
                                 LatLng center = new LatLng(mSign.getLat(), mSign.getLng());
-                                final int radius = 400;
                                 mBaiDuMapService.addMarker(center);
-                                mBaiDuMapService.setCircle(center, radius);
+                                mBaiDuMapService.setCircle(center, mRadius);
                                 LatLng point = new LatLng(mLat, mLng);
                                 mIsIn = SpatialRelationUtil
-                                        .isCircleContainsPoint(center, radius, point);
+                                        .isCircleContainsPoint(center, mRadius, point);
                                 if (mIsIn) {
                                     text.setText("已在指定范围内");
                                     text.setTextColor(getResources().getColor(R.color.finish));

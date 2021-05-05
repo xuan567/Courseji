@@ -20,5 +20,6 @@ public class AttendanceBean implements Serializable {
     private long endTime;
     private double latitude;
     private double longitude;
+    private int radius;
     private ClassModel classDetail;
 }

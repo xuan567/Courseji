@@ -21,4 +21,5 @@ public class Sign implements Serializable {
     private long endTime;
     private double lat;
     private double lng;
+    private int radius;
 }
