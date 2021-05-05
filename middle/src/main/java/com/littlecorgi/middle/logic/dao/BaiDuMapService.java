@@ -97,12 +97,12 @@ public class BaiDuMapService {
      *
      * @param center 圆形中心点
      */
-    public void setCircle(LatLng center) {
+    public void setCircle(LatLng center, int radius) {
         // 构造CircleOptions对象
         CircleOptions circleOptions =
                 new CircleOptions()
                         .center(center)
-                        .radius(100)
+                        .radius(radius)
                         .fillColor(0xAA0000FF) // 填充颜色
                         .stroke(new Stroke(5, 0xAA00ff00)); // 边框宽和边框颜色
         mBaiDuMap.addOverlay(circleOptions);

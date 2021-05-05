@@ -30,6 +30,9 @@ public class ItemData {
         private int leftColor; // 左边框的颜色
         private int myLabel; // 应该是myState写错了
 
+        @SerializedName("CheckOnId")
+        private long checkOnId; // 签到id
+
         @SerializedName("Theme")
         private String theme; // 主题
 
@@ -61,13 +64,21 @@ public class ItemData {
         private long finishTime; // 完成签到的时间
 
         @SerializedName("Lat")
-        private String lat; // 纬度
+        private double lat; // 纬度
 
-        @SerializedName("Ing")
-        private String ing; // 经度
+        @SerializedName("Lng")
+        private double lng; // 经度
 
         @SerializedName("signPhoto")
         private File signPhoto; // 如果是拍照签到需要返回图片
+
+        public long getCheckOnId() {
+            return checkOnId;
+        }
+
+        public void setCheckOnId(long checkOnId) {
+            this.checkOnId = checkOnId;
+        }
 
         public String getStateTitle() {
             return stateTitle;
@@ -181,20 +192,20 @@ public class ItemData {
             this.finishTime = finishTime;
         }
 
-        public String getLat() {
+        public double getLat() {
             return lat;
         }
 
-        public void setLat(String lat) {
+        public void setLat(double lat) {
             this.lat = lat;
         }
 
-        public String getIng() {
-            return ing;
+        public double getLng() {
+            return lng;
         }
 
-        public void setIng(String ing) {
-            this.ing = ing;
+        public void setLng(double ing) {
+            this.lng = ing;
         }
 
         public File getSignPhoto() {

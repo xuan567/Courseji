@@ -1,5 +1,7 @@
 package com.littlecorgi.middle.ui.student;
 
+import static com.littlecorgi.middle.logic.dao.Tool.SFaceLocation;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -52,8 +54,8 @@ public class MiddleStudentFragment extends Fragment {
 
     private View mView;
     private MyAdapter mAdapt;
-    private List<CheckOnDetail> mList = new ArrayList<>();
-    private List<ItemData.AllSignData> mSignList = new ArrayList<>();
+    private final List<CheckOnDetail> mList = new ArrayList<>();
+    private final List<ItemData.AllSignData> mSignList = new ArrayList<>();
     private SharedPreferences sp;
     private long studentId;
 
@@ -98,12 +100,7 @@ public class MiddleStudentFragment extends Fragment {
         studentId = sp.getLong(UserSPConstant.STUDENT_USER_ID, 1L);
 
         initView();
-
-        if (studentId == -1) {
-            Toast.makeText(requireContext(), "获取不到用户数据", Toast.LENGTH_SHORT).show();
-        } else {
-            initData();
-        }
+        initData();
     }
 
     private void initView() {
@@ -139,8 +136,11 @@ public class MiddleStudentFragment extends Fragment {
         setItemData();
         mAdapt.notifyDataSetChanged();
 
-        return getResponseData();
-        // return false;
+        if (studentId == -1) {
+            return false;
+        } else {
+            return getResponseData();
+        }
     }
 
     private void changeBarColor() {
@@ -209,16 +209,18 @@ public class MiddleStudentFragment extends Fragment {
             mSignList.clear();
             for (CheckOnDetail checkOn : mList) {
                 ItemData.AllSignData allSignData = new ItemData.AllSignData();
+                allSignData.setCheckOnId(checkOn.getId());
                 allSignData.setTitle(checkOn.getAttendance().getTitle());
                 allSignData
                         .setName(checkOn.getAttendance().getClassDetail().getTeacher().getName());
                 allSignData.setState(checkOn.getCheckOnStates());
                 allSignData.setStartTime(checkOn.getAttendance().getStartTime());
                 allSignData.setEndTime(checkOn.getAttendance().getEndTime());
-                allSignData.setLat(checkOn.getAttendance().getLatitude() + "");
-                allSignData.setIng(checkOn.getAttendance().getLongitude() + "");
+                allSignData.setLat(checkOn.getAttendance().getLatitude());
+                allSignData.setLng(checkOn.getAttendance().getLongitude());
                 allSignData.setTheme(checkOn.getAttendance().getTitle());
                 allSignData.setState(checkOn.getCheckOnStates());
+                allSignData.setLabel(SFaceLocation);
                 if (allSignData.getState() == 0) {
                     // 待签到
                     long end = allSignData.getEndTime();
@@ -300,7 +302,6 @@ public class MiddleStudentFragment extends Fragment {
         LinearLayoutManager linearLayoutManager =
                 new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mSignList = new ArrayList<>();
         mAdapt = new MyAdapter(R.layout.middle_item_recyclerview, mSignList);
         recyclerView.setAdapter(mAdapt);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -324,29 +325,34 @@ public class MiddleStudentFragment extends Fragment {
         mAdapt.addChildClickViewIds(R.id.middle_item_sign);
         mAdapt.setOnItemChildClickListener(
                 (adapter, view, position) -> {
-                    // 未签到才跳转
-                    if (mSignList.get(position).getState() == 0) {
-                        // Pass in the mime type you'd like to allow the user to select
-                        // as the input
-                        mGetContent.launch(new Intent(requireContext(), CameraActivity.class)
-                                .putExtra("position", position));
-                    } else if (mSignList.get(position).getState() == 1) {
-                        Toast.makeText(requireContext(), "签到已结束", Toast.LENGTH_SHORT).show();
-                    } else if (mSignList.get(position).getState() == 2) {
-                        Toast.makeText(requireContext(), "已请假，不用签到", Toast.LENGTH_SHORT).show();
+                    if (mSignList.get(position).getCheckOnId() != 0) {
+                        // 未签到才跳转
+                        if (mSignList.get(position).getState() == 0) {
+                            // Pass in the mime type you'd like to allow the user to select
+                            // as the input
+                            mGetContent.launch(new Intent(requireContext(), CameraActivity.class)
+                                    .putExtra("position", position));
+                        } else if (mSignList.get(position).getState() == 1) {
+                            Toast.makeText(requireContext(), "签到已结束", Toast.LENGTH_SHORT).show();
+                        } else if (mSignList.get(position).getState() == 2) {
+                            Toast.makeText(requireContext(), "已请假，不用签到", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(requireContext(), "本地mock数据，不许跳转", Toast.LENGTH_SHORT)
+                                .show();
                     }
                 });
     }
 
     private Sign convertSignDataToSign(ItemData.AllSignData itemData) {
         Sign sign = new Sign();
+        sign.setCheckOnId(itemData.getCheckOnId());
         sign.setState(itemData.getState());
         sign.setLabel(itemData.getLabel());
         sign.setEndTime(itemData.getEndTime());
         sign.setFinishTime(itemData.getFinishTime());
-        // sign.setTakePhoto(itemData.getBgImage());
         sign.setLat(itemData.getLat());
-        sign.setLng(itemData.getIng());
+        sign.setLng(itemData.getLng());
         return sign;
     }
 }

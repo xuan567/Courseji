@@ -7,13 +7,22 @@ import java.io.Serializable;
  */
 public class Sign implements Serializable {
 
+    private long checkOnId;
     private int state;
     private int label;
     private int takePhoto;
     private long finishTime;
     private long endTime;
-    private String lat;
-    private String lng;
+    private double lat;
+    private double lng;
+
+    public long getCheckOnId() {
+        return checkOnId;
+    }
+
+    public void setCheckOnId(long checkOnId) {
+        this.checkOnId = checkOnId;
+    }
 
     public int getState() {
         return state;
@@ -55,19 +64,19 @@ public class Sign implements Serializable {
         this.endTime = endTime;
     }
 
-    public String getLat() {
+    public double getLat() {
         return lat;
     }
 
-    public void setLat(String lat) {
+    public void setLat(double lat) {
         this.lat = lat;
     }
 
-    public String getLng() {
+    public double getLng() {
         return lng;
     }
 
-    public void setLng(String lng) {
+    public void setLng(double lng) {
         this.lng = lng;
     }
 }

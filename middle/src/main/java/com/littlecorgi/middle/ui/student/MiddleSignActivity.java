@@ -83,7 +83,7 @@ public class MiddleSignActivity extends BaseActivity {
     private Uri mPicUri;
     private int mLabel;
     private double mLat;
-    private double mIng;
+    private double mLng;
     private boolean mIsHaveMapView = false;
     private boolean mIsIn = false;
     private View mLastView; // 被删除前的view
@@ -112,6 +112,26 @@ public class MiddleSignActivity extends BaseActivity {
         setWindowStatusBarColor(this, R.color.blue);
     }
 
+    private void initFind() {
+        mReturnButton = findViewById(R.id.middle_sign_returnButton);
+    }
+
+    private void initClick() {
+        mReturnButton.setOnClickListener(v -> finish());
+    }
+
+    private void initPermission() {
+        andPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_WIFI_STATE,
+                Manifest.permission.ACCESS_NETWORK_STATE,
+                Manifest.permission.CHANGE_WIFI_STATE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE);
+    }
+
     private void initData() {
         assert mSign != null;
         int state = mSign.getState();
@@ -137,18 +157,6 @@ public class MiddleSignActivity extends BaseActivity {
         }
     }
 
-    private void initPermission() {
-        andPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_WIFI_STATE,
-                Manifest.permission.ACCESS_NETWORK_STATE,
-                Manifest.permission.CHANGE_WIFI_STATE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE);
-    }
-
     private View addView(int layout) {
         View view = View.inflate(this, layout, null);
         ConstraintLayout.LayoutParams lp =
@@ -157,14 +165,6 @@ public class MiddleSignActivity extends BaseActivity {
                         ConstraintLayout.LayoutParams.MATCH_PARENT);
         this.addContentView(view, lp);
         return view;
-    }
-
-    private void initClick() {
-        mReturnButton.setOnClickListener(v -> finish());
-    }
-
-    private void initFind() {
-        mReturnButton = findViewById(R.id.middle_sign_returnButton);
     }
 
     private void initOnGoing() {
@@ -339,17 +339,19 @@ public class MiddleSignActivity extends BaseActivity {
                         mBaiDuMapService,
                         new PassedIngLat() {
                             @Override
-                            public void location(String lat, String ing, String cty) {
+                            public void location(String lat, String lng, String cty) {
                                 mLat = Double.parseDouble(lat);
-                                mIng = Double.parseDouble(ing);
-                                LatLng center =
-                                        new LatLng(
-                                                Double.parseDouble(mSign.getLat()),
-                                                Double.parseDouble(mSign.getLng()));
-                                mBaiDuMapService.setCircle(center);
-                                LatLng point = new LatLng(mLat, mIng);
+                                mLng = Double.parseDouble(lng);
+                                Log.d(TAG, "location: lat = " + lat + " ing = " + lng);
+                                Log.d(TAG, "location: mSign lat = " + mSign.getLat()
+                                        + " ing = " + mSign.getLng());
+                                LatLng center = new LatLng(mSign.getLat(), mSign.getLng());
+                                final int radis = 50;
+                                mBaiDuMapService.addMarker(center);
+                                mBaiDuMapService.setCircle(center, radis);
+                                LatLng point = new LatLng(mLat, mLng);
                                 mIsIn = SpatialRelationUtil
-                                        .isCircleContainsPoint(center, 50, point);
+                                        .isCircleContainsPoint(center, radis, point);
                                 if (mIsIn) {
                                     text.setText("已在指定范围内");
                                     text.setTextColor(getResources().getColor(R.color.finish));
