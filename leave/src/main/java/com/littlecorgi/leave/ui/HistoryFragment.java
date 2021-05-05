@@ -21,6 +21,7 @@ import com.littlecorgi.leave.logic.LeaveRepository;
 import com.littlecorgi.leave.logic.model.AllLeaveResponse;
 import com.littlecorgi.leave.logic.model.LeaveBean;
 import com.littlecorgi.leave.ui.adapter.LeaveHistoryAdapter;
+import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;
@@ -55,6 +56,14 @@ public class HistoryFragment extends Fragment {
             recyclerView.setLayoutManager(layoutManager);
             mAdapter = new LeaveHistoryAdapter(requireActivity(), mLeaveList);
             recyclerView.setAdapter(mAdapter);
+
+            RefreshLayout refreshLayout = (RefreshLayout) view.findViewById(R.id.history_refresh);
+            refreshLayout.setEnableRefresh(true);
+            refreshLayout.setPrimaryColorsId(R.color.colorPrimary, android.R.color.white);
+            refreshLayout.setOnRefreshListener(refreshLayout1 -> {
+                initHistories();
+                refreshLayout.finishRefresh(true);
+            });
         } else {
             Toast.makeText(requireContext(), "未登录或者数据错误", Toast.LENGTH_SHORT).show();
         }
