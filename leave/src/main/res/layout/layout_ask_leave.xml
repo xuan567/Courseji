@@ -1,412 +1,361 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ask_leave"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#F8F8F8"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nsv_data_view"
+    <data>
+
+    </data>
+
+    <FrameLayout
+        android:id="@+id/ask_leave"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="visible">
+        android:layout_height="match_parent"
+        android:background="#F8F8F8"
+        android:orientation="vertical">
 
-
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nsv_data_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/view_shape"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_margin="10dp"
-                        android:textColor="@android:color/black"
-                        android:text="姓  名 :"
-                        android:textSize="15sp" />
-
-                    <EditText
-                        android:id="@+id/edit_text_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="10dp"
-                        android:background="@null"
-                        android:textCursorDrawable="@drawable/edit_text_shape"
-                        android:textColor="#686B6E"
-                        android:maxLength="10"
-                        android:textSize="15sp"
-                        android:hint="姓名" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_margin="10dp"
-                        android:text="班  级 :"
-                        android:textColor="@android:color/black"
-                        android:textSize="15sp" />
-
-                    <EditText
-                        android:id="@+id/edit_text_class"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="10dp"
-                        android:background="@null"
-                        android:maxLength="10"
-                        android:textColor="#686B6E"
-                        android:textCursorDrawable="@drawable/edit_text_shape"
-                        android:textSize="15sp"
-                        android:hint="班级" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_margin="10dp"
-                        android:text="请假类型 :"
-                        android:textColor="@android:color/black"
-                        android:textSize="15sp" />
-
-                    <RadioGroup
-                        android:id="@+id/rg_type1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <RadioButton
-                            android:id="@+id/rg_sick"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="病假"
-                            android:textColor="#686B6E"
-                            android:buttonTint="@color/blue_title"
-                            android:textSize="15sp" />
-
-                        <RadioButton
-                            android:id="@+id/rg_thing"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="事假"
-                            android:textColor="#686B6E"
-                            android:buttonTint="@color/blue_title"
-                            android:textSize="15sp" />
-
-                        <RadioButton
-                            android:id="@+id/rg_other"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="其他"
-                            android:textColor="#686B6E"
-                            android:buttonTint="@color/blue_title"
-                            android:textSize="15sp" />
-
-                    </RadioGroup>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_margin="10dp"
-                        android:text="是否离校 :"
-                        android:textColor="@android:color/black"
-                        android:textSize="15sp" />
-
-                    <RadioGroup
-                        android:id="@+id/rg_type2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <RadioButton
-                            android:id="@+id/rg_yes"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="是"
-                            android:textColor="#686B6E"
-                            android:buttonTint="@color/blue_title"
-                            android:textSize="15sp" />
-
-                        <RadioButton
-                            android:id="@+id/rg_no"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="否"
-                            android:textColor="#686B6E"
-                            android:buttonTint="@color/blue_title"
-                            android:textSize="15sp" />
-
-
-                    </RadioGroup>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_margin="10dp"
-                        android:text="开始时间 :"
-                        android:textColor="@android:color/black"
-                        android:textSize="15sp" />
-
-                    <EditText
-                        android:id="@+id/edit_text_start_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="10dp"
-                        android:background="@null"
-                        android:maxLength="10"
-                        android:textColor="#686B6E"
-                        android:textCursorDrawable="@drawable/edit_text_shape"
-                        android:hint="2021-1.1"
-                        android:textSize="15sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_margin="10dp"
-                        android:text="结束时间 :"
-                        android:textColor="@android:color/black"
-                        android:textSize="15sp" />
-
-                    <EditText
-                        android:id="@+id/edit_text_end_time"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="10dp"
-                        android:background="@null"
-                        android:maxLength="10"
-                        android:hint="2021-1.1"
-                        android:textCursorDrawable="@drawable/edit_text_shape"
-                        android:textColor="#686B6E"
-                        android:textSize="15sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_margin="10dp"
-                        android:text="销假地点 :"
-                        android:textColor="@android:color/black"
-                        android:textSize="15sp" />
-
-                    <EditText
-                        android:id="@+id/edit_text_place"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="10dp"
-                        android:background="@null"
-                        android:maxLength="10"
-                        android:hint="地点"
-                        android:textColor="#686B6E"
-                        android:textSize="15sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_margin="10dp"
-                        android:text="联系方式"
-                        android:textColor="@android:color/black"
-                        android:textSize="15sp" />
-
-                    <EditText
-                        android:id="@+id/edit_text_my_phone"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="10dp"
-                        android:background="@null"
-                        android:maxLength="20"
-                        android:hint="自己的电话"
-                        android:textCursorDrawable="@drawable/edit_text_shape"
-                        android:textColor="#686B6E"
-                        android:textSize="15sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_margin="10dp"
-                        android:text="紧急联系人"
-                        android:textColor="@android:color/black"
-                        android:textSize="15sp" />
-
-                    <EditText
-                        android:id="@+id/edit_text_other_phone"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="10dp"
-                        android:background="@null"
-                        android:maxLength="20"
-                        android:hint="紧急联系人电话"
-                        android:textCursorDrawable="@drawable/edit_text_shape"
-                        android:textColor="#686B6E"
-                        android:textSize="15sp" />
-                </LinearLayout>
-
-            </LinearLayout>
+            android:visibility="visible">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/view_shape"
                 android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/view_shape"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_margin="10dp"
+                            android:text="班  级 :"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp" />
+
+                        <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/sniper_class"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:background="@null"
+                            android:maxLength="10"
+                            android:textColor="#686B6E"
+                            android:textCursorDrawable="@drawable/edit_text_shape"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_margin="10dp"
+                            android:text="请假类型 :"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp" />
+
+                        <RadioGroup
+                            android:id="@+id/rg_type1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:id="@+id/rg_sick"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="病假"
+                                android:textColor="#686B6E"
+                                android:buttonTint="@color/blue_title"
+                                android:textSize="15sp" />
+
+                            <RadioButton
+                                android:id="@+id/rg_thing"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="事假"
+                                android:textColor="#686B6E"
+                                android:buttonTint="@color/blue_title"
+                                android:textSize="15sp" />
+
+                            <RadioButton
+                                android:id="@+id/rg_other"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="其他"
+                                android:textColor="#686B6E"
+                                android:buttonTint="@color/blue_title"
+                                android:textSize="15sp" />
+
+                        </RadioGroup>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_margin="10dp"
+                            android:text="是否离校 :"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp" />
+
+                        <RadioGroup
+                            android:id="@+id/rg_type2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:id="@+id/rg_yes"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="是"
+                                android:textColor="#686B6E"
+                                android:buttonTint="@color/blue_title"
+                                android:textSize="15sp" />
+
+                            <RadioButton
+                                android:id="@+id/rg_no"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="否"
+                                android:textColor="#686B6E"
+                                android:buttonTint="@color/blue_title"
+                                android:textSize="15sp" />
+
+
+                        </RadioGroup>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_margin="10dp"
+                            android:text="开始时间 :"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp" />
+
+                        <EditText
+                            android:id="@+id/edit_text_start_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:background="@null"
+                            android:maxLength="19"
+                            android:textColor="#686B6E"
+                            android:textCursorDrawable="@drawable/edit_text_shape"
+                            android:hint="2021-01-01 00:00:00"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_margin="10dp"
+                            android:text="结束时间 :"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp" />
+
+                        <EditText
+                            android:id="@+id/edit_text_end_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:background="@null"
+                            android:maxLength="19"
+                            android:hint="2021-01-01 00:00:00"
+                            android:textCursorDrawable="@drawable/edit_text_shape"
+                            android:textColor="#686B6E"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_margin="10dp"
+                            android:text="销假地点 :"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp" />
+
+                        <EditText
+                            android:id="@+id/edit_text_place"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:background="@null"
+                            android:maxLength="10"
+                            android:hint="地点"
+                            android:textColor="#686B6E"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_margin="10dp"
+                            android:text="紧急联系人"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp" />
+
+                        <EditText
+                            android:id="@+id/edit_text_other_phone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:background="@null"
+                            android:maxLength="20"
+                            android:hint="紧急联系人电话"
+                            android:textCursorDrawable="@drawable/edit_text_shape"
+                            android:textColor="#686B6E"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/view_shape"
                     android:orientation="vertical">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="请假情况说明"
-                        android:textColor="@android:color/black"
-                        android:textSize="15sp"
-                        android:layout_margin="10dp"
-                        android:layout_gravity="center_vertical" />
+                        android:orientation="vertical">
 
-                    <EditText
-                        android:gravity="top"
-                        android:background="@null"
-                        android:id="@+id/edit_text_leave_situation"
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
-                        android:textSize="15sp"
-                        android:layout_margin="10dp"
-                        android:textColor="#686B6E"
-                        android:textCursorDrawable="@drawable/edit_text_shape"
-                        android:hint="请输入情况说明" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="请假情况说明"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp"
+                            android:layout_margin="10dp"
+                            android:layout_gravity="center_vertical" />
+
+                        <EditText
+                            android:gravity="top"
+                            android:background="@null"
+                            android:id="@+id/edit_text_leave_situation"
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            android:textSize="15sp"
+                            android:layout_margin="10dp"
+                            android:textColor="#686B6E"
+                            android:textCursorDrawable="@drawable/edit_text_shape"
+                            android:hint="请输入情况说明" />
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/view_shape"
-                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/view_shape"
                     android:orientation="vertical">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="添加照片"
-                        android:textColor="@android:color/black"
-                        android:textSize="15sp"
-                        android:layout_margin="10dp"
-                        android:layout_gravity="center_vertical" />
+                        android:orientation="vertical">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:layout_margin="15dp"
-                        android:id="@+id/recycler" />
-                    <!--<ImageView-->
-                    <!--    android:id="@+id/image_add_picture"-->
-                    <!--    android:layout_width="70dp"-->
-                    <!--    android:layout_height="70dp"-->
-                    <!--    android:src="@drawable/add_picture"-->
-                    <!--    android:layout_margin="10dp"-->
-                    <!--    android:layout_gravity="center_vertical"/>-->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="添加照片"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp"
+                            android:layout_margin="10dp"
+                            android:layout_gravity="center_vertical" />
 
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:layout_margin="15dp"
+                            android:id="@+id/recycler" />
+                        <!--<ImageView-->
+                        <!--    android:id="@+id/image_add_picture"-->
+                        <!--    android:layout_width="70dp"-->
+                        <!--    android:layout_height="70dp"-->
+                        <!--    android:src="@drawable/add_picture"-->
+                        <!--    android:layout_margin="10dp"-->
+                        <!--    android:layout_gravity="center_vertical"/>-->
+
+                    </LinearLayout>
                 </LinearLayout>
+
+
+                <Button
+                    android:id="@+id/submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="确定保存"
+                    android:textColor="@android:color/white"
+                    android:textSize="15sp"
+                    android:background="@drawable/button_shape"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="25dp"
+                    android:layout_gravity="center" />
+
             </LinearLayout>
 
 
-            <Button
-                android:id="@+id/submit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="确定保存"
-                android:textColor="@android:color/white"
-                android:textSize="15sp"
-                android:background="@drawable/button_shape"
-                android:layout_marginBottom="20dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:layout_gravity="center" />
-
-        </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
 
-    </androidx.core.widget.NestedScrollView>
-
-
-</FrameLayout>
+    </FrameLayout>
+</layout>

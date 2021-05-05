@@ -1,4 +1,4 @@
-package com.littlecorgi.leave.ui;
+package com.littlecorgi.leave;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
-import com.littlecorgi.leave.R;
+import com.littlecorgi.leave.ui.AskLeaveFragment;
+import com.littlecorgi.leave.ui.HistoryFragment;
 import java.util.ArrayList;
 import java.util.List;
 import org.jetbrains.annotations.NotNull;

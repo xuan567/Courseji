@@ -1,8 +1,11 @@
 package com.littlecorgi.leave.logic;
 
 import com.littlecorgi.leave.logic.model.AllLeaveResponse;
+import com.littlecorgi.leave.logic.model.CreateLeaveResponse;
 import com.littlecorgi.leave.logic.model.GetLeaveResponse;
+import com.littlecorgi.leave.logic.model.LeaveRequest;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -16,4 +19,9 @@ interface LeaveInterface {
 
     @POST("/leave/getLeave")
     Call<GetLeaveResponse> getLeaveInfo(@Query("leaveId") long leaveId);
+
+    @POST("/leave/createLeave")
+    Call<CreateLeaveResponse> createLeave(@Query("studentId") long studentId,
+                                          @Query("classId") long classId,
+                                          @Body LeaveRequest leave);
 }
