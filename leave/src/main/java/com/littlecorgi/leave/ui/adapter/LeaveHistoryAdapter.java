@@ -35,16 +35,7 @@ public class LeaveHistoryAdapter extends RecyclerView.Adapter<LeaveHistoryAdapte
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.layout_history_leave_item, parent, false);
-        final ViewHolder holder = new ViewHolder(view);
-        holder.mHistoryView.setOnClickListener(v -> {
-            PeopleHistoryFragment peopleHistoryFragment = new PeopleHistoryFragment();
-            FragmentManager manager = mActivity.getSupportFragmentManager();
-            FragmentTransaction transaction = manager.beginTransaction();
-            transaction.replace(R.id.student_leave, peopleHistoryFragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
-        });
-        return holder;
+        return new ViewHolder(view);
     }
 
     @SuppressLint("SetTextI18n")
@@ -58,6 +49,15 @@ public class LeaveHistoryAdapter extends RecyclerView.Adapter<LeaveHistoryAdapte
                         + "至" + TimeUtil.INSTANCE.getTimeFromTimestamp(leaveBean.getEndTime()));
         holder.mLeaveReasonText.setText(leaveBean.getDescription());
         holder.mLeaveBackText.setText((leaveBean.getStates() == 1) ? "审批完成" : "待审批");
+        holder.mHistoryView.setOnClickListener(v -> {
+            PeopleHistoryFragment peopleHistoryFragment =
+                    new PeopleHistoryFragment(mLeaveList.get(position).getId());
+            FragmentManager manager = mActivity.getSupportFragmentManager();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.student_leave, peopleHistoryFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        });
     }
 
     @Override

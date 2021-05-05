@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.littlecorgi.leave.R;
-import com.littlecorgi.leave.ui.Tools;
+import com.littlecorgi.leave.ui.util.Tools;
 import java.util.List;
 
 /**

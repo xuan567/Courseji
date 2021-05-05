@@ -1,70 +1,60 @@
 package com.littlecorgi.leave.ui;
 
-import static android.content.Context.VIBRATOR_SERVICE;
-
 import android.Manifest;
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
-import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.bumptech.glide.Glide;
+import com.littlecorgi.commonlib.util.DialogUtil;
+import com.littlecorgi.commonlib.util.TimeUtil;
 import com.littlecorgi.leave.R;
+import com.littlecorgi.leave.databinding.LeaveSituationBinding;
+import com.littlecorgi.leave.logic.LeaveRepository;
+import com.littlecorgi.leave.logic.model.GetLeaveResponse;
+import com.littlecorgi.leave.logic.model.LeaveBean;
 import java.util.ArrayList;
 import java.util.List;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
- *
+ * 请假记录详情
  */
 public class PeopleHistoryFragment extends Fragment {
+
+    private static final String TAG = "PeopleHistoryFragment";
+
+    private final long mLeaveId;
 
     private Button mButtonReturn;
     private Button mTextViewReturn;
 
-    private TextView mNameText;
-    private TextView mStartTimeText;
-    private TextView mEndTimeText;
-    private TextView mType1Text;
-    private TextView mType2Text;
-    private TextView mPlaceText;
-    private TextView mMyPhoneText;
-    private TextView mOtherPhoneText;
-    private TextView mReasonText;
-
-    private String mName;
-    private String mNumber;
-    private String mStartTime;
-    private String mEndTime;
-    private String mType1;
-    private String mType2;
-    private String mPlace;
-    private String mMyPhone;
-    private String mOtherPhone;
-    private String mReason;
-    private ImageView mLocationImage;
-
-    // 销假按钮
-    private Button mResumptionButton;
-
-    private TextView mPositionText;
     public LocationClient mLocationClient;
+
+    private LeaveSituationBinding mBinding;
+
+    public PeopleHistoryFragment(long leaveId) {
+        mLeaveId = leaveId;
+    }
 
     @Nullable
     @Override
@@ -74,8 +64,7 @@ public class PeopleHistoryFragment extends Fragment {
             @Nullable Bundle savedInstanceState) {
         mLocationClient = new LocationClient(requireActivity().getApplicationContext());
         mLocationClient.registerLocationListener(new MyLocationListener());
-        View view = inflater.inflate(R.layout.leave_situation, container, false);
-        mPositionText = view.findViewById(R.id.location_text);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.leave_situation, container, false);
         List<String> permissionList = new ArrayList<>();
         if (ContextCompat.checkSelfPermission(
                 requireActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION)
@@ -95,8 +84,10 @@ public class PeopleHistoryFragment extends Fragment {
         if (!permissionList.isEmpty()) {
             String[] permission = permissionList.toArray(new String[0]);
             ActivityCompat.requestPermissions(requireActivity(), permission, 1);
+        } else {
+            requestLocation();
         }
-        return view;
+        return mBinding.getRoot();
     }
 
     @Override
@@ -104,63 +95,70 @@ public class PeopleHistoryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         findView(view);
         getData();
-        showData();
         setEvent();
     }
 
     private void findView(View view) {
         mButtonReturn = view.findViewById(R.id.btn_return);
         mTextViewReturn = view.findViewById(R.id.tv_return);
-        mNameText = view.findViewById(R.id.name_text);
-        mStartTimeText = view.findViewById(R.id.start_name_text);
-        mEndTimeText = view.findViewById(R.id.end_time_text);
-        mType1Text = view.findViewById(R.id.type1_text);
-        mType2Text = view.findViewById(R.id.type2_text);
-        mPlaceText = view.findViewById(R.id.place_text);
-        mMyPhoneText = view.findViewById(R.id.my_phone_text);
-        mOtherPhoneText = view.findViewById(R.id.other_phone_text);
-        mReasonText = view.findViewById(R.id.reason_text);
-        mResumptionButton = view.findViewById(R.id.xiaojia);
-        mLocationImage = view.findViewById(R.id.location_image);
-        mLocationImage.setVisibility(View.GONE);
+        mBinding.xiaojia.setVisibility(View.GONE);
     }
 
     private void getData() {
-        SharedPreferences pref =
-                requireActivity().getSharedPreferences("data", Context.MODE_PRIVATE);
-        mName = pref.getString("name", "");
-        mType1 = pref.getString("type1", "");
-        mType2 = pref.getString("type2", "");
-        mStartTime = pref.getString("startTime", "");
-        mEndTime = pref.getString("endTime", "");
-        mPlace = pref.getString("place", "");
-        mMyPhone = pref.getString("myPhone", "");
-        mOtherPhone = pref.getString("otherPhone", "");
-        mReason = pref.getString("leaveSituation", "");
+        Dialog loading = DialogUtil.writeLoadingDialog(requireContext(), false, "加载中");
+        loading.show();
+        loading.setCancelable(false);
+        LeaveRepository.getLeaveInfo(mLeaveId).enqueue(new Callback<GetLeaveResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<GetLeaveResponse> call,
+                                   @NonNull Response<GetLeaveResponse> response) {
+                loading.cancel();
+                Log.d(TAG, "onResponse: " + response.toString());
+                GetLeaveResponse getLeaveResponse = response.body();
+                assert getLeaveResponse != null;
+                showData(getLeaveResponse.getData());
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<GetLeaveResponse> call, @NonNull Throwable t) {
+                loading.cancel();
+                Log.e(TAG, "onFailure: " + t.getMessage());
+                Toast.makeText(requireContext(), "网络错误", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    private void showData() {
-        mNameText.setText(mName);
-        mType1Text.setText(mType1);
-        mType2Text.setText(mType2);
-        mStartTimeText.setText(mStartTime);
-        mEndTimeText.setText(mEndTime);
-        mPlaceText.setText(mPlace);
-        mMyPhoneText.setText(mMyPhone);
-        mOtherPhoneText.setText(mOtherPhone);
-        mReasonText.setText(mReason);
+    private void showData(LeaveBean leave) {
+        mBinding.nameText.setText(leave.getStudent().getName());
+        mBinding.type1Text.setText(leave.getTitle());
+        mBinding.type2Text.setText("否");
+        mBinding.startNameText
+                .setText(TimeUtil.INSTANCE.getTimeFromTimestamp(leave.getStartTime()));
+        mBinding.endTimeText.setText(TimeUtil.INSTANCE.getTimeFromTimestamp(leave.getEndTime()));
+        mBinding.placeText.setText("长安校区");
+        mBinding.myPhoneText.setText(leave.getStudent().getPhone());
+        mBinding.otherPhoneText.setText(leave.getStudent().getPhone());
+        mBinding.reasonText.setText(leave.getDescription());
+        Glide.with(requireContext()).load(leave.getStudent().getAvatar())
+                .into(mBinding.ivStudentAvatar);
+
+
+        mBinding.teacherName.setText(leave.getClassDetail().getTeacher().getName());
+        mBinding.teacherClass.setText(leave.getClassDetail().getName());
+        String agreeState;
+        if (leave.getStates() == 1) {
+            agreeState = "不批准";
+        } else if (leave.getStates() == 2) {
+            agreeState = "批准";
+        } else {
+            agreeState = "待审核";
+        }
+        mBinding.isAgree.setText(agreeState);
+        Glide.with(requireContext()).load(leave.getClassDetail().getTeacher().getAvatar())
+                .into(mBinding.ivTeacherAvatar);
     }
 
     private void setEvent() {
-        mResumptionButton.setOnClickListener(v -> {
-            mResumptionButton.setText("已销假");
-            mResumptionButton.setBackgroundResource(R.drawable.button_shape2);
-            Vibrator vibrator = (Vibrator) requireActivity().getSystemService(VIBRATOR_SERVICE);
-            vibrator.vibrate(500);
-            mLocationImage.setVisibility(View.VISIBLE);
-            requestLocation();
-            Toast.makeText(requireActivity(), "销假成功", Toast.LENGTH_SHORT).show();
-        });
         mButtonReturn.setOnClickListener(v -> {
             FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
             fragmentManager.popBackStack();
@@ -212,8 +210,9 @@ public class PeopleHistoryFragment extends Fragment {
     /**
      * 定位接口
      */
-    public class MyLocationListener implements BDLocationListener {
+    public class MyLocationListener extends BDAbstractLocationListener {
 
+        @SuppressLint("SetTextI18n")
         @Override
         public void onReceiveLocation(final BDLocation location) {
             requireActivity().runOnUiThread(() -> {
@@ -221,8 +220,8 @@ public class PeopleHistoryFragment extends Fragment {
                         + location.getProvince() + " "
                         + location.getCity() + " "
                         + location.getDistrict() + "\n";
-                Log.d("location", currentPosition);
-                mPositionText.setText("定位的地点");
+                Log.d(TAG, currentPosition);
+                mBinding.locationText.setText("定位的地点  " + currentPosition);
             });
         }
     }

@@ -2,6 +2,7 @@ package com.littlecorgi.leave.logic;
 
 import com.littlecorgi.commonlib.logic.TencentServerRetrofitKt;
 import com.littlecorgi.leave.logic.model.AllLeaveResponse;
+import com.littlecorgi.leave.logic.model.GetLeaveResponse;
 import retrofit2.Call;
 
 /**
@@ -15,5 +16,9 @@ public class LeaveRepository {
 
     public static Call<AllLeaveResponse> getLeaveFromStudent(long studentId) {
         return getInterface().getLeaveFromStudent(studentId);
+    }
+
+    public static Call<GetLeaveResponse> getLeaveInfo(long leaveId) {
+        return getInterface().getLeaveInfo(leaveId);
     }
 }
