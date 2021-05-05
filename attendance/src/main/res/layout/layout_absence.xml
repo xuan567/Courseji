@@ -13,7 +13,7 @@
         app:leftIconVisibility="true"
         app:leftTextVisibility="false"
         app:titleBackground="@android:color/transparent"
-        app:titleText="缺勤" />
+        app:titleText="未签" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/absence_recycler"

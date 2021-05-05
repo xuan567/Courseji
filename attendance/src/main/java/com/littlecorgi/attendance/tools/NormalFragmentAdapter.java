@@ -7,14 +7,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.littlecorgi.attendance.R;
+import com.littlecorgi.attendance.logic.model.CheckOnBean;
+import com.littlecorgi.commonlib.util.TimeUtil;
 import java.util.List;
 
 /**
- * ...页面的RecyclerView的Adapter
+ * 已签页面的RecyclerView的Adapter
  */
 public class NormalFragmentAdapter extends RecyclerView.Adapter<NormalFragmentAdapter.ViewHolder> {
 
-    private final List<Normal> mNormalList;
+    private final List<CheckOnBean> mNormalList;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -30,7 +32,7 @@ public class NormalFragmentAdapter extends RecyclerView.Adapter<NormalFragmentAd
         }
     }
 
-    public NormalFragmentAdapter(List<Normal> normals) {
+    public NormalFragmentAdapter(List<CheckOnBean> normals) {
         this.mNormalList = normals;
     }
 
@@ -45,10 +47,10 @@ public class NormalFragmentAdapter extends RecyclerView.Adapter<NormalFragmentAd
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Normal normal = mNormalList.get(position);
-        holder.lesson.setText(normal.getLesson());
-        holder.teacher.setText(normal.getTeacher());
-        holder.time.setText(normal.getTime());
+        CheckOnBean normal = mNormalList.get(position);
+        holder.lesson.setText(normal.getAttendance().getClassDetail().getName());
+        holder.teacher.setText(normal.getAttendance().getClassDetail().getTeacher().getName());
+        holder.time.setText(TimeUtil.INSTANCE.getTimeFromTimestamp(normal.getLastModifiedTime()));
     }
 
     @Override

@@ -7,6 +7,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.littlecorgi.attendance.R;
+import com.littlecorgi.attendance.logic.model.CheckOnBean;
 import java.util.List;
 
 /**
@@ -14,27 +15,21 @@ import java.util.List;
  */
 public class LeaveFragmentAdapter extends RecyclerView.Adapter<LeaveFragmentAdapter.ViewHolder> {
 
-    private final List<Leave> mLeaveList;
+    private final List<CheckOnBean> mLeaveList;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView lesson;
         TextView teacher;
-        TextView type;
-        TextView time;
-        TextView reason;
 
         public ViewHolder(View view) {
             super(view);
             lesson = view.findViewById(R.id.leave_lesson);
             teacher = view.findViewById(R.id.leave_teacher);
-            type = view.findViewById(R.id.leave_type);
-            time = view.findViewById(R.id.leave_time);
-            reason = view.findViewById(R.id.leave_reason);
         }
     }
 
-    public LeaveFragmentAdapter(List<Leave> leaveList) {
+    public LeaveFragmentAdapter(List<CheckOnBean> leaveList) {
         this.mLeaveList = leaveList;
     }
 
@@ -49,11 +44,9 @@ public class LeaveFragmentAdapter extends RecyclerView.Adapter<LeaveFragmentAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Leave leave = mLeaveList.get(position);
-        holder.lesson.setText(leave.getLesson());
-        holder.teacher.setText(leave.getTeacher());
-        holder.reason.setText(leave.getReason());
-        holder.type.setText(leave.getType());
+        CheckOnBean leave = mLeaveList.get(position);
+        holder.lesson.setText(leave.getAttendance().getClassDetail().getName());
+        holder.teacher.setText(leave.getAttendance().getClassDetail().getTeacher().getName());
     }
 
     @Override

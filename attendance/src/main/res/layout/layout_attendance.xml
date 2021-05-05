@@ -113,9 +113,9 @@
                             android:textSize="16sp" />
 
                         <TextView
+                            android:id="@+id/tv_proportion"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/tv_proportion"
                             android:layout_gravity="end"
                             android:layout_marginTop="10dp"
                             android:text="45 / 100"
@@ -154,7 +154,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="5dp"
-                            android:text="2020年" />
+                            android:text="2021年" />
                     </LinearLayout>
 
                     <RelativeLayout
@@ -251,7 +251,7 @@
                         android:background="#d2d2d2" />
 
                     <RelativeLayout
-                        android:id="@+id/rl_absence"
+                        android:id="@+id/rl_wait"
                         android:layout_width="match_parent"
                         android:layout_height="50dp">
 
@@ -261,21 +261,61 @@
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="15dp"
-                            android:text="缺勤"
+                            android:text="待签"
                             android:textColor="@android:color/black"
                             android:textSize="15sp" />
 
                         <TextView
-                            android:id="@+id/tv_sum_absence"
+                            android:id="@+id/tv_sum_wait"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:layout_toStartOf="@id/iv_sum_absence"
+                            android:layout_toStartOf="@id/iv_sum_wait"
                             android:text="10次"
                             android:textSize="14sp" />
 
                         <ImageView
-                            android:id="@+id/iv_sum_absence"
+                            android:id="@+id/iv_sum_wait"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="5dp"
+                            android:src="@mipmap/icon_right_gray" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:background="#d2d2d2" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_finish"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="15dp"
+                            android:text="已签"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tv_sum_finish"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toStartOf="@id/iv_sum_finish"
+                            android:text="10次"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:id="@+id/iv_sum_finish"
                             android:layout_width="15dp"
                             android:layout_height="15dp"
                             android:layout_alignParentEnd="true"
@@ -341,7 +381,7 @@
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="15dp"
-                            android:text="迟到"
+                            android:text="过期未签"
                             android:textColor="@android:color/black"
                             android:textSize="15sp" />
 
@@ -356,46 +396,6 @@
 
                         <ImageView
                             android:id="@+id/iv_sum_late"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginEnd="5dp"
-                            android:src="@mipmap/icon_right_gray" />
-
-                    </RelativeLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.1dp"
-                        android:background="#d2d2d2" />
-
-                    <RelativeLayout
-                        android:id="@+id/rl_normal"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="15dp"
-                            android:text="正常"
-                            android:textColor="@android:color/black"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:id="@+id/tv_sum_normal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_toStartOf="@id/iv_sum_normal"
-                            android:text="10次"
-                            android:textSize="14sp" />
-
-                        <ImageView
-                            android:id="@+id/iv_sum_normal"
                             android:layout_width="15dp"
                             android:layout_height="15dp"
                             android:layout_alignParentEnd="true"

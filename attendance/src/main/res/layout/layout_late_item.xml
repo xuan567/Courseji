@@ -36,6 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
+        android:paddingBottom="10dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -51,27 +52,4 @@
             android:text="李老师" />
 
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
-        android:paddingBottom="10dp"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@mipmap/time" />
-
-        <TextView
-            android:id="@+id/late_time"
-            android:layout_marginLeft="4dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2020-12-2 10:00" />
-    </LinearLayout>
-
-
 </LinearLayout>

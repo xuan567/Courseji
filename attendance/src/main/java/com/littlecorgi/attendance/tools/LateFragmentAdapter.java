@@ -7,6 +7,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.littlecorgi.attendance.R;
+import com.littlecorgi.attendance.logic.model.CheckOnBean;
 import java.util.List;
 
 /**
@@ -14,23 +15,21 @@ import java.util.List;
  */
 public class LateFragmentAdapter extends RecyclerView.Adapter<LateFragmentAdapter.ViewHolder> {
 
-    private final List<Late> mLateList;
+    private final List<CheckOnBean> mLateList;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView lessonText;
         TextView teacherText;
-        TextView timeText;
 
         public ViewHolder(View view) {
             super(view);
             lessonText = view.findViewById(R.id.late_lesson);
             teacherText = view.findViewById(R.id.late_teacher);
-            timeText = view.findViewById(R.id.late_time);
         }
     }
 
-    public LateFragmentAdapter(List<Late> lateList) {
+    public LateFragmentAdapter(List<CheckOnBean> lateList) {
         this.mLateList = lateList;
     }
 
@@ -45,10 +44,9 @@ public class LateFragmentAdapter extends RecyclerView.Adapter<LateFragmentAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Late late = mLateList.get(position);
-        holder.timeText.setText(late.getTime());
-        holder.teacherText.setText(late.getTeacher());
-        holder.lessonText.setText(late.getLesson());
+        CheckOnBean late = mLateList.get(position);
+        holder.teacherText.setText(late.getAttendance().getClassDetail().getTeacher().getName());
+        holder.lessonText.setText(late.getAttendance().getClassDetail().getName());
     }
 
     @Override

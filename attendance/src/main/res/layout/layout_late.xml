@@ -13,7 +13,7 @@
         app:leftIconVisibility="true"
         app:leftTextVisibility="false"
         app:titleBackground="@android:color/transparent"
-        app:titleText="迟到" />
+        app:titleText="过期" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/late_recycler"

@@ -11,9 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.littlecorgi.attendance.tools.Late;
+import com.littlecorgi.attendance.logic.model.CheckOnBean;
 import com.littlecorgi.attendance.tools.LateFragmentAdapter;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,7 +20,11 @@ import java.util.List;
  */
 public class LateFragment extends Fragment {
 
-    private final List<Late> mLateList = new ArrayList<>();
+    private final List<CheckOnBean> mLateList;
+
+    public LateFragment(List<CheckOnBean> lateList) {
+        this.mLateList = lateList;
+    }
 
     @Nullable
     @Override
@@ -30,7 +33,6 @@ public class LateFragment extends Fragment {
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_late, container, false);
-        initData();
         RecyclerView recyclerView = view.findViewById(R.id.late_recycler);
         LateFragmentAdapter adapter = new LateFragmentAdapter(mLateList);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
@@ -43,14 +45,5 @@ public class LateFragment extends Fragment {
             manager1.popBackStack();
         });
         return view;
-    }
-
-    private void initData() {
-        Late late1 = new Late("英语", "李明", "12.21-12.22");
-        mLateList.add(late1);
-        Late late2 = new Late("英语", "李明", "12.21-12.22");
-        mLateList.add(late2);
-        Late late3 = new Late("英语", "李明", "12.21-12.22");
-        mLateList.add(late3);
     }
 }

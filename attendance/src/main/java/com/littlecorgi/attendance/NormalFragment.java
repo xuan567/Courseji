@@ -11,18 +11,21 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.littlecorgi.attendance.tools.Normal;
+import com.littlecorgi.attendance.logic.model.CheckOnBean;
 import com.littlecorgi.attendance.tools.NormalFragmentAdapter;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 普通的Fragment
+ * 已签的Fragment
  */
 public class NormalFragment extends Fragment {
 
-    private final List<Normal> mNormalList = new ArrayList<>();
+    private final List<CheckOnBean> mNormalList;
     private Button mReturnButton;
+
+    public NormalFragment(List<CheckOnBean> normalList) {
+        this.mNormalList = normalList;
+    }
 
     @Nullable
     @Override
@@ -31,7 +34,6 @@ public class NormalFragment extends Fragment {
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_normal, container, false);
-        initData();
         RecyclerView recyclerView = view.findViewById(R.id.normal_recycler);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         NormalFragmentAdapter adapter = new NormalFragmentAdapter(mNormalList);
@@ -55,12 +57,5 @@ public class NormalFragment extends Fragment {
             FragmentManager manager = requireActivity().getSupportFragmentManager();
             manager.popBackStack();
         });
-    }
-
-    private void initData() {
-        Normal normal1 = new Normal("英语", "李明", "2020-12-20-10:00");
-        mNormalList.add(normal1);
-        Normal normal2 = new Normal("数学", "张三", "2020-12-20-10:00");
-        mNormalList.add(normal2);
     }
 }

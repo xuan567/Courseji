@@ -7,15 +7,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.littlecorgi.attendance.R;
+import com.littlecorgi.attendance.logic.model.CheckOnBean;
+import com.littlecorgi.commonlib.util.TimeUtil;
 import java.util.List;
 
 /**
- * 缺勤页面的RecyclerView的Adapter
+ * 未签到页面的RecyclerView的Adapter
  */
 public class AbsenceFragmentAdapter
         extends RecyclerView.Adapter<AbsenceFragmentAdapter.ViewHolder> {
 
-    private final List<Absence> mAbsenceList;
+    private final List<CheckOnBean> mAbsenceList;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -31,7 +33,7 @@ public class AbsenceFragmentAdapter
         }
     }
 
-    public AbsenceFragmentAdapter(List<Absence> absenceList) {
+    public AbsenceFragmentAdapter(List<CheckOnBean> absenceList) {
         mAbsenceList = absenceList;
     }
 
@@ -45,10 +47,11 @@ public class AbsenceFragmentAdapter
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Absence absence = mAbsenceList.get(position);
-        holder.lessonText.setText(absence.getLesson());
-        holder.teacherText.setText(absence.getTeacher());
-        holder.timeText.setText(absence.getTime());
+        CheckOnBean absence = mAbsenceList.get(position);
+        holder.lessonText.setText(absence.getAttendance().getClassDetail().getName());
+        holder.teacherText.setText(absence.getAttendance().getClassDetail().getTeacher().getName());
+        holder.timeText
+                .setText(TimeUtil.INSTANCE.getTimeFromTimestamp(absence.getLastModifiedTime()));
     }
 
     @Override
