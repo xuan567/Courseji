@@ -1,12 +1,16 @@
 package com.littlecorgi.leave.student;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -14,20 +18,30 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.littlecorgi.commonlib.util.DialogUtil;
+import com.littlecorgi.commonlib.util.TimeUtil;
+import com.littlecorgi.commonlib.util.UserSPConstant;
 import com.littlecorgi.leave.R;
-import java.io.File;
+import com.littlecorgi.leave.logic.LeaveRepository;
+import com.littlecorgi.leave.logic.model.AllLeaveResponse;
+import com.littlecorgi.leave.logic.model.LeaveBean;
 import java.util.ArrayList;
 import java.util.List;
 import org.jetbrains.annotations.NotNull;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * 历史Fragment
  */
 public class HistoryFragment extends Fragment {
 
-    private final boolean mIsGetData = false;
-    private final List<History> mHistoryList = new ArrayList<>();
+    private final List<LeaveBean> mLeaveList = new ArrayList<>();
     LeaveHistoryAdapter mAdapter;
+    private long studentId;
+
+    private static final String TAG = "HistoryFragment";
 
     @Nullable
     @Override
@@ -36,38 +50,60 @@ public class HistoryFragment extends Fragment {
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_history_leave, container, false);
-        File f = new File("/data/data/com.example.leave/shared_prefs/data.xml");
-        if (f.exists()) {
+        SharedPreferences sp = requireContext()
+                .getSharedPreferences(UserSPConstant.FILE_NAME, Context.MODE_PRIVATE);
+        studentId = sp.getLong(UserSPConstant.STUDENT_USER_ID, 1L);
+        if (studentId != -1) {
             initHistories();
-            RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.history_leave);
+            RecyclerView recyclerView = view.findViewById(R.id.history_leave);
             LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
             recyclerView.setLayoutManager(layoutManager);
-            mAdapter = new LeaveHistoryAdapter(mHistoryList);
+            mAdapter = new LeaveHistoryAdapter(mLeaveList);
             recyclerView.setAdapter(mAdapter);
+        } else {
+            Toast.makeText(requireContext(), "未登录或者数据错误", Toast.LENGTH_SHORT).show();
         }
         return view;
     }
 
     private void initHistories() {
-        SharedPreferences pref =
-                requireActivity().getSharedPreferences("data", Context.MODE_PRIVATE);
-        String name = pref.getString("name", "");
-        String type1 = pref.getString("type1", "");
-        String startTime = pref.getString("startTime", "");
-        String endTime = pref.getString("endTime", "");
-        String leaveSituation = pref.getString("leaveSituation", "");
-        History history = new History(type1, name, startTime + "至" + endTime, leaveSituation,
-                "未销假");
-        mHistoryList.add(history);
+        Dialog loading = DialogUtil.writeLoadingDialog(requireContext(), false, "正在加载中");
+        loading.show();
+        loading.setCancelable(false);
+        LeaveRepository.getLeaveFromStudent(studentId).enqueue(
+                new Callback<AllLeaveResponse>() {
+                    @Override
+                    public void onResponse(@NonNull Call<AllLeaveResponse> call,
+                                           @NonNull Response<AllLeaveResponse> response) {
+                        loading.cancel();
+                        Log.d(TAG, "onResponse: " + response.toString());
+                        AllLeaveResponse leaveResponse = response.body();
+                        assert leaveResponse != null;
+                        if (leaveResponse.getStatus() == 800) {
+                            mLeaveList.clear();
+                            mLeaveList.addAll(leaveResponse.getData());
+                            mAdapter.notifyDataSetChanged();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<AllLeaveResponse> call,
+                                          @NonNull Throwable t) {
+                        loading.cancel();
+                        Log.d(TAG, "onFailure: " + t.getMessage());
+                        t.printStackTrace();
+                        Toast.makeText(requireContext(), "网络错误", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     class LeaveHistoryAdapter extends RecyclerView.Adapter<LeaveHistoryAdapter.ViewHolder> {
 
-        private final List<History> mHistoryList;
+        private final List<LeaveBean> mLeaveList;
 
         class ViewHolder extends RecyclerView.ViewHolder {
 
-            TextView mLeaveTypeText;
+            TextView mLeaveTitleText;
             TextView mLeavePeopleText;
             TextView mLeaveTimeText;
             TextView mLeaveReasonText;
@@ -77,16 +113,16 @@ public class HistoryFragment extends Fragment {
             public ViewHolder(View view) {
                 super(view);
                 mHistoryView = view;
-                mLeaveTypeText = (TextView) view.findViewById(R.id.leaveTypeText);
-                mLeavePeopleText = (TextView) view.findViewById(R.id.leavePeopleText);
-                mLeaveTimeText = (TextView) view.findViewById(R.id.leaveTimeText);
-                mLeaveReasonText = (TextView) view.findViewById(R.id.leaveReasonText);
-                mLeaveBackText = (TextView) view.findViewById(R.id.leaveBackText);
+                mLeaveTitleText = view.findViewById(R.id.leaveTitleText);
+                mLeavePeopleText = view.findViewById(R.id.leavePeopleText);
+                mLeaveTimeText = view.findViewById(R.id.leaveTimeText);
+                mLeaveReasonText = view.findViewById(R.id.leaveReasonText);
+                mLeaveBackText = view.findViewById(R.id.leaveBackText);
             }
         }
 
-        public LeaveHistoryAdapter(List<History> historyList) {
-            mHistoryList = historyList;
+        public LeaveHistoryAdapter(List<LeaveBean> leaveList) {
+            mLeaveList = leaveList;
         }
 
         @NotNull
@@ -106,19 +142,22 @@ public class HistoryFragment extends Fragment {
             return holder;
         }
 
+        @SuppressLint("SetTextI18n")
         @Override
         public void onBindViewHolder(@NonNull LeaveHistoryAdapter.ViewHolder holder, int position) {
-            History history = mHistoryList.get(position);
-            holder.mLeaveTypeText.setText(history.getLeaveTypeText());
-            holder.mLeavePeopleText.setText(history.getLeavePeopleText());
-            holder.mLeaveTimeText.setText(history.getLeaveTimeText());
-            holder.mLeaveReasonText.setText(history.getLeaveReasonText());
-            holder.mLeaveBackText.setText(history.getLeaveBackText());
+            LeaveBean leaveBean = mLeaveList.get(position);
+            holder.mLeaveTitleText.setText(leaveBean.getTitle());
+            holder.mLeavePeopleText.setText(leaveBean.getStudent().getName());
+            holder.mLeaveTimeText.setText(
+                    TimeUtil.INSTANCE.getTimeFromTimestamp(leaveBean.getStartTime())
+                            + "至" + TimeUtil.INSTANCE.getTimeFromTimestamp(leaveBean.getEndTime()));
+            holder.mLeaveReasonText.setText(leaveBean.getDescription());
+            holder.mLeaveBackText.setText((leaveBean.getStates() == 1) ? "审批完成" : "待审批");
         }
 
         @Override
         public int getItemCount() {
-            return mHistoryList.size();
+            return mLeaveList.size();
         }
     }
 }

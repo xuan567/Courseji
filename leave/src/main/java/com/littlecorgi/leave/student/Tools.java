@@ -16,7 +16,6 @@ import com.luck.picture.lib.config.PictureMimeType;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.runtime.Permission;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * 工具类
@@ -27,12 +26,10 @@ public class Tools {
      * 请求权限
      */
     public static void requestPermissions(final AppCompatActivity activity) {
-        ArrayList<String> permissionList = new ArrayList<>(Arrays.asList(Permission.Group.STORAGE));
-        permissionList.add(Permission.CAMERA);
         AndPermission
                 .with(activity)
                 .runtime()
-                .permission((String[]) permissionList.toArray())
+                .permission(Permission.CAMERA)
                 .onGranted(data -> {
                 }) // 权限被允许
                 .onDenied(data -> {
@@ -45,9 +42,8 @@ public class Tools {
      */
     public static void openGallery(AppCompatActivity activity, int maxSize) {
         PictureSelector.create(activity)
-                .openGallery(
-                        PictureMimeType
-                                .ofImage()) // 全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
+                .openGallery(PictureMimeType.ofImage())
+                // 全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
                 // .theme()//主题样式(不设置为默认样式) 也可参考demo values/styles下 例如：R.style.picture.white.style
                 .maxSelectNum(maxSize) // 最大图片选择数量 int
                 .minSelectNum(1) // 最小选择数量 int
@@ -101,9 +97,8 @@ public class Tools {
      */
     public static void galleryPictures(AppCompatActivity activity, int maxSize) {
         PictureSelector.create(activity)
-                .openGallery(
-                        PictureMimeType
-                                .ofImage()) // 全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
+                .openGallery(PictureMimeType.ofImage())
+                // 全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
                 // .theme()//主题样式(不设置为默认样式) 也可参考demo values/styles下 例如：R.style.picture.white.style
                 .maxSelectNum(maxSize) // 最大图片选择数量 int
                 .minSelectNum(1) // 最小选择数量 int
