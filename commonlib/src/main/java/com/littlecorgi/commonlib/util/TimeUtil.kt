@@ -1,7 +1,10 @@
 package com.littlecorgi.commonlib.util
 
+import java.text.ParsePosition
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 /**
  * 时间相关的工具类
@@ -45,4 +48,21 @@ object TimeUtil {
      * 获取今天周几 - String
      */
     fun getTodayWeekDay(): String = getWeekDayStr(getTodayWeekDayInt())
+
+    /**
+     * 根据时间戳返回格式化之后的时间
+     *
+     * @param timestamp 时间戳，必须是13位 (10位 * 1000 = 13 位)
+     */
+    fun getTimeFromTimestamp(timestamp: Long): String =
+        SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA).format(timestamp)
+
+    /**
+     * 根据时间返回时间戳
+     *
+     * @param time 北京时间，格式为 yyyy-MM-dd HH:mm:ss
+     * @return 13为的毫秒级时间戳
+     */
+    fun getTimestampFromTime(time: String) =
+        SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA).parse(time, ParsePosition(0))!!.time
 }

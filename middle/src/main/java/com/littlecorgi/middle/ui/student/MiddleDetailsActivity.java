@@ -56,8 +56,8 @@ public class MiddleDetailsActivity extends BaseActivity {
         name.setText(details.getName());
         occupational.setText(details.getOccupational());
         label.setText(details.getLabel());
-        startTime.setText(details.getStartTime());
-        endTime.setText(details.getEndTime());
+        startTime.setText(details.getStartTime() + "");
+        endTime.setText(details.getEndTime() + "");
         theme.setText(details.getTheme());
         title.setText(details.getTitle());
     }

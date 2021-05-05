@@ -30,7 +30,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Courseji"
         tools:replace="android:allowBackup">
-
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"

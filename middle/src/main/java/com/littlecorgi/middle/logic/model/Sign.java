@@ -10,8 +10,8 @@ public class Sign implements Serializable {
     private int state;
     private int label;
     private int takePhoto;
-    private String finishTime;
-    private String endTime;
+    private long finishTime;
+    private long endTime;
     private String lat;
     private String lng;
 
@@ -39,19 +39,19 @@ public class Sign implements Serializable {
         this.takePhoto = takePhoto;
     }
 
-    public String getFinishTime() {
+    public long getFinishTime() {
         return finishTime;
     }
 
-    public void setFinishTime(String finishTime) {
+    public void setFinishTime(long finishTime) {
         this.finishTime = finishTime;
     }
 
-    public String getEndTime() {
+    public long getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(long endTime) {
         this.endTime = endTime;
     }
 

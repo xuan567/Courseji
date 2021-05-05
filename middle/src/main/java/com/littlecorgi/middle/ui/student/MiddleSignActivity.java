@@ -61,7 +61,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import okhttp3.ResponseBody;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
@@ -316,12 +315,6 @@ public class MiddleSignActivity extends BaseActivity {
                     public void onResponse(
                             @NotNull Call<SignResult> call,
                             @NotNull Response<SignResult> response) {
-                        // if (response.body().isState()) {
-                        //     Toast.makeText(MiddleSignActivity.this, "签到成功", Toast.LENGTH_LONG).show();
-                        //
-                        // } else {
-                        //     Toast.makeText(MiddleSignActivity.this, "人脸识别失败", Toast.LENGTH_LONG).show();
-                        // }
 
                         // 删除上个视图
                         ((ViewGroup) mLastView.getParent()).removeView(mLastView);
@@ -381,9 +374,7 @@ public class MiddleSignActivity extends BaseActivity {
 
     // 设置倒计时
     private void setCountdown(AppCompatTextView view) throws ParseException {
-        @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        long endTime = Objects.requireNonNull(simpleDateFormat.parse(mSign.getEndTime())).getTime();
+        long endTime = mSign.getEndTime();
         long nowTime = new Date().getTime();
         long millisUntilFinished = endTime - nowTime;
         // CountDownTimer 类实现倒计时功能
@@ -471,7 +462,7 @@ public class MiddleSignActivity extends BaseActivity {
         View view = addView(R.layout.middle_signfinish_location);
         AppCompatTextView sflTime = view.findViewById(R.id.middle_details_SFLTime);
         // MapView SFLMap = view.findViewById(R.id.middle_details_SFLMap);
-        sflTime.setText(mSign.getFinishTime());
+        sflTime.setText(mSign.getFinishTime() + "");
         // 设置地图
         // setMap(SFLMap, sign.getLng(), sign.getLat());
     }
@@ -480,14 +471,14 @@ public class MiddleSignActivity extends BaseActivity {
         View view = addView(R.layout.middle_signfinish_photo);
         AppCompatTextView sftpTime = view.findViewById(R.id.middle_details_SFTPTime);
         AppCompatImageView signFinishImage = view.findViewById(R.id.middle_details_signFinishImage);
-        sftpTime.setText(mSign.getFinishTime());
+        sftpTime.setText(mSign.getFinishTime() + "");
         signFinishImage.setImageResource(mSign.getTakePhoto());
     }
 
     private void finish_Normal() {
         View view = addView(R.layout.middle_signfinish_bluetooth);
         AppCompatTextView sfbTime = view.findViewById(R.id.middle_details_SFBTime);
-        sfbTime.setText(mSign.getFinishTime());
+        sfbTime.setText(mSign.getFinishTime() + "");
     }
 
     @Override

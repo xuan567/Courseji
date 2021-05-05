@@ -1,8 +1,10 @@
 package com.littlecorgi.middle.ui.student;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,22 +21,26 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.littlecorgi.commonlib.camerax.CameraActivity;
+import com.littlecorgi.commonlib.util.DialogUtil;
+import com.littlecorgi.commonlib.util.TimeUtil;
+import com.littlecorgi.commonlib.util.UserSPConstant;
 import com.littlecorgi.middle.R;
+import com.littlecorgi.middle.logic.CheckOnRepository;
 import com.littlecorgi.middle.logic.dao.Tool;
 import com.littlecorgi.middle.logic.dao.WindowHelp;
+import com.littlecorgi.middle.logic.model.AllCheckOn;
+import com.littlecorgi.middle.logic.model.AttendanceBean;
+import com.littlecorgi.middle.logic.model.CheckOnDetail;
+import com.littlecorgi.middle.logic.model.ClassModel;
 import com.littlecorgi.middle.logic.model.Details;
 import com.littlecorgi.middle.logic.model.ItemData;
 import com.littlecorgi.middle.logic.model.Sign;
-import com.littlecorgi.middle.logic.network.RetrofitHelp;
+import com.littlecorgi.middle.logic.model.TeacherBean;
 import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
-import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,9 +50,12 @@ import retrofit2.Response;
  */
 public class MiddleStudentFragment extends Fragment {
 
-    private View view;
-    private MyAdapter adapt;
-    private List<ItemData.AllSignData> list;
+    private View mView;
+    private MyAdapter mAdapt;
+    private List<CheckOnDetail> mList = new ArrayList<>();
+    private List<ItemData.AllSignData> mSignList = new ArrayList<>();
+    private SharedPreferences sp;
+    private long studentId;
 
     ActivityResultLauncher<Intent> mGetContent =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
@@ -63,7 +72,7 @@ public class MiddleStudentFragment extends Fragment {
                                 return;
                             }
 
-                            ItemData.AllSignData itemData = list.get(position);
+                            ItemData.AllSignData itemData = mSignList.get(position);
                             MiddleSignActivity.startSign(
                                     getContext(), convertSignDataToSign(itemData), picUri);
                         }
@@ -75,17 +84,26 @@ public class MiddleStudentFragment extends Fragment {
             @NonNull LayoutInflater inflater,
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.middle_studentfragment, container,
+        mView = inflater.inflate(R.layout.middle_studentfragment, container,
                 false);
-        return view;
+        return mView;
     }
 
     @Override
     public void onViewCreated(@NonNull View view,
                               @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        sp = requireContext().getSharedPreferences(UserSPConstant.FILE_NAME, Context.MODE_PRIVATE);
+        studentId = sp.getLong(UserSPConstant.STUDENT_USER_ID, 1L);
+
         initView();
-        initData();
+
+        if (studentId == -1) {
+            Toast.makeText(requireContext(), "获取不到用户数据", Toast.LENGTH_SHORT).show();
+        } else {
+            initData();
+        }
     }
 
     private void initView() {
@@ -96,20 +114,18 @@ public class MiddleStudentFragment extends Fragment {
     }
 
     private void initSmartRefreshLayout() {
-        RefreshLayout refreshLayout = view.findViewById(R.id.refreshLayout);
+        RefreshLayout refreshLayout = mView.findViewById(R.id.refreshLayout);
         refreshLayout.setRefreshHeader(new ClassicsHeader(requireContext()));
         refreshLayout.setOnRefreshListener(
                 refreshLayout1 -> {
-                    if (initData()) {
-                        refreshLayout1.finishRefresh(true);
-                    }
+                    refreshLayout1.finishRefresh(true);
                 });
     }
 
     private void initClick() {
         AppCompatTextView returnButton =
-                view.findViewById(R.id.student_returnButton);
-        AppCompatTextView history = view.findViewById(R.id.student_History);
+                mView.findViewById(R.id.student_returnButton);
+        AppCompatTextView history = mView.findViewById(R.id.student_History);
         returnButton.setOnClickListener(v -> requireActivity().finish());
         history.setOnClickListener(
                 v -> {
@@ -119,103 +135,93 @@ public class MiddleStudentFragment extends Fragment {
 
     private boolean initData() {
         // 模拟的数据
-        addlist();
+        addList();
         setItemData();
-        adapt.notifyDataSetChanged();
+        mAdapt.notifyDataSetChanged();
 
         return getResponseData();
+        // return false;
     }
 
     private void changeBarColor() {
         WindowHelp.setWindowStatusBarColor(getActivity(), R.color.blue);
     }
 
-    private void addlist() {
+    private void addList() {
         for (int i = 0; i < 2; i++) {
-            ItemData.AllSignData allSignData = new ItemData.AllSignData();
-            allSignData.setState(1);
-            allSignData.setLabel(6);
-            allSignData.setStartTime("2021-05-02 15:00");
-            allSignData.setEndTime("2021-05-02 23:00");
-            allSignData.setTheme("上课签到");
-            allSignData.setLat("34.2212080000");
-            allSignData.setIng("108.9555180000");
-            list.add(allSignData);
+            CheckOnDetail checkOnDetail = new CheckOnDetail();
+            checkOnDetail.setCheckOnStates(0);
+            AttendanceBean attendance = new AttendanceBean();
+            attendance.setTitle("上课签到");
+            attendance.setDescription("上课签到");
+            attendance.setStartTime(TimeUtil.INSTANCE.getTimestampFromTime("2021-05-05 09:00:00"));
+            attendance.setEndTime(TimeUtil.INSTANCE.getTimestampFromTime("2021-05-05 22:00:00"));
+            attendance.setLatitude(34.2212080000);
+            attendance.setLongitude(108.9555180000);
+            checkOnDetail.setAttendance(attendance);
+            TeacherBean teacher = new TeacherBean();
+            teacher.setName("翟社平");
+            ClassModel classModel = new ClassModel();
+            classModel.setTeacher(teacher);
+            checkOnDetail.getAttendance().setClassDetail(classModel);
+            mList.add(checkOnDetail);
         }
         for (int i = 0; i < 2; i++) {
-            ItemData.AllSignData allSignData = new ItemData.AllSignData();
-            allSignData.setState(1);
-            allSignData.setLabel(6);
-            allSignData.setStartTime("2020-12-27 20:00");
-            allSignData.setEndTime("2020-12-28 01:34");
-            allSignData.setTheme("上课签到");
-            allSignData.setLat("34.2212080000");
-            allSignData.setIng("108.9555180000");
-            list.add(allSignData);
+            CheckOnDetail checkOnDetail = new CheckOnDetail();
+            checkOnDetail.setCheckOnStates(1);
+            AttendanceBean attendance = new AttendanceBean();
+            attendance.setTitle("上课签到");
+            attendance.setDescription("上课签到");
+            attendance.setStartTime(TimeUtil.INSTANCE.getTimestampFromTime("2020-12-27 20:00:00"));
+            attendance.setEndTime(TimeUtil.INSTANCE.getTimestampFromTime("2020-12-28 01:34:00"));
+            attendance.setLatitude(34.2212080000);
+            attendance.setLongitude(108.9555180000);
+            checkOnDetail.setAttendance(attendance);
+            TeacherBean teacher = new TeacherBean();
+            teacher.setName("翟社平");
+            ClassModel classModel = new ClassModel();
+            classModel.setTeacher(teacher);
+            checkOnDetail.getAttendance().setClassDetail(classModel);
+            mList.add(checkOnDetail);
         }
         for (int i = 0; i < 2; i++) {
-            ItemData.AllSignData allSignData = new ItemData.AllSignData();
-            allSignData.setState(2);
-            allSignData.setLabel(6);
-            allSignData.setStartTime("2020-12-27 20:00");
-            allSignData.setEndTime("2020-1-10 01:34");
-            allSignData.setTheme("随意签");
-            allSignData.setLat("34.2212080000");
-            allSignData.setIng("108.9555180000");
-            list.add(allSignData);
-        }
-        for (int i = 0; i < 2; i++) {
-            ItemData.AllSignData allSignData = new ItemData.AllSignData();
-            allSignData.setState(2);
-            allSignData.setLabel(6);
-            allSignData.setStartTime("2020-12-27 20:00");
-            allSignData.setEndTime("2021-1-10 01:34");
-            allSignData.setTheme("随意签");
-            allSignData.setLat("34.161057");
-            allSignData.setIng("108.912334");
-            list.add(allSignData);
-        }
-        for (int i = 0; i < 2; i++) {
-            ItemData.AllSignData allSignData = new ItemData.AllSignData();
-            allSignData.setState(2);
-            allSignData.setLabel(6);
-            allSignData.setStartTime("2020-12-27 20:00");
-            allSignData.setEndTime("2020-12-28 01:34");
-            allSignData.setTheme("随意签");
-            allSignData.setLat("34.2212080000");
-            allSignData.setIng("108.9555180000");
-            list.add(allSignData);
-        }
-
-        for (int i = 0; i < 2; i++) {
-            ItemData.AllSignData allSignData = new ItemData.AllSignData();
-            allSignData.setState(3);
-            allSignData.setLabel(6);
-            allSignData.setStartTime("2020-12-27 20:00");
-            allSignData.setEndTime("2020-12-28 01:34");
-            allSignData.setTheme("随意签");
-            allSignData.setLat("34.2212080000");
-            allSignData.setIng("108.9555180000");
-            list.add(allSignData);
+            CheckOnDetail checkOnDetail = new CheckOnDetail();
+            checkOnDetail.setCheckOnStates(2);
+            AttendanceBean attendance = new AttendanceBean();
+            attendance.setTitle("随意签");
+            attendance.setDescription("随意签");
+            attendance.setStartTime(TimeUtil.INSTANCE.getTimestampFromTime("2020-12-27 20:00:00"));
+            attendance.setEndTime(TimeUtil.INSTANCE.getTimestampFromTime("2020-1-10 01:34:00"));
+            attendance.setLatitude(34.2212080000);
+            attendance.setLongitude(108.9555180000);
+            checkOnDetail.setAttendance(attendance);
+            TeacherBean teacher = new TeacherBean();
+            teacher.setName("翟社平");
+            ClassModel classModel = new ClassModel();
+            classModel.setTeacher(teacher);
+            checkOnDetail.getAttendance().setClassDetail(classModel);
+            mList.add(checkOnDetail);
         }
     }
 
     private void setItemData() {
-        if (list.size() != 0) {
-            for (ItemData.AllSignData allSignData : list) {
-                if (allSignData.getState() == 2) {
-                    @SuppressLint("SimpleDateFormat")
-                    SimpleDateFormat simpleDateFormat =
-                            new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                    long end = 0;
-                    try {
-                        end = Objects.requireNonNull(
-                                simpleDateFormat
-                                        .parse(allSignData.getEndTime()))
-                                .getTime();
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
+        if (mList.size() != 0) {
+            mSignList.clear();
+            for (CheckOnDetail checkOn : mList) {
+                ItemData.AllSignData allSignData = new ItemData.AllSignData();
+                allSignData.setTitle(checkOn.getAttendance().getTitle());
+                allSignData
+                        .setName(checkOn.getAttendance().getClassDetail().getTeacher().getName());
+                allSignData.setState(checkOn.getCheckOnStates());
+                allSignData.setStartTime(checkOn.getAttendance().getStartTime());
+                allSignData.setEndTime(checkOn.getAttendance().getEndTime());
+                allSignData.setLat(checkOn.getAttendance().getLatitude() + "");
+                allSignData.setIng(checkOn.getAttendance().getLongitude() + "");
+                allSignData.setTheme(checkOn.getAttendance().getTitle());
+                allSignData.setState(checkOn.getCheckOnStates());
+                if (allSignData.getState() == 0) {
+                    // 待签到
+                    long end = allSignData.getEndTime();
                     long now = new Date().getTime();
                     if (end > now) {
                         allSignData.setMyLabel(Tool.SOG);
@@ -229,68 +235,81 @@ public class MiddleStudentFragment extends Fragment {
                                 getResources().getColor(R.color.warning));
                     }
                 } else if (allSignData.getState() == 1) {
+                    // 签到已结束
                     allSignData.setMyLabel(Tool.SFinish);
                     allSignData.setStateTitle(Tool.SFinish_TITLE);
                     allSignData.setLeftColor(
                             getResources().getColor(R.color.finish));
-                } else if (allSignData.getState() == 3) {
+                } else if (allSignData.getState() == 2) {
+                    // 请假
                     allSignData.setMyLabel(Tool.SLeave);
                     allSignData.setStateTitle(Tool.SLeave_TITLE);
                     allSignData.setLeftColor(
                             getResources().getColor(R.color.leave));
                 }
-                allSignData.setLabelTitle(
-                        Tool.getLabelTitle(allSignData.getLabel()));
+                allSignData.setLabelTitle(Tool.getLabelTitle(6));
+                mSignList.add(allSignData);
             }
         }
     }
 
     private boolean getResponseData() {
         final boolean[] isSuccess = new boolean[1];
-        Call<ItemData> call = RetrofitHelp.getAllSign();
-        call.enqueue(
-                new Callback<ItemData>() {
-                    @Override
-                    public void onResponse(
-                            @NotNull Call<ItemData> call,
-                            @NotNull Response<ItemData> response) {
-                        if (response.body() != null) {
-                            list.clear();
-                            list.addAll(response.body().getAllSignData());
-                            addlist();
-                            setItemData();
-                            adapt.notifyDataSetChanged();
-                            isSuccess[0] = true;
-                        }
-                    }
+        Dialog loading = DialogUtil.writeLoadingDialog(requireContext(), false, "加载数据");
+        loading.show();
+        loading.setCancelable(false);
+        Call<AllCheckOn> allCheckOnCall = CheckOnRepository.getAllCheckOn(studentId);
+        allCheckOnCall.enqueue(new Callback<AllCheckOn>() {
+            @Override
+            public void onResponse(@NonNull Call<AllCheckOn> call,
+                                   @NonNull Response<AllCheckOn> response) {
+                loading.cancel();
+                Log.d("MiddleStudentFragment", "onResponse: " + response.toString());
+                assert response.body() != null;
+                Log.d("MiddleStudentFragment", "onResponse: " + response.body().toString());
+                AllCheckOn allCheckOn = response.body();
+                if (allCheckOn.getStatus() == 800) {
+                    isSuccess[0] = false;
+                    mList.clear();
+                    mList.addAll(allCheckOn.getData());
+                    // 模拟的数据
+                    addList();
+                    setItemData();
+                    mAdapt.notifyDataSetChanged();
+                } else {
+                    isSuccess[0] = true;
+                    Toast.makeText(requireContext(), "获取数据失败，错误码为" + allCheckOn.getStatus(),
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
 
-                    @Override
-                    public void onFailure(@NotNull Call<ItemData> call,
-                                          @NotNull Throwable t) {
-                        Toast.makeText(getContext(), "网络连接失败，过会在试吧",
-                                Toast.LENGTH_LONG).show();
-                        isSuccess[0] = false;
-                    }
-                });
+            @Override
+            public void onFailure(@NonNull Call<AllCheckOn> call, @NonNull Throwable t) {
+                isSuccess[0] = true;
+                loading.cancel();
+                t.printStackTrace();
+                Toast.makeText(requireContext(), "网络错误", Toast.LENGTH_SHORT).show();
+            }
+        });
         return isSuccess[0];
     }
 
     private void setRecyclerView() {
         final RecyclerView recyclerView =
-                view.findViewById(R.id.middle_recyclerViewId);
+                mView.findViewById(R.id.middle_recyclerViewId);
         LinearLayoutManager linearLayoutManager =
                 new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        list = new ArrayList<>();
-        adapt = new MyAdapter(R.layout.middle_item_recyclerview, list);
-        recyclerView.setAdapter(adapt);
+        mSignList = new ArrayList<>();
+        mAdapt = new MyAdapter(R.layout.middle_item_recyclerview, mSignList);
+        recyclerView.setAdapter(mAdapt);
         recyclerView.setLayoutManager(linearLayoutManager);
 
         // 打开详情页面
-        adapt.setOnItemClickListener(
+        mAdapt.setOnItemClickListener(
                 (adapter, view, position) -> {
                     Details details = new Details();
-                    ItemData.AllSignData itemData = list.get(position);
+                    ItemData.AllSignData itemData = mSignList.get(position);
                     details.setName(itemData.getName());
                     details.setEndTime(itemData.getEndTime());
                     details.setImage(itemData.getImage());
@@ -302,13 +321,20 @@ public class MiddleStudentFragment extends Fragment {
                     MiddleDetailsActivity.startDetails(getContext(), details);
                 });
         // 打开签到页面
-        adapt.addChildClickViewIds(R.id.middle_item_sign);
-        adapt.setOnItemChildClickListener(
+        mAdapt.addChildClickViewIds(R.id.middle_item_sign);
+        mAdapt.setOnItemChildClickListener(
                 (adapter, view, position) -> {
-                    // Pass in the mime type you'd like to allow the user to select
-                    // as the input
-                    mGetContent.launch(new Intent(requireContext(), CameraActivity.class)
-                            .putExtra("position", position));
+                    // 未签到才跳转
+                    if (mSignList.get(position).getState() == 0) {
+                        // Pass in the mime type you'd like to allow the user to select
+                        // as the input
+                        mGetContent.launch(new Intent(requireContext(), CameraActivity.class)
+                                .putExtra("position", position));
+                    } else if (mSignList.get(position).getState() == 1) {
+                        Toast.makeText(requireContext(), "签到已结束", Toast.LENGTH_SHORT).show();
+                    } else if (mSignList.get(position).getState() == 2) {
+                        Toast.makeText(requireContext(), "已请假，不用签到", Toast.LENGTH_SHORT).show();
+                    }
                 });
     }
 

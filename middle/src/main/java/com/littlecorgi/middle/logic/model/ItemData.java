@@ -34,10 +34,10 @@ public class ItemData {
         private String theme; // 主题
 
         @SerializedName("StartTime")
-        private String startTime; // 开始时间
+        private long startTime; // 开始时间
 
         @SerializedName("EndTime")
-        private String endTime; // 结束时间
+        private long endTime; // 结束时间
 
         @SerializedName("State")
         private int state; // 签到状态
@@ -58,7 +58,7 @@ public class ItemData {
         private String title; // 签到的内容
 
         @SerializedName("FinishTime")
-        private String finishTime; // 完成签到的时间
+        private long finishTime; // 完成签到的时间
 
         @SerializedName("Lat")
         private String lat; // 纬度
@@ -109,19 +109,19 @@ public class ItemData {
             this.theme = theme;
         }
 
-        public String getStartTime() {
+        public long getStartTime() {
             return startTime;
         }
 
-        public void setStartTime(String startTime) {
+        public void setStartTime(long startTime) {
             this.startTime = startTime;
         }
 
-        public String getEndTime() {
+        public long getEndTime() {
             return endTime;
         }
 
-        public void setEndTime(String endTime) {
+        public void setEndTime(long endTime) {
             this.endTime = endTime;
         }
 
@@ -173,11 +173,11 @@ public class ItemData {
             this.title = title;
         }
 
-        public String getFinishTime() {
+        public long getFinishTime() {
             return finishTime;
         }
 
-        public void setFinishTime(String finishTime) {
+        public void setFinishTime(long finishTime) {
             this.finishTime = finishTime;
         }
 

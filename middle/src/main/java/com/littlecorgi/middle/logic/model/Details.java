@@ -11,8 +11,8 @@ public class Details implements Serializable {
     private String theme;
     private String title;
     private String label;
-    private String startTime;
-    private String endTime;
+    private long startTime;
+    private long endTime;
     private File image;
     private String name;
     private String occupational;
@@ -41,19 +41,19 @@ public class Details implements Serializable {
         this.label = label;
     }
 
-    public String getStartTime() {
+    public long getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(long startTime) {
         this.startTime = startTime;
     }
 
-    public String getEndTime() {
+    public long getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(long endTime) {
         this.endTime = endTime;
     }
 
