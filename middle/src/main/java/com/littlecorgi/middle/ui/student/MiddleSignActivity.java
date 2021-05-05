@@ -20,7 +20,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -28,7 +27,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -44,17 +42,12 @@ import com.littlecorgi.commonlib.util.DialogUtil;
 import com.littlecorgi.middle.R;
 import com.littlecorgi.middle.logic.RetrofitRepository;
 import com.littlecorgi.middle.logic.dao.BaiDuMapService;
-import com.littlecorgi.middle.logic.dao.GlideEngine;
 import com.littlecorgi.middle.logic.dao.LocationService;
 import com.littlecorgi.middle.logic.dao.PassedIngLat;
 import com.littlecorgi.middle.logic.model.FaceRecognitionResponse;
 import com.littlecorgi.middle.logic.model.Sign;
 import com.littlecorgi.middle.logic.model.SignResult;
 import com.littlecorgi.middle.logic.network.MyLocationListener;
-import com.luck.picture.lib.PictureSelector;
-import com.luck.picture.lib.config.PictureConfig;
-import com.luck.picture.lib.config.PictureMimeType;
-import com.luck.picture.lib.entity.LocalMedia;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
@@ -191,7 +184,7 @@ public class MiddleSignActivity extends BaseActivity {
     }
 
     private void onGoingFaceLocation() {
-        doFaceRecognition();
+        // doFaceRecognition();
         doLocation();
     }
 
@@ -273,7 +266,7 @@ public class MiddleSignActivity extends BaseActivity {
         sureButton.setOnClickListener(
                 v -> {
                     if (mIsIn) {
-                        setImage();
+                        response();
                     } else {
                         Toast.makeText(MiddleSignActivity.this, "请移步到指定范围内签到", Toast.LENGTH_LONG)
                                 .show();
@@ -281,100 +274,11 @@ public class MiddleSignActivity extends BaseActivity {
                 });
     }
 
-    private void setImage() {
-        // 打开相机
-        PictureSelector.create(this)
-                .openCamera(PictureMimeType.ofImage())
-                .imageEngine(GlideEngine.createGlideEngine())
-                .isCompress(true) // 是否压缩 true or false
-                .forResult(PictureConfig.REQUEST_CAMERA);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            if (requestCode == PictureConfig.REQUEST_CAMERA) { // 结果回调
-                String path;
-                List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
-                if (Build.VERSION.SDK_INT >= 29) {
-                    path = selectList.get(0).getAndroidQToPath();
-                } else {
-                    path = selectList.get(0).getPath();
-                }
-                response(path);
-            }
-        }
-    }
-
-    private void response(String path) {
-        Call<SignResult> call = postStudentSign(new File(path));
-        call.enqueue(
-                new Callback<SignResult>() {
-                    @Override
-                    public void onResponse(
-                            @NotNull Call<SignResult> call,
-                            @NotNull Response<SignResult> response) {
-
-                        // 删除上个视图
-                        ((ViewGroup) mLastView.getParent()).removeView(mLastView);
-                        initSFinish();
-                    }
-
-                    @Override
-                    public void onFailure(@NotNull Call<SignResult> call, @NotNull Throwable t) {
-                        Toast.makeText(MiddleSignActivity.this, "请检查网络后重试", Toast.LENGTH_LONG)
-                                .show();
-                    }
-                });
-    }
-
-    private void setMapView(AppCompatTextView text) {
-        mIsHaveMapView = true;
-        mBaiDuMapService = new BaiDuMapService(mMapView.getMap());
-        mLocationService = new LocationService(this);
-
-        MyLocationListener myListener =
-                new MyLocationListener(
-                        mBaiDuMapService,
-                        new PassedIngLat() {
-                            @Override
-                            public void location(String lat, String lng, String cty) {
-                                mLat = Double.parseDouble(lat);
-                                mLng = Double.parseDouble(lng);
-                                Log.d(TAG, "location: lat = " + lat + " ing = " + lng);
-                                Log.d(TAG, "location: mSign lat = " + mSign.getLat()
-                                        + " ing = " + mSign.getLng());
-                                LatLng center = new LatLng(mSign.getLat(), mSign.getLng());
-                                final int radis = 50;
-                                mBaiDuMapService.addMarker(center);
-                                mBaiDuMapService.setCircle(center, radis);
-                                LatLng point = new LatLng(mLat, mLng);
-                                mIsIn = SpatialRelationUtil
-                                        .isCircleContainsPoint(center, radis, point);
-                                if (mIsIn) {
-                                    text.setText("已在指定范围内");
-                                    text.setTextColor(getResources().getColor(R.color.finish));
-                                } else {
-                                    text.setText("未在指定范围内，请走到指定范围");
-                                    text.setTextColor(getResources().getColor(R.color.warning));
-                                }
-                            }
-
-                            @Override
-                            public void floor(String lat, String ing, String address) {
-                                //获取室内定位
-                            }
-
-                            @Override
-                            public void polLocation(List<Poi> list) {
-                            }
-                        });
-        mLocationService.registerListener(myListener);
-        mLocationService.start();
-    }
-
-    // 设置倒计时
+    /**
+     * 设置倒计时
+     *
+     * @param view 倒计时的TextView
+     */
     private void setCountdown(AppCompatTextView view) throws ParseException {
         long endTime = mSign.getEndTime();
         long nowTime = new Date().getTime();
@@ -426,13 +330,81 @@ public class MiddleSignActivity extends BaseActivity {
         countDownTimer.start();
     }
 
-    private void initSLeave() {
+    private void setMapView(AppCompatTextView text) {
+        mIsHaveMapView = true;
+        mBaiDuMapService = new BaiDuMapService(mMapView.getMap());
+        mLocationService = new LocationService(this);
 
+        MyLocationListener myListener =
+                new MyLocationListener(
+                        mBaiDuMapService,
+                        new PassedIngLat() {
+                            @Override
+                            public void location(String lat, String lng, String cty) {
+                                mLat = Double.parseDouble(lat);
+                                mLng = Double.parseDouble(lng);
+                                Log.d(TAG, "location: lat = " + lat + " ing = " + lng);
+                                Log.d(TAG, "location: mSign lat = " + mSign.getLat()
+                                        + " ing = " + mSign.getLng());
+                                LatLng center = new LatLng(mSign.getLat(), mSign.getLng());
+                                final int radius = 50;
+                                mBaiDuMapService.addMarker(center);
+                                mBaiDuMapService.setCircle(center, radius);
+                                LatLng point = new LatLng(mLat, mLng);
+                                mIsIn = SpatialRelationUtil
+                                        .isCircleContainsPoint(center, radius, point);
+                                if (mIsIn) {
+                                    text.setText("已在指定范围内");
+                                    text.setTextColor(getResources().getColor(R.color.finish));
+                                } else {
+                                    text.setText("未在指定范围内，请走到指定范围");
+                                    text.setTextColor(getResources().getColor(R.color.warning));
+                                }
+                            }
+
+                            @Override
+                            public void floor(String lat, String ing, String address) {
+                                //获取室内定位
+                            }
+
+                            @Override
+                            public void polLocation(List<Poi> list) {
+                            }
+                        });
+        mLocationService.registerListener(myListener);
+        mLocationService.start();
+    }
+
+    /**
+     * 签到请求发起
+     */
+    private void response() {
+        Call<SignResult> call = postStudentSign(new File(path));
+        call.enqueue(
+                new Callback<SignResult>() {
+                    @Override
+                    public void onResponse(
+                            @NotNull Call<SignResult> call,
+                            @NotNull Response<SignResult> response) {
+
+                        // 删除上个视图
+                        ((ViewGroup) mLastView.getParent()).removeView(mLastView);
+                        initSFinish();
+                    }
+
+                    @Override
+                    public void onFailure(@NotNull Call<SignResult> call, @NotNull Throwable t) {
+                        Toast.makeText(MiddleSignActivity.this, "请检查网络后重试", Toast.LENGTH_LONG)
+                                .show();
+                    }
+                });
+    }
+
+    private void initSLeave() {
         addView(R.layout.middle_sign_leave);
     }
 
     private void initUnFinish() {
-
         addView(R.layout.middle_signunfinish);
     }
 
