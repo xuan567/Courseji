@@ -125,7 +125,6 @@ public class MessageActivity extends BaseActivity {
 
     private void saveMessage() {
         if (mIsChanged) {
-            // todo 补全资料更新网络请求
             SharedPreferences sp = getSharedPreferences(UserSPConstant.FILE_NAME, MODE_PRIVATE);
             Editor editor = sp.edit();
             if (mMessageChange.getMyImagePath() != null) {
