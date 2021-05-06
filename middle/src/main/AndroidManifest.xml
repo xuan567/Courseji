@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest package="com.littlecorgi.middle"
-  xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- 这个权限用于进行网络定位-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!-- 这个权限用于访问GPS定位-->
@@ -23,13 +23,13 @@
         <activity android:name=".MiddleMainActivity" />
 
         <service
-          android:name="com.baidu.location.f"
-          android:enabled="true"
-          android:process=":remote"></service>
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
 
         <meta-data
-          android:name="com.baidu.lbsapi.API_KEY"
-          android:value="u0ybuh76CedcBg4xTKyWcDMRwUZ5vnFs"></meta-data>
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="u0ybuh76CedcBg4xTKyWcDMRwUZ5vnFs" />
     </application>
 
 </manifest>
