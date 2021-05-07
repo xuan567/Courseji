@@ -46,9 +46,6 @@ import com.scwang.smart.refresh.layout.api.RefreshLayout;
 public class MyMainFragment extends Fragment {
 
     private static final String TAG = "MyMainFragment";
-    /*
-          未完成的：在这里要完成学生个人信息的获取吧信息填充到myMessage中
-        */
     private View mView;
     private Student student;
     private long studentId;

@@ -15,7 +15,7 @@ public class AppViewModel extends ViewModel {
     // -2代表完全没有初始化过
     private long mStudentId = -2;
 
-    private SharedPreferences sp = App.mApplicationContext
+    private final SharedPreferences sp = App.mApplicationContext
             .getSharedPreferences(UserSPConstant.FILE_NAME, Context.MODE_PRIVATE);
 
     /**

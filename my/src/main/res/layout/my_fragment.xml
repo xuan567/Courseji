@@ -19,22 +19,9 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:layout_constraintTop_toTopOf="parent"
-            android:background="@color/blue">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="个人中心"
-                android:textSize="18sp"
-                android:textColor="@color/white"
-                android:id="@+id/title"
-                android:gravity="center"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="6dp" />
-        </androidx.appcompat.widget.Toolbar>
+            android:background="@color/blue_title"
+            app:title="个人中心"
+            app:titleTextColor="@color/white" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/my_message"

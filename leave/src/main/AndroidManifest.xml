@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <application>
         <activity android:name=".StudentLeaveActivity" />
+        <activity android:name=".PeopleHistoryActivity" />
     </application>
 
 </manifest>
