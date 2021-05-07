@@ -34,7 +34,7 @@ public class LeaveFragment extends Fragment {
             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_leave, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.leave_recycler);
-        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+        LinearLayoutManager manager = new LinearLayoutManager(requireContext());
         LeaveFragmentAdapter adapter = new LeaveFragmentAdapter(mLeaveList);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);

@@ -36,7 +36,7 @@ public class NormalFragment extends Fragment {
             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_normal, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.normal_recycler);
-        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+        LinearLayoutManager manager = new LinearLayoutManager(requireContext());
         NormalFragmentAdapter adapter = new NormalFragmentAdapter(mNormalList);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);

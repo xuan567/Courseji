@@ -34,7 +34,7 @@ public class AbsenceFragment extends Fragment {
             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_absence, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.absence_recycler);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext());
         recyclerView.setLayoutManager(layoutManager);
         AbsenceFragmentAdapter adapter = new AbsenceFragmentAdapter(mAbsenceLists);
         recyclerView.setAdapter(adapter);

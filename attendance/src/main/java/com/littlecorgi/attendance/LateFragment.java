@@ -35,7 +35,7 @@ public class LateFragment extends Fragment {
         View view = inflater.inflate(R.layout.layout_late, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.late_recycler);
         LateFragmentAdapter adapter = new LateFragmentAdapter(mLateList);
-        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+        LinearLayoutManager manager = new LinearLayoutManager(requireContext());
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
 
