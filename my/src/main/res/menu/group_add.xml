@@ -2,6 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/group_add_class"
-        android:icon="@drawable/ic_baseline_add_24_white"
+        android:icon="@drawable/ic_baseline_add_24_white_back"
         android:title="添加班级" />
 </menu>

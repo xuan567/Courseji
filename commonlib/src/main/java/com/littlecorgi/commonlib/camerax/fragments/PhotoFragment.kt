@@ -25,7 +25,8 @@ class PhotoFragment internal constructor() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val args = arguments ?: return
-        val resource = args.getString(FILE_NAME_KEY)?.let { File(it) } ?: R.drawable.ic_photo
+        val resource =
+            args.getString(FILE_NAME_KEY)?.let { File(it) } ?: R.drawable.ic_baseline_photo_24_white
         Glide.with(view).load(resource).into(view as ImageView)
     }
 

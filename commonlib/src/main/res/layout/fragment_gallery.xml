@@ -41,7 +41,7 @@
             android:layout_height="@dimen/round_button_small"
             android:scaleType="fitCenter"
             android:background="@android:color/transparent"
-            app:srcCompat="@drawable/ic_back" />
+            app:srcCompat="@drawable/ic_baseline_arrow_back_24_white" />
 
         <ImageButton
             android:id="@+id/ok_button"
@@ -69,7 +69,7 @@
             android:layout_height="@dimen/round_button_small"
             android:scaleType="fitCenter"
             android:background="@android:color/transparent"
-            app:srcCompat="@drawable/ic_delete" />
+            app:srcCompat="@drawable/ic_baseline_delete_24_white" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

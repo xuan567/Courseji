@@ -74,9 +74,10 @@ public class GroupActivity extends BaseActivity {
         Dialog loading = DialogUtil.writeLoadingDialog(this, false, "获取数据");
         loading.show();
         loading.setCancelable(false);
-        mStudentId = sp.getLong(UserSPConstant.STUDENT_USER_ID, -1);
+        mStudentId = sp.getLong(UserSPConstant.STUDENT_USER_ID, -1L);
         if (mStudentId == -1) {
             showErrorToast(this, "获取不到用户信息", true, Toast.LENGTH_SHORT);
+            loading.cancel();
             finish();
         }
         ClassRetrofitRepository.getAllClassFromTheStudentCall(mStudentId).enqueue(

@@ -8,7 +8,18 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application android:allowBackup="false">
-        <activity android:name=".MyMainActivity" />
+        <activity
+            android:name=".ui.addgroup.GroupActivity"
+            android:exported="true" />
+        <activity android:name=".ui.signup.SignUpActivity" />
+        <activity
+            android:name=".ui.signin.LoginActivity"
+            android:label="@string/title_activity_login" />
+        <activity android:name=".ui.addgroup.AddGroupActivity" />
+        <activity android:name=".ui.message.OriginalActivity" />
+        <activity android:name=".ui.about.AdviceActivity" />
+        <activity android:name=".ui.about.AboutActivity" />
+        <activity android:name=".ui.message.MessageActivity" />
     </application>
 
 </manifest>
