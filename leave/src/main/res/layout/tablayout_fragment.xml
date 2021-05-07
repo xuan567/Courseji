@@ -4,7 +4,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/layout_titleview" />
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/leave_title_view"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize" />
+
+    <!--TitleView不知道到底是为啥，一用上就必闪退-->
+    <!--<com.littlecorgi.commonlib.weight.TitleView-->
+    <!--    android:layout_width="match_parent"-->
+    <!--    android:layout_height="50dp" />-->
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"

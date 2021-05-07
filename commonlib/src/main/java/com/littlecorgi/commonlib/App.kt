@@ -7,6 +7,7 @@ import com.littlecorgi.commonlib.context.MyAppContextPresenter
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
 import org.koin.dsl.module
 
 /**
@@ -37,7 +38,7 @@ open class App : Application() {
         }
         // Koin配置
         startKoin {
-            androidLogger()
+            androidLogger(Level.ERROR)
             androidContext(this@App)
             modules(appContextModule)
         }

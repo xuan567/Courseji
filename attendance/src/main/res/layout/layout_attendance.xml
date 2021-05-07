@@ -5,14 +5,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.littlecorgi.attendance.weight.TitleView
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#08b9fd"
-        app:leftIconVisibility="false"
-        app:leftTextVisibility="false"
-        app:titleBackground="@android:color/transparent"
-        app:titleText="我的记录单" />
+        android:layout_height="?attr/actionBarSize"
+        app:titleTextColor="@color/white"
+        app:title="我的记录单"
+        android:background="#08b9fd"/>
 
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
         android:id="@+id/srl_flush"

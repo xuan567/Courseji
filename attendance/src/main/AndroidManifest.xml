@@ -3,7 +3,7 @@
     package="com.littlecorgi.attendance">
 
     <application>
-        <activity android:name=".AttendanceActivity"></activity>
+        <activity android:name=".AttendanceActivity" />
     </application>
 
 </manifest>

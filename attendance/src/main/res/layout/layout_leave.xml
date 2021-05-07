@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:background="#F8F8F8">
 
-    <com.littlecorgi.attendance.weight.TitleView
+    <com.littlecorgi.commonlib.weight.TitleView
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#08b9fd"

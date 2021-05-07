@@ -1,4 +1,4 @@
-package com.littlecorgi.attendance.weight;
+package com.littlecorgi.commonlib.weight;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.core.content.ContextCompat;
-import com.littlecorgi.attendance.R;
+import com.littlecorgi.commonlib.R;
 
 /**
  * 标题View
@@ -48,8 +48,8 @@ public class TitleView extends RelativeLayout {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.layout_titleview, this);
         initView();
-        initAttrs(context, attrs);
         onButtonClick();
+        initAttrs(context, attrs);
     }
 
     /**

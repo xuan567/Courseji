@@ -2,13 +2,13 @@
 // 加载 config.gradle
 apply from: "config.gradle"
 buildscript {
-    ext.kotlin_version = "1.4.32"
+    ext.kotlin_version = "1.5.0"
     repositories {
         google()
         mavenCentral()
         maven { url 'https://jitpack.io' }
         // 友盟
-        maven { url 'https://dl.bintray.com/umsdk/release' }
+        maven { url 'https://repo1.maven.org/maven2/' }
         jcenter()
     }
     dependencies {
@@ -28,7 +28,7 @@ allprojects {
         mavenCentral()
         maven { url "https://jitpack.io" }
         // 友盟
-        maven { url 'https://dl.bintray.com/umsdk/release' }
+        maven { url 'https://repo1.maven.org/maven2/' }
         jcenter()
     }
 }

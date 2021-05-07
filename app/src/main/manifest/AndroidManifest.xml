@@ -195,10 +195,7 @@
             android:authorities="${applicationId}.umeng.message"
             android:exported="false">
             <grant-uri-permission android:pathPattern=".*" />
-        </provider> <!-- 华为Push配置 -->
-        <meta-data
-            android:name="com.huawei.hms.client.appid"
-            android:value="appid=103176589" />
+        </provider>
     </application>
 
 </manifest>

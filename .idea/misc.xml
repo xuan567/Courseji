@@ -8,7 +8,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="../../../../../layout/custom_preview.xml" value="0.1" />
+        <entry key="../../../../../layout/custom_preview.xml" value="0.24427083333333333" />
         <entry key="../../../Library/Android/sdk/platforms/android-30/data/res/layout/simple_spinner_dropdown_item.xml" value="0.3663949275362319" />
         <entry key="../../../Library/Android/sdk/platforms/android-30/data/res/layout/simple_spinner_item.xml" value="0.3663949275362319" />
         <entry key="app/src/main/res/drawable/ic_attendance_30.xml" value="0.4046875" />
@@ -30,14 +30,16 @@
         <entry key="attendance/src/main/res/layout/fragment_attendance.xml" value="0.25407608695652173" />
         <entry key="attendance/src/main/res/layout/layout_absence.xml" value="0.3605072463768116" />
         <entry key="attendance/src/main/res/layout/layout_absence_item.xml" value="0.3605072463768116" />
-        <entry key="attendance/src/main/res/layout/layout_attendance.xml" value="0.18645833333333334" />
+        <entry key="attendance/src/main/res/layout/layout_attendance.xml" value="0.33" />
         <entry key="attendance/src/main/res/layout/layout_late.xml" value="0.3605072463768116" />
         <entry key="attendance/src/main/res/layout/layout_late_item.xml" value="0.3605072463768116" />
         <entry key="attendance/src/main/res/layout/layout_leave.xml" value="0.3605072463768116" />
         <entry key="attendance/src/main/res/layout/layout_leave_item.xml" value="0.3605072463768116" />
         <entry key="attendance/src/main/res/layout/layout_normal.xml" value="0.3605072463768116" />
+        <entry key="attendance/src/main/res/layout/layout_titleview.xml" value="0.21770833333333334" />
         <entry key="attendance/src/main/res/layout/teacher_attendance.xml" value="0.21770833333333334" />
         <entry key="attendance/src/main/res/layout/teacher_attendance_activity.xml" value="0.21770833333333334" />
+        <entry key="commonlib/src/main/res/drawable-v24/shape_gradient_title.xml" value="0.4046875" />
         <entry key="commonlib/src/main/res/drawable/button_round_corners.xml" value="0.4046875" />
         <entry key="commonlib/src/main/res/drawable/ic_back.xml" value="0.4046875" />
         <entry key="commonlib/src/main/res/drawable/ic_delete.xml" value="0.4046875" />

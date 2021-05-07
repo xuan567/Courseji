@@ -9,7 +9,6 @@ import com.umeng.commonsdk.UMConfigure
 import com.umeng.message.IUmengRegisterCallback
 import com.umeng.message.PushAgent
 import com.umeng.message.inapp.InAppMessageManager
-import org.android.agoo.huawei.HuaWeiRegister
 import org.android.agoo.xiaomi.MiPushRegistar
 
 /**
@@ -80,7 +79,7 @@ class AppApp : App() {
         // 小米通道
         MiPushRegistar.register(this, "2882303761518784162", "5681878493162")
         // 华为通道，注意华为通道的初始化参数在manifest中配置
-        HuaWeiRegister.register(this)
+        // HuaWeiRegister.register(this)
         // 魅族通道
         // MeizuRegister.register(this, "填写您在魅族后台APP对应的app id", "填写您在魅族后台APP对应的app key");
         // OPPO通道
