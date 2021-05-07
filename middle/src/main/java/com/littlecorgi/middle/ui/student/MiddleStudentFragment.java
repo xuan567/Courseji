@@ -1,7 +1,9 @@
 package com.littlecorgi.middle.ui.student;
 
+import static com.littlecorgi.commonlib.util.AndPermissionHelp.andPermission;
 import static com.littlecorgi.middle.logic.dao.Tool.SFaceLocation;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
@@ -98,6 +100,18 @@ public class MiddleStudentFragment extends Fragment {
         mViewModel = new ViewModelProvider(requireActivity()).get(AppViewModel.class);
         Log.d(TAG, "onViewCreated: " + mViewModel);
         studentId = mViewModel.getStudentId();
+
+        // 提前获取下所需的权限
+        andPermission(
+                requireContext(),
+                Manifest.permission.CAMERA,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_WIFI_STATE,
+                Manifest.permission.ACCESS_NETWORK_STATE,
+                Manifest.permission.CHANGE_WIFI_STATE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE);
 
         initView();
 

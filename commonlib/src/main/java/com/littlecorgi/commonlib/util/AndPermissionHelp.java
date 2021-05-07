@@ -1,4 +1,4 @@
-package com.littlecorgi.middle.logic.dao;
+package com.littlecorgi.commonlib.util;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

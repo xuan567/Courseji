@@ -1,6 +1,5 @@
 package com.littlecorgi.middle.ui.student;
 
-import static com.littlecorgi.middle.logic.dao.AndPermissionHelp.andPermission;
 import static com.littlecorgi.middle.logic.dao.Tool.FaceRecognition;
 import static com.littlecorgi.middle.logic.dao.Tool.SBlueTooth;
 import static com.littlecorgi.middle.logic.dao.Tool.SFaceLocation;
@@ -13,7 +12,6 @@ import static com.littlecorgi.middle.logic.dao.Tool.STookPhoto;
 import static com.littlecorgi.middle.logic.dao.Tool.SUnFinish;
 import static com.littlecorgi.middle.logic.dao.WindowHelp.setWindowStatusBarColor;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
@@ -92,7 +90,6 @@ public class MiddleSignActivity extends BaseActivity {
         mRadius = mSign.getRadius();
 
         initView();
-        initPermission();
         initData();
     }
 
@@ -112,18 +109,6 @@ public class MiddleSignActivity extends BaseActivity {
 
     private void initClick() {
         mReturnButton.setOnClickListener(v -> finish());
-    }
-
-    private void initPermission() {
-        andPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_WIFI_STATE,
-                Manifest.permission.ACCESS_NETWORK_STATE,
-                Manifest.permission.CHANGE_WIFI_STATE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE);
     }
 
     private void initData() {

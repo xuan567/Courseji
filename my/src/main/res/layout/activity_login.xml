@@ -11,10 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/blue"
+        android:background="@color/blue_title"
         app:title="登录"
         app:titleTextColor="@color/white"
-        app:navigationIcon="@drawable/ic_back" />
+        app:navigationIcon="@drawable/ic_baseline_arrow_back_24_white" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
