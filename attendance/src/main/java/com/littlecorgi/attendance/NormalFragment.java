@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -40,22 +41,11 @@ public class NormalFragment extends Fragment {
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
 
-        mReturnButton = view.findViewById(R.id.btn_return);
-        mReturnButton.setOnClickListener(v -> {
+        Toolbar toolbar = view.findViewById(R.id.layout_normal_toolbar);
+        toolbar.setNavigationOnClickListener(v -> {
             FragmentManager manager1 = requireActivity().getSupportFragmentManager();
             manager1.popBackStack();
         });
-
         return view;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        mReturnButton = requireActivity().findViewById(R.id.btn_return);
-        mReturnButton.setOnClickListener(v -> {
-            FragmentManager manager = requireActivity().getSupportFragmentManager();
-            manager.popBackStack();
-        });
     }
 }

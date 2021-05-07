@@ -6,13 +6,13 @@
     android:orientation="vertical"
     android:background="#F8F8F8">
 
-    <com.littlecorgi.commonlib.weight.TitleView
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/layout_late_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="?attr/actionBarSize"
         android:background="#08b9fd"
-        app:leftIconVisibility="true"
-        app:leftTextVisibility="false"
         app:titleBackground="@android:color/transparent"
+        app:navigationIcon="@drawable/ic_back"
         app:titleText="过期" />
 
     <androidx.recyclerview.widget.RecyclerView

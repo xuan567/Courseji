@@ -8,7 +8,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="../../../../../layout/custom_preview.xml" value="0.24427083333333333" />
+        <entry key="../../../../../layout/custom_preview.xml" value="0.1" />
         <entry key="../../../Library/Android/sdk/platforms/android-30/data/res/layout/simple_spinner_dropdown_item.xml" value="0.3663949275362319" />
         <entry key="../../../Library/Android/sdk/platforms/android-30/data/res/layout/simple_spinner_item.xml" value="0.3663949275362319" />
         <entry key="app/src/main/res/drawable/ic_attendance_30.xml" value="0.4046875" />
@@ -24,8 +24,10 @@
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.3509963768115942" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.3509963768115942" />
         <entry key="app/src/main/res/layout/activity_splash2.xml" value="0.3509963768115942" />
+        <entry key="app/src/main/res/layout/fragment_main.xml" value="0.24954710144927536" />
         <entry key="app/src/main/res/menu/menu_navigation.xml" value="0.3885416666666667" />
         <entry key="app/src/main/res/menu/navigation.xml" value="0.3885416666666667" />
+        <entry key="attendance/src/main/res/drawable/ic_baseline_arrow_back_24_white.xml" value="0.4046875" />
         <entry key="attendance/src/main/res/layout/activity_attendance.xml" value="0.259963768115942" />
         <entry key="attendance/src/main/res/layout/fragment_attendance.xml" value="0.25407608695652173" />
         <entry key="attendance/src/main/res/layout/layout_absence.xml" value="0.3605072463768116" />
@@ -57,6 +59,7 @@
         <entry key="commonlib/src/main/res/layout/dialog_loading.xml" value="0.31521739130434784" />
         <entry key="commonlib/src/main/res/layout/fragment_camera.xml" value="0.30027173913043476" />
         <entry key="commonlib/src/main/res/layout/fragment_gallery.xml" value="0.30027173913043476" />
+        <entry key="commonlib/src/main/res/layout/layout_titleview.xml" value="0.3378623188405797" />
         <entry key="commonlib/src/main/res/xml/file_paths.xml" value="0.30027173913043476" />
         <entry key="leave/src/main/res/drawable-v24/dialog_loading.xml" value="0.4046875" />
         <entry key="leave/src/main/res/layout/activity_leave.xml" value="0.3663949275362319" />

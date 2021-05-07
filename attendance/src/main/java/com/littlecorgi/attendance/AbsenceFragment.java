@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -39,8 +39,8 @@ public class AbsenceFragment extends Fragment {
         AbsenceFragmentAdapter adapter = new AbsenceFragmentAdapter(mAbsenceLists);
         recyclerView.setAdapter(adapter);
 
-        Button returnButton = view.findViewById(R.id.btn_return);
-        returnButton.setOnClickListener(v -> {
+        Toolbar toolbar = view.findViewById(R.id.layout_absence_toolbar);
+        toolbar.setNavigationOnClickListener(v -> {
             FragmentManager manager = requireActivity().getSupportFragmentManager();
             manager.popBackStack();
         });
