@@ -28,6 +28,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Courseji"
         tools:replace="android:allowBackup">
+        <activity
+            android:name=".PeopleHistoryActivity"
+            android:exported="true" />
+
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="E2FgLTZO2dqHCCMz4dGu0kc0tuurco25" />

@@ -1,23 +1,24 @@
 package com.littlecorgi.leave.ui.adapter;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import com.littlecorgi.commonlib.util.TimeUtil;
+import com.littlecorgi.leave.PeopleHistoryActivity;
 import com.littlecorgi.leave.R;
 import com.littlecorgi.leave.logic.model.LeaveBean;
-import com.littlecorgi.leave.ui.PeopleHistoryFragment;
 import java.util.List;
 import org.jetbrains.annotations.NotNull;
 
 /**
+ * 请假历史页面RecyclerView的adapter
+ *
  * @author littlecorgi 2021/5/5
  */
 public class LeaveHistoryAdapter extends RecyclerView.Adapter<LeaveHistoryAdapter.ViewHolder> {
@@ -48,15 +49,18 @@ public class LeaveHistoryAdapter extends RecyclerView.Adapter<LeaveHistoryAdapte
                 TimeUtil.INSTANCE.getTimeFromTimestamp(leaveBean.getStartTime())
                         + "至" + TimeUtil.INSTANCE.getTimeFromTimestamp(leaveBean.getEndTime()));
         holder.mLeaveReasonText.setText(leaveBean.getDescription());
-        holder.mLeaveBackText.setText((leaveBean.getStates() == 1) ? "审批完成" : "待审批");
+        String leaveBackTest;
+        if (leaveBean.getStates() == 0) {
+            leaveBackTest = "待审批";
+        } else if (leaveBean.getStates() == 1) {
+            leaveBackTest = "准假";
+        } else {
+            leaveBackTest = "不准假";
+        }
+        holder.mLeaveBackText.setText(leaveBackTest);
         holder.mHistoryView.setOnClickListener(v -> {
-            PeopleHistoryFragment peopleHistoryFragment =
-                    new PeopleHistoryFragment(mLeaveList.get(position).getId());
-            FragmentManager manager = mActivity.getSupportFragmentManager();
-            FragmentTransaction transaction = manager.beginTransaction();
-            transaction.replace(R.id.student_leave, peopleHistoryFragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
+            mActivity.startActivity(new Intent(mActivity, PeopleHistoryActivity.class)
+                    .putExtra("mLeaveId", mLeaveList.get(position).getId()));
         });
     }
 

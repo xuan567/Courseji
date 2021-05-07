@@ -11,7 +11,7 @@ import java.io.Serializable;
 @lombok.Data
 public class LeaveBean implements Serializable {
     private static final long serialVersionUID = 1234567890403L;
-    private int id;
+    private long id;
     private int states;
     private String title;
     private String description;

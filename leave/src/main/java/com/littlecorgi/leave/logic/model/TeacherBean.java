@@ -1,4 +1,4 @@
-package com.littlecorgi.leave;
+package com.littlecorgi.leave.logic.model;
 
 /**
  * 教师数据类

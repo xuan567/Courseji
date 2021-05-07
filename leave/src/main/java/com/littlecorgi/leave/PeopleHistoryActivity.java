@@ -1,4 +1,4 @@
-package com.littlecorgi.leave.ui;
+package com.littlecorgi.leave;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -6,18 +6,14 @@ import android.app.Dialog;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
@@ -25,8 +21,7 @@ import com.baidu.location.LocationClientOption;
 import com.bumptech.glide.Glide;
 import com.littlecorgi.commonlib.util.DialogUtil;
 import com.littlecorgi.commonlib.util.TimeUtil;
-import com.littlecorgi.leave.R;
-import com.littlecorgi.leave.databinding.LeaveSituationBinding;
+import com.littlecorgi.leave.databinding.ActivityPeopleHistoryBinding;
 import com.littlecorgi.leave.logic.LeaveRepository;
 import com.littlecorgi.leave.logic.model.GetLeaveResponse;
 import com.littlecorgi.leave.logic.model.LeaveBean;
@@ -37,75 +32,71 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * 请假记录详情
+ * 历史记录具体详情类
+ *
+ * @author littlecorgi 2021/05/07
  */
-public class PeopleHistoryFragment extends Fragment {
+public class PeopleHistoryActivity extends AppCompatActivity {
 
-    private static final String TAG = "PeopleHistoryFragment";
+    private static final String TAG = "PeopleHistoryActivity";
 
-    private final long mLeaveId;
+    private long mLeaveId;
 
     private Button mButtonReturn;
     private Button mTextViewReturn;
 
     public LocationClient mLocationClient;
 
-    private LeaveSituationBinding mBinding;
+    private ActivityPeopleHistoryBinding mBinding;
 
-    public PeopleHistoryFragment(long leaveId) {
-        mLeaveId = leaveId;
-    }
-
-    @Nullable
     @Override
-    public View onCreateView(
-            @NonNull LayoutInflater inflater,
-            @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
-        mLocationClient = new LocationClient(requireActivity().getApplicationContext());
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        mLocationClient = new LocationClient(getApplicationContext());
         mLocationClient.registerLocationListener(new MyLocationListener());
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.leave_situation, container, false);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_people_history);
+
+        mLeaveId = getIntent().getLongExtra("mLeaveId", -1L);
+
         List<String> permissionList = new ArrayList<>();
         if (ContextCompat.checkSelfPermission(
-                requireActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION)
+                this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             permissionList.add(android.Manifest.permission.ACCESS_FINE_LOCATION);
         }
         if (ContextCompat.checkSelfPermission(
-                requireActivity(), android.Manifest.permission.READ_PHONE_STATE)
+                this, android.Manifest.permission.READ_PHONE_STATE)
                 != PackageManager.PERMISSION_GRANTED) {
             permissionList.add(android.Manifest.permission.READ_PHONE_STATE);
         }
         if (ContextCompat.checkSelfPermission(
-                requireActivity(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
             permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
         if (!permissionList.isEmpty()) {
             String[] permission = permissionList.toArray(new String[0]);
-            ActivityCompat.requestPermissions(requireActivity(), permission, 1);
+            ActivityCompat.requestPermissions(this, permission, 1);
         } else {
             requestLocation();
         }
-        return mBinding.getRoot();
-    }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        findView(view);
-        getData();
+        findView();
         setEvent();
+        if (mLeaveId != -1) {
+            getData();
+        }
     }
 
-    private void findView(View view) {
-        mButtonReturn = view.findViewById(R.id.btn_return);
-        mTextViewReturn = view.findViewById(R.id.tv_return);
+    private void findView() {
+        mButtonReturn = findViewById(R.id.btn_return);
+        mTextViewReturn = findViewById(R.id.tv_return);
         mBinding.xiaojia.setVisibility(View.GONE);
     }
 
     private void getData() {
-        Dialog loading = DialogUtil.writeLoadingDialog(requireContext(), false, "加载中");
+        Dialog loading = DialogUtil.writeLoadingDialog(this, false, "加载中");
         loading.show();
         loading.setCancelable(false);
         LeaveRepository.getLeaveInfo(mLeaveId).enqueue(new Callback<GetLeaveResponse>() {
@@ -123,7 +114,7 @@ public class PeopleHistoryFragment extends Fragment {
             public void onFailure(@NonNull Call<GetLeaveResponse> call, @NonNull Throwable t) {
                 loading.cancel();
                 Log.e(TAG, "onFailure: " + t.getMessage());
-                Toast.makeText(requireContext(), "网络错误", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PeopleHistoryActivity.this, "网络错误", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -139,7 +130,7 @@ public class PeopleHistoryFragment extends Fragment {
         mBinding.myPhoneText.setText(leave.getStudent().getPhone());
         mBinding.otherPhoneText.setText(leave.getStudent().getPhone());
         mBinding.reasonText.setText(leave.getDescription());
-        Glide.with(requireContext()).load(leave.getStudent().getAvatar())
+        Glide.with(this).load(leave.getStudent().getAvatar())
                 .into(mBinding.ivStudentAvatar);
 
 
@@ -154,19 +145,13 @@ public class PeopleHistoryFragment extends Fragment {
             agreeState = "待审核";
         }
         mBinding.isAgree.setText(agreeState);
-        Glide.with(requireContext()).load(leave.getClassDetail().getTeacher().getAvatar())
+        Glide.with(this).load(leave.getClassDetail().getTeacher().getAvatar())
                 .into(mBinding.ivTeacherAvatar);
     }
 
     private void setEvent() {
-        mButtonReturn.setOnClickListener(v -> {
-            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-            fragmentManager.popBackStack();
-        });
-        mTextViewReturn.setOnClickListener(v -> {
-            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-            fragmentManager.popBackStack();
-        });
+        mButtonReturn.setOnClickListener(v -> finish());
+        mTextViewReturn.setOnClickListener(v -> finish());
     }
 
     private void requestLocation() {
@@ -195,16 +180,17 @@ public class PeopleHistoryFragment extends Fragment {
             if (grantResults.length > 0) {
                 for (int result : grantResults) {
                     if (result != PackageManager.PERMISSION_GRANTED) {
-                        Toast.makeText(requireActivity(), "必须同意所有权限才能使用本程序", Toast.LENGTH_SHORT)
+                        Toast.makeText(this, "必须同意所有权限才能使用本程序", Toast.LENGTH_SHORT)
                                 .show();
                         return;
                     }
                 }
                 requestLocation();
             } else {
-                Toast.makeText(requireActivity(), "发生未知错误", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "发生未知错误", Toast.LENGTH_SHORT).show();
             }
         }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     /**
@@ -215,7 +201,7 @@ public class PeopleHistoryFragment extends Fragment {
         @SuppressLint("SetTextI18n")
         @Override
         public void onReceiveLocation(final BDLocation location) {
-            requireActivity().runOnUiThread(() -> {
+            runOnUiThread(() -> {
                 String currentPosition = location.getCountry() + " "
                         + location.getProvince() + " "
                         + location.getCity() + " "

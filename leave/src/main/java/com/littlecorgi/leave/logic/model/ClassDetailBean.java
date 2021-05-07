@@ -1,6 +1,5 @@
 package com.littlecorgi.leave.logic.model;
 
-import com.littlecorgi.leave.TeacherBean;
 import java.io.Serializable;
 
 /**

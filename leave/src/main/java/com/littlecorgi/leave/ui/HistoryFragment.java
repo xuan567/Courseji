@@ -57,7 +57,7 @@ public class HistoryFragment extends Fragment {
             mAdapter = new LeaveHistoryAdapter(requireActivity(), mLeaveList);
             recyclerView.setAdapter(mAdapter);
 
-            RefreshLayout refreshLayout = (RefreshLayout) view.findViewById(R.id.history_refresh);
+            RefreshLayout refreshLayout = view.findViewById(R.id.history_refresh);
             refreshLayout.setEnableRefresh(true);
             refreshLayout.setPrimaryColorsId(R.color.colorPrimary, android.R.color.white);
             refreshLayout.setOnRefreshListener(refreshLayout1 -> {
