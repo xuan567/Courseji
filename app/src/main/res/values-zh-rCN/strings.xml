@@ -13,4 +13,9 @@
     <string name="error_course_data">检测到课程数据有误，请仔细核对</string>
     <string name="error_course_node">有课程的节数大于课表的最大节数</string>
     <string name="schedule_setting">课表设置</string>
+    <string name="fragment_schedule">课程表</string>
+    <string name="fragment_attendance">考勤</string>
+    <string name="fragment_my">我的</string>
+    <string name="fragment_middle">签到</string>
+    <string name="fragment_leave">请假</string>
 </resources>
