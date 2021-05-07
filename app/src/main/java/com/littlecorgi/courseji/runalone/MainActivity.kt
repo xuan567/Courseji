@@ -1,14 +1,15 @@
-package com.littlecorgi.courseji
+package com.littlecorgi.courseji.runalone
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.littlecorgi.commonlib.BaseActivity
 import com.littlecorgi.commonlib.BaseFragment
 import com.littlecorgi.commonlib.util.dip
-import com.littlecorgi.courseji.databinding.ActivityMainBinding
+import com.littlecorgi.courseji.MainFragment
+import com.littlecorgi.courseji.R
+import com.littlecorgi.courseji.databinding.ActivityMain2Binding
 import com.littlecorgi.courseji.schedule.vm.ScheduleViewModel
 import com.littlecorgi.courseji.utils.CourseUtils
 import com.tencent.bugly.beta.Beta
@@ -16,19 +17,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 /**
- * 集成运行时的MainActivity。此组件单独运行时的MainActivity是[com.littlecorgi.courseji.runalone.MainActivity]
+ * 组件化单独运行时的MainActivity
  *
- * @author littlecorgi 2020/10/27
+ * @author littlecorgi 2021/05/07
  */
-@Route(path = "app/MainActivity")
-class MainActivity : BaseActivity() {
+class MainActivity : AppCompatActivity() {
 
-    private lateinit var mBinding: ActivityMainBinding
+    private lateinit var mBinding: ActivityMain2Binding
     private val mViewModel by viewModels<ScheduleViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main2)
         // Bugly升级 检测是否有新版本
         Beta.checkUpgrade()
 

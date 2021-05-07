@@ -1,4 +1,4 @@
-package com.littlecorgi.courseji
+package com.littlecorgi.courseji.runalone
 
 import android.app.Activity
 import android.os.Bundle
@@ -10,11 +10,12 @@ import androidx.lifecycle.lifecycleScope
 import com.bytedance.sdk.openadsdk.AdSlot
 import com.bytedance.sdk.openadsdk.TTAdConstant
 import com.bytedance.sdk.openadsdk.TTAdNative
-import com.bytedance.sdk.openadsdk.TTAdNative.SplashAdListener
 import com.bytedance.sdk.openadsdk.TTAppDownloadListener
 import com.bytedance.sdk.openadsdk.TTSplashAd
 import com.littlecorgi.commonlib.BaseActivity
 import com.littlecorgi.commonlib.context.start
+import com.littlecorgi.courseji.AppDatabase
+import com.littlecorgi.courseji.R
 import com.littlecorgi.courseji.schedule.logic.model.bean.TableBean
 import com.littlecorgi.courseji.schedule.logic.model.bean.TimeDetailBean
 import com.littlecorgi.courseji.schedule.logic.model.bean.TimeTableBean
@@ -23,9 +24,9 @@ import com.littlecorgi.courseji.utils.getPrefer
 import kotlinx.coroutines.launch
 
 /**
- * 闪屏页，此组件单独运行时的SplashActivity是[com.littlecorgi.courseji.runalone.SplashActivity]
+ * 组件化单独运行时的SplashActivity
  *
- * @author littlecorgi-twk 2020/10/19
+ * @author littlecorgi 2021/05/07
  */
 class SplashActivity : BaseActivity() {
 
@@ -37,7 +38,7 @@ class SplashActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
+        setContentView(R.layout.activity_splash2)
 
         mSplashContainer = findViewById(R.id.splash_container)
         // step2:创建TTAdNative对象
@@ -112,7 +113,7 @@ class SplashActivity : BaseActivity() {
         // step4:请求广告，调用开屏广告异步请求接口，对请求回调的广告作渲染处理
         mTTAdNative.loadSplashAd(
             adSlot,
-            object : SplashAdListener {
+            object : TTAdNative.SplashAdListener {
                 @MainThread
                 override fun onError(code: Int, message: String) {
                     Log.d(TAG, message)
@@ -220,6 +221,6 @@ class SplashActivity : BaseActivity() {
 
     companion object {
         const val AD_TIME_OUT = 5 * 1000
-        const val TAG = "SplashActivity"
+        const val TAG = "Splash[runalone]"
     }
 }

@@ -4,6 +4,7 @@ import android.util.Log
 import com.baidu.mapapi.CoordType
 import com.baidu.mapapi.SDKInitializer
 import com.littlecorgi.commonlib.App
+import com.littlecorgi.courseji.utils.TTAdManagerHolder
 import com.umeng.commonsdk.UMConfigure
 import com.umeng.message.IUmengRegisterCallback
 import com.umeng.message.PushAgent

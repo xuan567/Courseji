@@ -1,4 +1,4 @@
-package com.littlecorgi.courseji
+package com.littlecorgi.courseji.utils
 
 import android.content.Context
 import com.bytedance.sdk.openadsdk.TTAdConfig
