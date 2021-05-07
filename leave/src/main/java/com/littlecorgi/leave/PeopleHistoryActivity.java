@@ -133,9 +133,9 @@ public class PeopleHistoryActivity extends AppCompatActivity {
         mBinding.teacherClass.setText(leave.getClassDetail().getName());
         String agreeState;
         if (leave.getStates() == 1) {
-            agreeState = "不批准";
-        } else if (leave.getStates() == 2) {
             agreeState = "批准";
+        } else if (leave.getStates() == 2) {
+            agreeState = "不批准";
         } else {
             agreeState = "待审核";
         }
