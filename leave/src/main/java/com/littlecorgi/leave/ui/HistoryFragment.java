@@ -1,8 +1,6 @@
 package com.littlecorgi.leave.ui;
 
 import android.app.Dialog;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,10 +10,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.littlecorgi.commonlib.AppViewModel;
 import com.littlecorgi.commonlib.util.DialogUtil;
-import com.littlecorgi.commonlib.util.UserSPConstant;
 import com.littlecorgi.leave.R;
 import com.littlecorgi.leave.logic.LeaveRepository;
 import com.littlecorgi.leave.logic.model.AllLeaveResponse;
@@ -33,6 +32,7 @@ import retrofit2.Response;
  */
 public class HistoryFragment extends Fragment {
 
+    private AppViewModel mViewModel;
     private final List<LeaveBean> mLeaveList = new ArrayList<>();
     LeaveHistoryAdapter mAdapter;
     private long studentId;
@@ -46,24 +46,29 @@ public class HistoryFragment extends Fragment {
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_history_leave, container, false);
-        SharedPreferences sp = requireContext()
-                .getSharedPreferences(UserSPConstant.FILE_NAME, Context.MODE_PRIVATE);
-        studentId = sp.getLong(UserSPConstant.STUDENT_USER_ID, 1L);
+
+        mViewModel = new ViewModelProvider(requireActivity()).get(AppViewModel.class);
+        studentId = mViewModel.getStudentId();
+
+        RecyclerView recyclerView = view.findViewById(R.id.history_leave);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+        mAdapter = new LeaveHistoryAdapter(requireActivity(), mLeaveList);
+        recyclerView.setAdapter(mAdapter);
+
+        RefreshLayout refreshLayout = view.findViewById(R.id.history_refresh);
+        refreshLayout.setEnableRefresh(true);
+        refreshLayout.setPrimaryColorsId(R.color.colorPrimary, android.R.color.white);
+        refreshLayout.setOnRefreshListener(refreshLayout1 -> {
+            studentId = mViewModel.getStudentId();
+            if (studentId != -1) {
+                initHistories();
+            }
+            refreshLayout.finishRefresh(true);
+        });
+
         if (studentId != -1) {
             initHistories();
-            RecyclerView recyclerView = view.findViewById(R.id.history_leave);
-            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-            recyclerView.setLayoutManager(layoutManager);
-            mAdapter = new LeaveHistoryAdapter(requireActivity(), mLeaveList);
-            recyclerView.setAdapter(mAdapter);
-
-            RefreshLayout refreshLayout = view.findViewById(R.id.history_refresh);
-            refreshLayout.setEnableRefresh(true);
-            refreshLayout.setPrimaryColorsId(R.color.colorPrimary, android.R.color.white);
-            refreshLayout.setOnRefreshListener(refreshLayout1 -> {
-                initHistories();
-                refreshLayout.finishRefresh(true);
-            });
         } else {
             Toast.makeText(requireContext(), "未登录或者数据错误", Toast.LENGTH_SHORT).show();
         }

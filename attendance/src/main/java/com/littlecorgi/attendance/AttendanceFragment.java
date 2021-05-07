@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bumptech.glide.Glide;
 import com.github.mikephil.charting.charts.PieChart;
@@ -23,6 +24,7 @@ import com.littlecorgi.attendance.logic.AttendanceRepository;
 import com.littlecorgi.attendance.logic.model.AllCheckOnResponse;
 import com.littlecorgi.attendance.logic.model.CheckOnBean;
 import com.littlecorgi.attendance.tools.PieChartManager;
+import com.littlecorgi.commonlib.AppViewModel;
 import com.littlecorgi.commonlib.util.DialogUtil;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -40,8 +42,10 @@ import retrofit2.Response;
 @Route(path = "/attendance/fragment_attendance")
 public class AttendanceFragment extends Fragment {
 
-    private final long mStudentId = 1;
     private static final String TAG = "AttendanceActivity";
+
+    private AppViewModel mViewModel;
+    private long mStudentId = -1L;
     private List<CheckOnBean> mCheckOnBeanList = new ArrayList<>();
     private final List<CheckOnBean> mWaitCheckList = new ArrayList<>();
     private final List<CheckOnBean> mFinishList = new ArrayList<>();
@@ -69,9 +73,18 @@ public class AttendanceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_attendance, container, false);
+
+        mViewModel = new ViewModelProvider(requireActivity()).get(AppViewModel.class);
+        Log.d(TAG, "onCreateView: " + mViewModel);
+
+        mStudentId = mViewModel.getStudentId();
+
         initView();
-        initData();
         initEvent();
+
+        if (mStudentId != -1) {
+            initData();
+        }
         return mView;
     }
 
@@ -163,6 +176,7 @@ public class AttendanceFragment extends Fragment {
         SmartRefreshLayout refreshLayout = mView.findViewById(R.id.srl_flush);
         refreshLayout.setEnableRefresh(true);
         refreshLayout.setOnRefreshListener(v -> {
+            mStudentId = mViewModel.getStudentId();
             initData();
             v.finishRefresh(true);
         });

@@ -4,9 +4,7 @@ import static com.littlecorgi.middle.logic.dao.Tool.SFaceLocation;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,13 +17,14 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.littlecorgi.commonlib.AppViewModel;
 import com.littlecorgi.commonlib.camerax.CameraActivity;
 import com.littlecorgi.commonlib.util.DialogUtil;
 import com.littlecorgi.commonlib.util.TimeUtil;
-import com.littlecorgi.commonlib.util.UserSPConstant;
 import com.littlecorgi.middle.R;
 import com.littlecorgi.middle.logic.CheckOnRepository;
 import com.littlecorgi.middle.logic.dao.Tool;
@@ -52,11 +51,12 @@ import retrofit2.Response;
 @Route(path = "/middle/fragment_middle_student")
 public class MiddleStudentFragment extends Fragment {
 
+    private static final String TAG = "MiddleStudentFragment";
     private View mView;
     private MyAdapter mAdapt;
     private final List<CheckOnDetail> mList = new ArrayList<>();
     private final List<ItemData.AllSignData> mSignList = new ArrayList<>();
-    private SharedPreferences sp;
+    private AppViewModel mViewModel;
     private long studentId;
 
     ActivityResultLauncher<Intent> mGetContent =
@@ -95,12 +95,17 @@ public class MiddleStudentFragment extends Fragment {
     public void onViewCreated(@NonNull View view,
                               @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        sp = requireContext().getSharedPreferences(UserSPConstant.FILE_NAME, Context.MODE_PRIVATE);
-        studentId = sp.getLong(UserSPConstant.STUDENT_USER_ID, 1L);
+        mViewModel = new ViewModelProvider(requireActivity()).get(AppViewModel.class);
+        Log.d(TAG, "onViewCreated: " + mViewModel);
+        studentId = mViewModel.getStudentId();
 
         initView();
-        initData();
+
+        if (studentId == -1) {
+            Toast.makeText(requireContext(), "未登录或者数据错误", Toast.LENGTH_SHORT).show();
+        } else {
+            initData();
+        }
     }
 
     private void initView() {
@@ -113,22 +118,23 @@ public class MiddleStudentFragment extends Fragment {
         RefreshLayout refreshLayout = mView.findViewById(R.id.refreshLayout);
         refreshLayout.setEnableRefresh(true);
         refreshLayout.setOnRefreshListener(v -> {
-            initData();
+            studentId = mViewModel.getStudentId();
+            if (studentId == -1) {
+                Toast.makeText(requireContext(), "未登录或者数据错误", Toast.LENGTH_SHORT).show();
+            } else {
+                initData();
+            }
             v.finishRefresh(true);
         });
     }
 
-    private boolean initData() {
+    private void initData() {
         // 模拟的数据
         addList();
         setItemData();
         mAdapt.notifyDataSetChanged();
 
-        if (studentId == -1) {
-            return false;
-        } else {
-            return getResponseData();
-        }
+        getResponseData();
     }
 
     private void changeBarColor() {
@@ -262,8 +268,7 @@ public class MiddleStudentFragment extends Fragment {
         }
     }
 
-    private boolean getResponseData() {
-        final boolean[] isSuccess = new boolean[1];
+    private void getResponseData() {
         Dialog loading = DialogUtil.writeLoadingDialog(requireContext(), false, "加载数据");
         loading.show();
         loading.setCancelable(false);
@@ -278,7 +283,6 @@ public class MiddleStudentFragment extends Fragment {
                 Log.d("MiddleStudentFragment", "onResponse: " + response.body().toString());
                 AllCheckOn allCheckOn = response.body();
                 if (allCheckOn.getStatus() == 800) {
-                    isSuccess[0] = false;
                     mList.clear();
                     mList.addAll(allCheckOn.getData());
                     // 模拟的数据
@@ -286,7 +290,6 @@ public class MiddleStudentFragment extends Fragment {
                     setItemData();
                     mAdapt.notifyDataSetChanged();
                 } else {
-                    isSuccess[0] = true;
                     Toast.makeText(requireContext(), "获取数据失败，错误码为" + allCheckOn.getStatus(),
                             Toast.LENGTH_SHORT).show();
                 }
@@ -294,14 +297,12 @@ public class MiddleStudentFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<AllCheckOn> call, @NonNull Throwable t) {
-                isSuccess[0] = true;
                 loading.cancel();
                 t.printStackTrace();
                 Log.d("MiddleStudentFragment", "onFailure: " + t.getMessage());
                 Toast.makeText(requireContext(), "网络错误", Toast.LENGTH_SHORT).show();
             }
         });
-        return isSuccess[0];
     }
 
     private void setRecyclerView() {

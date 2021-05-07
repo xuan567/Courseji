@@ -82,9 +82,9 @@ public class LoginRepository {
         Result result = dataSource.login(username, password);
         if (result instanceof Result.Success) {
             Student student = ((Result.Success<Student>) result).getData();
-            setLoggedInUser(context, student);
             LoggedInUser loggedInUser = null;
             if (student.getStatus() == 800) {
+                setLoggedInUser(context, student);
                 loggedInUser = new LoggedInUser("" + student.getData().getId(),
                         student.getData().getName());
             } else if (student.getStatus() == 1002) {

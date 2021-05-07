@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +23,10 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bumptech.glide.Glide;
+import com.littlecorgi.commonlib.AppViewModel;
 import com.littlecorgi.commonlib.util.UserSPConstant;
 import com.littlecorgi.my.R;
 import com.littlecorgi.my.logic.LoginDataSource;
@@ -42,9 +45,10 @@ import com.scwang.smart.refresh.layout.api.RefreshLayout;
 @Route(path = "/my/fragment_my_main")
 public class MyMainFragment extends Fragment {
 
+    private static final String TAG = "MyMainFragment";
     /*
-      未完成的：在这里要完成学生个人信息的获取吧信息填充到myMessage中
-    */
+          未完成的：在这里要完成学生个人信息的获取吧信息填充到myMessage中
+        */
     private View mView;
     private Student student;
     private long studentId;
@@ -53,13 +57,14 @@ public class MyMainFragment extends Fragment {
     private AppCompatTextView mTvProfessional;
     private AppCompatImageView mIvAvatar;
     private SharedPreferences sp;
+    private AppViewModel mViewModel;
 
     ActivityResultLauncher<Intent> mGetContent =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                     result -> {
                         if (result.getResultCode() == Activity.RESULT_OK) {
-                            sp = requireContext()
-                                    .getSharedPreferences(UserSPConstant.FILE_NAME, MODE_PRIVATE);
+                            studentId = sp.getLong(UserSPConstant.STUDENT_USER_ID, -1L);
+                            mViewModel.setStudentId(studentId);
                             initView();
                             initData();
                             initClick();
@@ -73,6 +78,9 @@ public class MyMainFragment extends Fragment {
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.my_fragment, container, false);
+        mViewModel = new ViewModelProvider(requireActivity()).get(AppViewModel.class);
+        Log.d(TAG, "onCreateView: " + mViewModel);
+        studentId = mViewModel.getStudentId();
         return mView;
     }
 
@@ -99,7 +107,6 @@ public class MyMainFragment extends Fragment {
     }
 
     private void initView() {
-        studentId = sp.getLong(UserSPConstant.STUDENT_USER_ID, -1L);
         refreshLayout = mView.findViewById(R.id.refreshLayout);
         if (studentId == -1) {
             // 没有登录
@@ -133,7 +140,6 @@ public class MyMainFragment extends Fragment {
             mIvAvatar = mView.findViewById(R.id.my_picture);
         }
         initBarColor();
-
     }
 
     private void initBarColor() {

@@ -61,6 +61,7 @@ public class UserRetrofitRepository {
         data.setPhone(sp.getString(UserSPConstant.STUDENT_PHONE, ""));
         data.setAvatar(sp.getString(UserSPConstant.STUDENT_AVATAR, ""));
         data.setPicture(sp.getString(UserSPConstant.STUDENT_PICTURE, ""));
+        data.setEmail(sp.getString(UserSPConstant.STUDENT_EMAIL, ""));
         student.setData(data);
         return student;
     }

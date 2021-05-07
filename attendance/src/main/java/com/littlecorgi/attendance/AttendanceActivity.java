@@ -9,7 +9,6 @@ import androidx.fragment.app.FragmentTransaction;
  * 考勤统计Activity
  */
 public class AttendanceActivity extends AppCompatActivity {
-    private static final String TAG = "AttendanceActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

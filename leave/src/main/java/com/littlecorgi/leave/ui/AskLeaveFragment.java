@@ -2,7 +2,6 @@ package com.littlecorgi.leave.ui;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,12 +24,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
+import com.littlecorgi.commonlib.AppViewModel;
 import com.littlecorgi.commonlib.util.DialogUtil;
 import com.littlecorgi.commonlib.util.TimeUtil;
-import com.littlecorgi.commonlib.util.UserSPConstant;
 import com.littlecorgi.leave.R;
 import com.littlecorgi.leave.databinding.LayoutAskLeaveBinding;
 import com.littlecorgi.leave.logic.ClassRetrofitRepository;
@@ -60,6 +60,7 @@ public class AskLeaveFragment extends Fragment {
     private static final String TAG = "AskLeaveFragment";
 
     private LayoutAskLeaveBinding mBinding;
+    private AppViewModel mViewModel;
 
     private RecyclerView mRecycler;
     private SelectPlotAdapter mAdapter;
@@ -96,9 +97,9 @@ public class AskLeaveFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mStudentId = requireContext()
-                .getSharedPreferences(UserSPConstant.FILE_NAME, Context.MODE_PRIVATE)
-                .getLong(UserSPConstant.STUDENT_USER_ID, 1L);
+        mViewModel = new ViewModelProvider(requireActivity()).get(AppViewModel.class);
+        Log.d(TAG, "onViewCreated: " + mViewModel);
+        mStudentId = mViewModel.getStudentId();
 
         initView();
         initEvent();
@@ -170,6 +171,14 @@ public class AskLeaveFragment extends Fragment {
     }
 
     private void initEvent() {
+        mBinding.layoutAskLeaveRefresh.setEnableRefresh(true);
+        mBinding.layoutAskLeaveRefresh.setOnRefreshListener(v -> {
+            mStudentId = mViewModel.getStudentId();
+            if (mStudentId != -1) {
+                initData();
+            }
+            v.finishRefresh(true);
+        });
         mBinding.rgType1.setOnCheckedChangeListener((group, checkedId) -> {
             mRadioButton1 = requireActivity()
                     .findViewById(mBinding.rgType1.getCheckedRadioButtonId());
