@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,9 +41,6 @@ public class PeopleHistoryActivity extends AppCompatActivity {
 
     private long mLeaveId;
 
-    private Button mButtonReturn;
-    private Button mTextViewReturn;
-
     public LocationClient mLocationClient;
 
     private ActivityPeopleHistoryBinding mBinding;
@@ -52,10 +48,12 @@ public class PeopleHistoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_people_history);
+
+        mBinding.toolbar.setNavigationOnClickListener(v -> finish());
 
         mLocationClient = new LocationClient(getApplicationContext());
         mLocationClient.registerLocationListener(new MyLocationListener());
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_people_history);
 
         mLeaveId = getIntent().getLongExtra("mLeaveId", -1L);
 
@@ -83,15 +81,12 @@ public class PeopleHistoryActivity extends AppCompatActivity {
         }
 
         findView();
-        setEvent();
         if (mLeaveId != -1) {
             getData();
         }
     }
 
     private void findView() {
-        mButtonReturn = findViewById(R.id.btn_return);
-        mTextViewReturn = findViewById(R.id.tv_return);
         mBinding.xiaojia.setVisibility(View.GONE);
     }
 
@@ -147,11 +142,6 @@ public class PeopleHistoryActivity extends AppCompatActivity {
         mBinding.isAgree.setText(agreeState);
         Glide.with(this).load(leave.getClassDetail().getTeacher().getAvatar())
                 .into(mBinding.ivTeacherAvatar);
-    }
-
-    private void setEvent() {
-        mButtonReturn.setOnClickListener(v -> finish());
-        mTextViewReturn.setOnClickListener(v -> finish());
     }
 
     private void requestLocation() {
