@@ -99,7 +99,7 @@
         <entry key="my/src/main/res/layout/item_rv_group.xml" value="0.29846014492753625" />
         <entry key="my/src/main/res/layout/layout_my_fragment.xml" value="0.31521739130434784" />
         <entry key="my/src/main/res/layout/layout_no_login.xml" value="0.31521739130434784" />
-        <entry key="my/src/main/res/layout/my_about.xml" value="0.31521739130434784" />
+        <entry key="my/src/main/res/layout/my_about.xml" value="0.24592391304347827" />
         <entry key="my/src/main/res/layout/my_about_advice.xml" value="0.3111413043478261" />
         <entry key="my/src/main/res/layout/my_abouttitle.xml" value="0.31521739130434784" />
         <entry key="my/src/main/res/layout/my_describe.xml" value="0.31521739130434784" />
@@ -198,9 +198,6 @@
     <LinkMapSettings>
       <textMaps />
     </LinkMapSettings>
-  </component>
-  <component name="ProjectPlainTextFileTypeManager">
-    <file url="file://$PROJECT_DIR$/commonlib/src/main/res/drawable/ic_share.xml" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />

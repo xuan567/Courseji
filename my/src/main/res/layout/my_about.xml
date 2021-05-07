@@ -25,7 +25,7 @@
         android:background="@color/blue"
         app:title="关于"
         app:titleTextColor="@color/white"
-        app:navigationIcon="@drawable/ic_back" />
+        app:navigationIcon="@drawable/ic_baseline_arrow_back_24_white" />
 
     <FrameLayout
         android:id="@+id/my_messageLayout"

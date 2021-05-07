@@ -4,6 +4,7 @@ import com.littlecorgi.my.logic.model.AllClassResponse;
 import com.littlecorgi.my.logic.model.JoinClassResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -25,7 +26,7 @@ public interface ClassInterface {
      * @param studentId 学生id
      * @param classId   班级id
      */
-    @GET("/classAndStudent/joinClass")
+    @POST("/classAndStudent/joinClass")
     Call<JoinClassResponse> joinClass(@Query("studentId") long studentId,
                                       @Query("classId") long classId);
 }

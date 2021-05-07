@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:background="@color/blue"
         android:orientation="horizontal"
-        app:navigationIcon="@drawable/ic_back"
+        app:navigationIcon="@drawable/ic_baseline_arrow_back_24_white"
         app:title="建议与反馈"
         app:titleTextColor="@color/white" />
 

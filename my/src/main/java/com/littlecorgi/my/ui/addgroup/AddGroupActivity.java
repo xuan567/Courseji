@@ -6,6 +6,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -18,7 +20,6 @@ import com.littlecorgi.my.R;
 import com.littlecorgi.my.databinding.MyGroupBinding;
 import com.littlecorgi.my.logic.ClassRetrofitRepository;
 import com.littlecorgi.my.logic.model.JoinClassResponse;
-import java.util.regex.Pattern;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,8 +31,7 @@ public class AddGroupActivity extends BaseActivity {
 
     private MyGroupBinding mBinding;
     private long studentId;
-    private long code; // 邀请码
-    private boolean[] isCodeOk = {false};
+    private String code; // 邀请码
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,7 @@ public class AddGroupActivity extends BaseActivity {
 
     private void initView() {
         initBarColor();
-        mBinding.myAboutReturnButton.setOnClickListener(v -> finish());
+        mBinding.myGroupToolbar.setNavigationOnClickListener(v -> finish());
         mBinding.myDescribeSureButton.setOnClickListener(v -> addClass());
         mBinding.myDescribeEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -56,14 +56,7 @@ public class AddGroupActivity extends BaseActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
-                if (!pattern.matcher(s).matches()) {
-                    mBinding.myDescribeEditText.setError("手机号不能有数字之外的元素");
-                    isCodeOk[0] = false;
-                    return;
-                }
-                isCodeOk[0] = true;
-                code = Long.parseLong(s.toString());
+                code = s.toString();
             }
 
             @Override
@@ -77,12 +70,12 @@ public class AddGroupActivity extends BaseActivity {
     }
 
     private void addClass() {
-        if (isCodeOk[0]) {
+        if (!code.isEmpty()) {
             Dialog loading = DialogUtil.writeLoadingDialog(this, false, "正在加入");
             loading.show();
             loading.setCancelable(false);
             Call<JoinClassResponse> classResponseCall =
-                    ClassRetrofitRepository.joinClass(studentId, code);
+                    ClassRetrofitRepository.joinClass(studentId, Long.parseLong(code));
             classResponseCall.enqueue(new Callback<JoinClassResponse>() {
                 @Override
                 public void onResponse(@NonNull Call<JoinClassResponse> call,
@@ -93,9 +86,11 @@ public class AddGroupActivity extends BaseActivity {
                     assert joinClassResponse != null;
                     if (joinClassResponse.getStatus() == 800) {
                         showSuccessToast(AddGroupActivity.this, "加入成功", true, Toast.LENGTH_SHORT);
-                        finish();
+                        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                            finish();
+                        }, 1000);
                     } else {
-                        showSuccessToast(AddGroupActivity.this,
+                        showErrorToast(AddGroupActivity.this,
                                 "错误，错误码" + joinClassResponse.getMsg(), true, Toast.LENGTH_SHORT);
                     }
                 }
@@ -110,6 +105,12 @@ public class AddGroupActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 跳转到AddGroupActivity
+     *
+     * @param context   上下文
+     * @param studentId 学生id
+     */
     public static void startAddGroupActivity(Context context, long studentId) {
         Intent intent = new Intent(context, AddGroupActivity.class);
         intent.putExtra("student_id", studentId);

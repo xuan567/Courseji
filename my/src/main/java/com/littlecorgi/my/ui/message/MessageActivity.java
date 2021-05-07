@@ -26,6 +26,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import com.bumptech.glide.Glide;
 import com.littlecorgi.commonlib.BaseActivity;
@@ -52,7 +53,7 @@ import retrofit2.Response;
  */
 public class MessageActivity extends BaseActivity {
 
-    private AppCompatTextView mReturnButton;
+    private Toolbar mToolbar;
     private AppCompatButton mSureButton;
     private ConstraintLayout mPictureLayout;
     private AppCompatImageView mPictureView;
@@ -119,7 +120,7 @@ public class MessageActivity extends BaseActivity {
     }
 
     private void initClick() {
-        mReturnButton.setOnClickListener(v -> finish());
+        mToolbar.setNavigationOnClickListener(v -> finish());
         mSureButton.setOnClickListener(v -> saveMessage());
     }
 
@@ -238,7 +239,7 @@ public class MessageActivity extends BaseActivity {
     }
 
     private void initFind() {
-        mReturnButton = findViewById(R.id.my_message_returnButton);
+        mToolbar = findViewById(R.id.my_message_toolbar);
         mSureButton = findViewById(R.id.my_message_SureButton);
 
         mPictureLayout = findViewById(R.id.my_message_picture);

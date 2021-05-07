@@ -26,43 +26,15 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="1.0" />
 
-            <RelativeLayout
-                android:id="@+id/topLayout"
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/my_group_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@color/blue"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/my_about_returnButton"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="6dp"
-                    android:fontFamily="@font/iconfont"
-                    android:gravity="center"
-                    android:includeFontPadding="false"
-                    android:text=""
-                    android:textColor="#000"
-                    android:textSize="30sp" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="32dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerInParent="true"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="6dp"
-                    android:gravity="center"
-                    android:text="添加班级"
-                    android:textColor="?android:attr/textColorPrimary"
-                    android:textSize="20sp" />
-            </RelativeLayout>
-
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/blue_title"
+                app:navigationIcon="@drawable/ic_baseline_arrow_back_24_white"
+                app:title="加入班级"
+                app:titleTextColor="@color/white"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
@@ -152,9 +124,6 @@
                     android:textColor="#fff"
                     android:text="完成" />
             </ScrollView>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
