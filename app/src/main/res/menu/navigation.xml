@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/ic_baseline_menu_book_24"
+        android:title="@string/fragment_schedule" />
+    <item
+        android:id="@+id/attendance"
+        android:icon="@drawable/ic_baseline_insert_chart_outlined_24"
+        android:title="@string/fragment_attendance" />
+
+    <item
+        android:id="@+id/middle"
+        android:icon="@drawable/ic_baseline_add_location_alt_24"
+        android:title="@string/fragment_middle" />
+
+    <item
+        android:id="@+id/leave"
+        android:icon="@drawable/ic_baseline_assignment_turned_in_24"
+        android:title="@string/fragment_leave" />
+
+    <item
+        android:id="@+id/user"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:title="@string/fragment_my" />
+</menu>
