@@ -3,9 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="140dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginStart="15dp"
-    android:layout_marginEnd="15dp"
-    android:layout_marginTop="15dp"
+    android:layout_margin="15dp"
     app:cardCornerRadius="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -170,18 +168,19 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/middle_item_details"
+            app:layout_constraintBottom_toBottomOf="@id/middle_item_details"
             app:layout_constraintStart_toEndOf="@id/middle_item_detailsButton"
             android:text="详情"
-            app:layout_constraintBaseline_toBaselineOf="@id/middle_item_detailsButton"
             android:layout_marginStart="3dp"
             android:textSize="15sp" />
 
         <Button
+            android:id="@+id/middle_item_signButton"
             android:layout_width="22sp"
             android:layout_height="22sp"
             android:background="@drawable/middle_sign"
             android:layout_marginTop="12dp"
-            android:id="@+id/middle_item_signButton"
             app:layout_constraintTop_toBottomOf="@id/middle_timeButton"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/middle_item_guideline4" />
@@ -189,8 +188,9 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBaseline_toBaselineOf="@id/middle_item_signButton"
             app:layout_constraintStart_toEndOf="@id/middle_item_signButton"
+            app:layout_constraintTop_toTopOf="@id/middle_item_signButton"
+            app:layout_constraintBottom_toBottomOf="@id/middle_item_signButton"
             android:text="签到"
             android:layout_marginStart="3dp"
             android:textSize="15sp" />

@@ -18,7 +18,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,7 +38,6 @@ import com.littlecorgi.middle.logic.model.Details;
 import com.littlecorgi.middle.logic.model.ItemData;
 import com.littlecorgi.middle.logic.model.Sign;
 import com.littlecorgi.middle.logic.model.TeacherBean;
-import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import java.util.ArrayList;
 import java.util.Date;
@@ -108,28 +106,16 @@ public class MiddleStudentFragment extends Fragment {
     private void initView() {
         changeBarColor();
         setRecyclerView();
-        initClick();
         initSmartRefreshLayout();
     }
 
     private void initSmartRefreshLayout() {
         RefreshLayout refreshLayout = mView.findViewById(R.id.refreshLayout);
-        refreshLayout.setRefreshHeader(new ClassicsHeader(requireContext()));
+        refreshLayout.setEnableRefresh(true);
         refreshLayout.setOnRefreshListener(v -> {
             initData();
             v.finishRefresh(true);
         });
-    }
-
-    private void initClick() {
-        AppCompatTextView returnButton =
-                mView.findViewById(R.id.student_returnButton);
-        AppCompatTextView history = mView.findViewById(R.id.student_History);
-        returnButton.setOnClickListener(v -> requireActivity().finish());
-        history.setOnClickListener(
-                v -> {
-                    // todo 跳转到统计界面
-                });
     }
 
     private boolean initData() {
@@ -252,7 +238,7 @@ public class MiddleStudentFragment extends Fragment {
                                 getResources().getColor(R.color.warning));
                     }
                 } else if (allSignData.getState() == 1) {
-                    // 签到已结束
+                    // 已签
                     allSignData.setMyLabel(Tool.SFinish);
                     allSignData.setStateTitle(Tool.SFinish_TITLE);
                     allSignData.setLeftColor(
@@ -263,6 +249,12 @@ public class MiddleStudentFragment extends Fragment {
                     allSignData.setStateTitle(Tool.SLeave_TITLE);
                     allSignData.setLeftColor(
                             getResources().getColor(R.color.leave));
+                } else if (allSignData.getState() == 3) {
+                    // 签到已结束
+                    allSignData.setMyLabel(Tool.SUnFinish);
+                    allSignData.setStateTitle(Tool.SUnFinish_TITLE);
+                    allSignData.setLeftColor(
+                            getResources().getColor(R.color.warning));
                 }
                 allSignData.setLabelTitle(Tool.getLabelTitle(6));
                 mSignList.add(allSignData);
