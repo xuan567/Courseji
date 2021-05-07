@@ -22,6 +22,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bumptech.glide.Glide;
 import com.littlecorgi.commonlib.util.UserSPConstant;
 import com.littlecorgi.my.R;
@@ -38,6 +39,7 @@ import com.scwang.smart.refresh.layout.api.RefreshLayout;
 /**
  * My 主页
  */
+@Route(path = "/my/fragment_my_main")
 public class MyMainFragment extends Fragment {
 
     /*

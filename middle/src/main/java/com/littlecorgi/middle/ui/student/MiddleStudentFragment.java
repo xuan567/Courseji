@@ -22,6 +22,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.littlecorgi.commonlib.camerax.CameraActivity;
 import com.littlecorgi.commonlib.util.DialogUtil;
 import com.littlecorgi.commonlib.util.TimeUtil;
@@ -50,6 +51,7 @@ import retrofit2.Response;
 /**
  * 学生Fragment
  */
+@Route(path = "/middle/fragment_middle_student")
 public class MiddleStudentFragment extends Fragment {
 
     private View mView;

@@ -3,8 +3,10 @@ package com.littlecorgi.courseji
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.littlecorgi.commonlib.BaseActivity
 import com.littlecorgi.commonlib.BaseFragment
 import com.littlecorgi.commonlib.util.dip
@@ -25,6 +27,11 @@ class MainActivity : BaseActivity() {
 
     private lateinit var mBinding: ActivityMainBinding
     private val mViewModel by viewModels<ScheduleViewModel>()
+    private lateinit var mMainFragment: Fragment
+    private lateinit var mAttendanceFragment: Fragment
+    private lateinit var mMiddleFragment: Fragment
+    private lateinit var mLeaveFragment: Fragment
+    private lateinit var mMyFragment: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,9 +41,77 @@ class MainActivity : BaseActivity() {
 
         initViewModelData()
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.frame_main_activity, MainFragment.newInstance())
-            .commit()
+        initFragment()
+
+        mBinding.navigationView.setOnNavigationItemSelectedListener { item ->
+            val beginTransaction = supportFragmentManager.beginTransaction()
+            when (item.itemId) {
+                R.id.home -> {
+                    beginTransaction.hide(mAttendanceFragment)
+                        .hide(mMiddleFragment)
+                        .hide(mLeaveFragment)
+                        .hide(mMyFragment)
+                        .show(mMainFragment)
+                        .commit()
+                }
+                R.id.attendance -> {
+                    beginTransaction.hide(mMainFragment)
+                        .hide(mMiddleFragment)
+                        .hide(mLeaveFragment)
+                        .hide(mMyFragment)
+                        .show(mAttendanceFragment)
+                        .commit()
+                }
+                R.id.middle -> {
+                    beginTransaction.hide(mMainFragment)
+                        .hide(mAttendanceFragment)
+                        .hide(mLeaveFragment)
+                        .hide(mMyFragment)
+                        .show(mMiddleFragment)
+                        .commit()
+                }
+                R.id.leave -> {
+                    beginTransaction.hide(mMainFragment)
+                        .hide(mAttendanceFragment)
+                        .hide(mMiddleFragment)
+                        .hide(mMyFragment)
+                        .show(mLeaveFragment)
+                        .commit()
+                }
+                R.id.user -> {
+                    beginTransaction.hide(mMainFragment)
+                        .hide(mAttendanceFragment)
+                        .hide(mMiddleFragment)
+                        .hide(mLeaveFragment)
+                        .show(mMyFragment)
+                        .commit()
+                }
+            }
+            return@setOnNavigationItemSelectedListener true
+        }
+    }
+
+    private fun initFragment() {
+        mMainFragment = MainFragment()
+        mAttendanceFragment =
+            ARouter.getInstance().build("/attendance/fragment_attendance").navigation() as Fragment
+        mMiddleFragment =
+            ARouter.getInstance().build("/middle/fragment_middle_student").navigation() as Fragment
+        mLeaveFragment =
+            ARouter.getInstance().build("/leave/fragment_student_leave").navigation() as Fragment
+        mMyFragment = ARouter.getInstance().build("/my/fragment_my_main").navigation() as Fragment
+
+        val ft = supportFragmentManager.beginTransaction()
+        ft.add(R.id.frame_main_activity, mMainFragment)
+            .add(R.id.frame_main_activity, mAttendanceFragment)
+            .add(R.id.frame_main_activity, mMiddleFragment)
+            .add(R.id.frame_main_activity, mLeaveFragment)
+            .add(R.id.frame_main_activity, mMyFragment)
+        ft.hide(mAttendanceFragment)
+            .hide(mMiddleFragment)
+            .hide(mLeaveFragment)
+            .hide(mMyFragment)
+        ft.commit()
     }
 
     private fun initViewModelData() {
