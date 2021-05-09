@@ -181,5 +181,3 @@ dependencies {
     // 百度地图
     api files('libs/BaiduLBS_Android.jar')
 }
-
-apply from: 'UMeng_Push.gradle'

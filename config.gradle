@@ -71,20 +71,6 @@ ext {
             // Koin Android - experimental builder extensions
             "KoinAndroidExt"               : "io.insert-koin:koin-android-ext:${android["koinVersion"]}",
 
-            // 友盟 已移除，请看commonlib模块中的UMeng_Push.gradle
-            "umsdkCommon"                  : "com.umeng.umsdk:common:9.3.0",
-            "umsdkUtdid"                   : "com.umeng.umsdk:utdid:1.5.2",
-            "umsdkAsms"                    : "com.umeng.umsdk:asms:1.1.3",
-            "umsdkCrash"                   : "com.umeng.umsdk:crash:0.0.5",
-            "umsdkPush"                    : "com.umeng.umsdk:push:6.2.0",
-            "umsdkAlicloudHttpDns"         : "com.umeng.umsdk:alicloud-httpdns:1.2.5",
-            "umsdkAlicloudUtils"           : "com.umeng.umsdk:alicloud-utils:1.1.5",
-            "umsdkAlicloudBeacon"          : "com.umeng.umsdk:alicloud_beacon:1.0.1",
-            "umsdkAgooAccs"                : "com.umeng.umsdk:agoo-accs:3.3.9.7-open",
-            "umsdkAgooNetworkSdk"          : "com.umeng.umsdk:agoo_networksdk:3.5.5",
-            "umsdkAgooTlog"                : "com.umeng.umsdk:agoo_tlog:3.0.0.17",
-            "umsdkAgooTnet4Android"        : "com.umeng.umsdk:agoo_tnet4android:3.1.14.9",
-
             // 第三方框架
             "arouter-api"                  : 'com.alibaba:arouter-api:1.5.0',//ARouter api
             "arouter-compiler"             : 'com.alibaba:arouter-compiler:1.2.2',//ARouter

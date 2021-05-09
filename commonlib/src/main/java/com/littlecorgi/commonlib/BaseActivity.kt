@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.umeng.message.PushAgent
 import com.yanzhenjie.permission.Action
 import com.yanzhenjie.permission.AndPermission
 
@@ -14,7 +13,6 @@ open class BaseActivity() : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        PushAgent.getInstance(this).onAppStart()
     }
 
     /**
