@@ -46,7 +46,7 @@ object TTAdManagerHolder {
             .debug(App.isDebug) // 测试阶段打开，可以通过日志排查问题，上线时去除该调用
             .directDownloadNetworkType(TTAdConstant.NETWORK_STATE_WIFI) // 允许直接下载的网络状态集合,没有设置的网络下点击下载apk会有二次确认弹窗，弹窗中会披露应用信息
             .supportMultiProcess(false) // 是否支持多进程，true支持
-            .asyncInit(true) // 是否异步初始化sdk,设置为true可以减少SDK初始化耗时。3450版本开始废弃~~
+            .asyncInit(false) // 是否异步初始化sdk,设置为true可以减少SDK初始化耗时。3450版本开始废弃~~
             .build()
     }
 }

@@ -98,5 +98,6 @@ ext {
             "refresh-header-classics"      : 'com.scwang.smart:refresh-header-classics:2.0.1',
             "MPAndroidChart"               : 'com.github.PhilJay:MPAndroidChart:v3.0.3',
             "lottie"                       : "com.airbnb.android:lottie:3.7.0",
+            "pangle"                       : "com.pangle.cn:ads-sdk:3.5.0.6" // 穿山甲广告SDK
     ]
 }

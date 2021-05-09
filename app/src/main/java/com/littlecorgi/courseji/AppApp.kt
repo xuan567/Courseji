@@ -1,6 +1,5 @@
 package com.littlecorgi.courseji
 
-import android.util.Log
 import com.baidu.mapapi.CoordType
 import com.baidu.mapapi.SDKInitializer
 import com.littlecorgi.commonlib.App
@@ -23,9 +22,7 @@ class AppApp : App() {
         // 包括BD09LL和GCJ02两种坐标，默认是BD09LL坐标。
         SDKInitializer.setCoordType(CoordType.BD09LL)
 
-        // 初始化穿山甲广告SDK
+        // 穿山甲初始化
         TTAdManagerHolder.init(this)
-
-        Log.d("UMengInitializer", "onCreate: APP APP初始化了")
     }
 }
