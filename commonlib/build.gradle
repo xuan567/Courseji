@@ -23,7 +23,6 @@ android {
     }
 
     defaultConfig {
-//        applicationId "com.littlecorgi.corseji.commonlib" commonlib是library，不需要applicationId
         minSdkVersion rootProject.ext.android["minSdkVersion"]
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
         versionCode rootProject.ext.android["versionCode"]
@@ -89,7 +88,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
 
     // Toasty https://github.com/GrenderG/Toasty
-    //    api rootProject.ext.dependencies["toasty"]
+    api rootProject.ext.dependencies["toasty"]
 
     // Jetpack
     // lifecycle
@@ -184,3 +183,5 @@ dependencies {
     // 百度地图
     api files('libs/BaiduLBS_Android.jar')
 }
+
+apply from: 'JPush.gradle'

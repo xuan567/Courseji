@@ -1,5 +1,6 @@
 package com.littlecorgi.courseji
 
+import cn.jpush.android.api.JPushInterface
 import com.baidu.mapapi.CoordType
 import com.baidu.mapapi.SDKInitializer
 import com.littlecorgi.commonlib.App
@@ -24,5 +25,9 @@ class AppApp : App() {
 
         // 穿山甲初始化
         TTAdManagerHolder.init(this)
+
+        // 极光推送
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
     }
 }

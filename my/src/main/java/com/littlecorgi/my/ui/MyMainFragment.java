@@ -24,6 +24,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import cn.jpush.android.api.JPushInterface;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bumptech.glide.Glide;
 import com.littlecorgi.commonlib.AppViewModel;
@@ -62,6 +63,16 @@ public class MyMainFragment extends Fragment {
                         if (result.getResultCode() == Activity.RESULT_OK) {
                             studentId = sp.getLong(UserSPConstant.STUDENT_USER_ID, -1L);
                             mViewModel.setStudentId(studentId);
+                            JPushInterface.deleteAlias(requireContext(), 0);
+                            // 刚刚发起一个请求，必须过一段时间再发送另一个请求，否则极光推送会报6022错误
+                            new Thread(() -> {
+                                try {
+                                    Thread.sleep(5 * 1000);
+                                    JPushInterface.setAlias(requireContext(), 10, "学生" + studentId);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }).start();
                             initView();
                             initData();
                             initClick();
