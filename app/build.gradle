@@ -41,6 +41,15 @@ android {
         versionName rootProject.ext.android["versionName"]
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // 极光配置 不可下沉到commonlib库，会报错
+        manifestPlaceholders = [
+                JPUSH_PKGNAME: "com.littlecorgi.courseji.student",
+                JPUSH_APPKEY : "84b20a7f0ba71c4a7961ef5c", //JPush 上注册的包名对应的 Appkey.
+                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
+                XIAOMI_APPID : "MI-2882303761519908739",
+                XIAOMI_APPKEY: "MI-5421990822739"
+        ]
     }
 
     // 签名配置
@@ -99,8 +108,6 @@ dependencies {
     implementation project(':commonlib')
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
-    // 穿山甲广告sdk
-    implementation(name: 'open_ad_sdk', ext: 'aar')
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'

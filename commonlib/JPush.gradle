@@ -1,0 +1,7 @@
+dependencies {
+    api 'cn.jiguang.sdk:jcore:2.7.8'  // 此处以JCore 2.7.2 版本为例。
+    api 'cn.jiguang.sdk:jpush:4.0.6'  // 此处以JPush 4.0.0 版本为例
+
+    // 接入小米厂商
+    api 'cn.jiguang.sdk.plugin:xiaomi:4.0.6'
+}

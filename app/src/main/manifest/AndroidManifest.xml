@@ -1,21 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.littlecorgi.courseji">
-    <!-- 友盟 -->
-    <!-- 以下为需要的基本权限，需要自行添加至您的AndroidManifest文件中 start -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_ADDED" />
-    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_CHANGED" />
-    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_INSTALL" />
-    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_REPLACED" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!-- 如果视频广告使用textureView播放，请务必添加，否则黑屏 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
@@ -48,154 +33,33 @@
             </intent-filter>
         </activity>
         <activity android:name=".runalone.MainActivity" />
-        <!--穿山甲-->
-        <provider
-            android:name="com.bytedance.sdk.openadsdk.TTFileProvider"
-            android:authorities="${applicationId}.TTFileProvider"
+
+        <!--极光-->
+        <!-- Since JCore2.0.0 Required SDK核心功能-->
+        <!-- 可配置android:process参数将Service放在其他进程中；android:enabled属性不能是false -->
+        <!-- 这个是自定义Service，要继承极光JCommonService，可以在更多手机平台上使得推送通道保持的更稳定 -->
+        <service
+            android:name=".jpush.PushService"
+            android:enabled="true"
             android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
-        <!-- 以下为友盟基本配置信息，需要自行添加至您的AndroidManifest文件中 start -->
-        <service
-            android:name="com.taobao.accs.ChannelService"
-            android:exported="true"
-            android:process=":channel">
+            android:process=":pushcore">
             <intent-filter>
-                <action android:name="com.taobao.accs.intent.action.SERVICE" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.taobao.accs.intent.action.ELECTION" />
+                <action android:name="cn.jiguang.user.service.action" />
             </intent-filter>
         </service>
-        <service
-            android:name="com.taobao.accs.data.MsgDistributeService"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.taobao.accs.intent.action.RECEIVE" />
-            </intent-filter>
-        </service>
-
+        <!-- Required since 3.0.7 -->
+        <!-- 新的 tag/alias 接口结果返回需要开发者配置一个自定的广播 -->
+        <!-- 3.3.0开始所有事件将通过该类回调 -->
+        <!-- 该广播需要继承 JPush 提供的 JPushMessageReceiver 类, 并如下新增一个 Intent-Filter -->
         <receiver
-            android:name="com.taobao.accs.EventReceiver"
-            android:process=":channel">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_REMOVED" />
-
-                <data android:scheme="package" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.USER_PRESENT" />
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name="com.taobao.accs.ServiceReceiver"
-            android:process=":channel">
-            <intent-filter>
-                <action android:name="com.taobao.accs.intent.action.COMMAND" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.taobao.accs.intent.action.START_FROM_AGOO" />
-            </intent-filter>
-        </receiver>
-
-        <service
-            android:name="com.taobao.accs.internal.AccsJobService"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            android:process=":channel" />
-        <service
-            android:name="com.taobao.accs.ChannelService$KernelService"
-            android:process=":channel" />
-        <service
-            android:name="org.android.agoo.accs.AgooService"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.taobao.accs.intent.action.RECEIVE" />
-            </intent-filter>
-        </service>
-        <service
-            android:name="com.umeng.message.UmengIntentService"
-            android:exported="true"
-            android:process=":channel">
-            <intent-filter>
-                <action android:name="org.agoo.android.intent.action.RECEIVE" />
-            </intent-filter>
-        </service>
-        <service
-            android:name="com.umeng.message.XiaomiIntentService"
-            android:exported="true"
-            android:process=":channel">
-            <intent-filter>
-                <action android:name="org.agoo.android.intent.action.RECEIVE" />
-            </intent-filter>
-        </service>
-
-        <receiver
-            android:name="com.taobao.agoo.AgooCommondReceiver"
-            android:exported="true"
-            android:process=":channel">
-            <intent-filter>
-                <action android:name="${applicationId}.intent.action.COMMAND" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_REMOVED" />
-
-                <data android:scheme="package" />
-            </intent-filter>
-        </receiver>
-
-        <service
-            android:name="com.umeng.message.UmengMessageIntentReceiverService"
-            android:exported="true"
-            android:process=":channel">
-            <intent-filter>
-                <action android:name="org.android.agoo.client.MessageReceiverService" />
-            </intent-filter>
-        </service>
-
-        <receiver
-            android:name="com.umeng.message.NotificationProxyBroadcastReceiver"
-            android:exported="false" />
-
-        <service
-            android:name="com.umeng.message.UmengMessageCallbackHandlerService"
-            android:exported="false"
-            android:permission="android.permission.BIND_JOB_SERVICE">
-            <intent-filter>
-                <action android:name="com.umeng.messge.registercallback.action" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.umeng.message.enablecallback.action" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.umeng.message.disablecallback.action" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.umeng.message.message.handler.action" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.umeng.message.message.sendmessage.action" />
-            </intent-filter>
-        </service>
-        <service
-            android:name="com.umeng.message.UmengDownloadResourceService"
-            android:exported="false"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
-
-        <provider
-            android:name="com.umeng.message.provider.MessageProvider"
-            android:authorities="${applicationId}.umeng.message"
+            android:name=".jpush.PushMessageReceiver"
+            android:enabled="true"
             android:exported="false">
-            <grant-uri-permission android:pathPattern=".*" />
-        </provider>
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
+                <category android:name="您应用的包名" />
+            </intent-filter>
+        </receiver>
+        <!--极光 end-->
     </application>
-
 </manifest>

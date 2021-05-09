@@ -22,16 +22,6 @@ open class App : Application() {
 
         mApplicationContext = applicationContext
 
-        // Toasty配置
-        // 放在了Startup中，具体见 [com.littlecorgi.commonlib.Initializer]
-
-        // LeakCanary手动配置，我想禁止LeakCanary通过他的ContentProvider来初始化，减少ContentProvider
-        // 突然发现，release包找不到LeakCanary，所以导致导出release包此处会报错，换回LeakCanary自己的ContentProvider
-        // TODO 2020.10.28 之后记得删除
-        /*AppInitializer.getInstance(this).initializeComponent(
-            LeakCanaryInitializer::class.java
-        )*/
-
         // AppContextKoinModule 用来通过依赖注入注入Application的Context
         val appContextModule = module {
             single<AppContextRepository> { AppContextRepositoryImpl(applicationContext) }
