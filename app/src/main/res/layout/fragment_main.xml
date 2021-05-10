@@ -22,15 +22,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    app:titleTextColor="@color/white"
-                    app:title="我的课程表"
-                    android:background="#08b9fd"
-                    app:layout_constraintTop_toTopOf="parent" />
-
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/iv_bg"
                     android:layout_width="0dp"
