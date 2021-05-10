@@ -20,6 +20,7 @@
         <entry key="app/src/main/res/drawable/ic_my_30.xml" value="0.4046875" />
         <entry key="app/src/main/res/drawable/ic_schedule_30.xml" value="0.4046875" />
         <entry key="app/src/main/res/drawable/navigation_item_color.xml" value="0.4046875" />
+        <entry key="app/src/main/res/layout/activity_dialog.xml" value="0.29393115942028986" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2554347826086957" />
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.3509963768115942" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.3509963768115942" />

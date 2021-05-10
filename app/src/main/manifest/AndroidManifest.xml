@@ -19,6 +19,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Corseji">
+        <activity
+            android:name=".jpush.DialogActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Translucent" />
         <activity android:name=".schedule_setting.ui.ScheduleSettingsActivity" />
         <activity
             android:name=".schedule_import.LoginWebActivity"
@@ -56,8 +60,8 @@
             android:enabled="true"
             android:exported="false">
             <intent-filter>
-                <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
-                <category android:name="您应用的包名" />
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+                <category android:name="com.littlecorgi.courseji.student" />
             </intent-filter>
         </receiver>
         <!--极光 end-->

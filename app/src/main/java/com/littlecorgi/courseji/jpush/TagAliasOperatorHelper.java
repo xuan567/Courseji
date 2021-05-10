@@ -1,17 +1,15 @@
 package com.littlecorgi.courseji.jpush;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import cn.jpush.android.api.JPushMessage;
 import es.dmoral.toasty.Toasty;
 
 /**
- * 处理tagalias相关的逻辑。极光推送Demo中的代码
+ * 处理tag alias相关的逻辑。极光推送Demo中的代码
  *
  * @author littlecorgi 2021/05/07
  */
-@SuppressLint("CheckResult")
 public class TagAliasOperatorHelper {
     private static final String TAG = "JIGUANG-TagAliasHelper";
 
@@ -64,7 +62,7 @@ public class TagAliasOperatorHelper {
 
         if (pushMessage.getErrorCode() == 0) {
             Log.i(TAG, "action - modify tag Success,sequence:" + sequence);
-            Toasty.success(context, "modify success");
+            Toasty.success(context, "modify success").show();
         } else {
             String logs = "Failed to modify tags";
             if (pushMessage.getErrorCode() == 6018) {
@@ -73,7 +71,7 @@ public class TagAliasOperatorHelper {
             }
             logs += ", errorCode:" + pushMessage.getErrorCode();
             Log.e(TAG, logs);
-            Toasty.error(context, logs);
+            Toasty.error(context, logs).show();
         }
     }
 
@@ -93,11 +91,11 @@ public class TagAliasOperatorHelper {
                     "modify tag " + pushMessage.getCheckTag() + " bind state success,state:"
                             + pushMessage.getTagCheckStateResult();
             Log.i(TAG, logs);
-            Toasty.success(context, "modify success");
+            Toasty.success(context, "modify success").show();
         } else {
             String logs = "Failed to modify tags, errorCode:" + pushMessage.getErrorCode();
             Log.e(TAG, logs);
-            Toasty.error(context, logs);
+            Toasty.error(context, logs).show();
         }
     }
 
@@ -115,11 +113,11 @@ public class TagAliasOperatorHelper {
 
         if (pushMessage.getErrorCode() == 0) {
             Log.i(TAG, "action - modify alias Success,sequence:" + sequence);
-            Toasty.success(context, "modify success");
+            Toasty.success(context, "modify success").show();
         } else {
             String logs = "Failed to modify alias, errorCode:" + pushMessage.getErrorCode();
             Log.e(TAG, logs);
-            Toasty.error(context, logs);
+            Toasty.error(context, logs).show();
             // MMKV.defaultMMKV().putString(AdvActivity.ALIAS_DATA, "");
         }
     }
@@ -138,11 +136,11 @@ public class TagAliasOperatorHelper {
         init(context);
         if (pushMessage.getErrorCode() == 0) {
             Log.i(TAG, "action - set mobile number Success,sequence:" + sequence);
-            Toasty.success(context, "modify success");
+            Toasty.success(context, "modify success").show();
         } else {
             String logs = "Failed to set mobile number, errorCode:" + pushMessage.getErrorCode();
             Log.e(TAG, logs);
-            Toasty.error(context, logs);
+            Toasty.error(context, logs).show();
             // MMKV.defaultMMKV().putString(AdvActivity.MN_DATA, "");
         }
     }

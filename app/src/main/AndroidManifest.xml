@@ -11,6 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Corseji">
+        <activity
+            android:name=".jpush.DialogActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Translucent" />
         <activity android:name=".schedule_setting.ui.ScheduleSettingsActivity" />
         <activity
             android:name=".schedule_import.LoginWebActivity"
@@ -26,8 +30,8 @@
         </activity>
         <activity android:name=".MainActivity" />
 
-        <!--极光-->
-        <!-- Since JCore2.0.0 Required SDK核心功能-->
+        <!-- 极光 -->
+        <!-- Since JCore2.0.0 Required SDK核心功能 -->
         <!-- 可配置android:process参数将Service放在其他进程中；android:enabled属性不能是false -->
         <!-- 这个是自定义Service，要继承极光JCommonService，可以在更多手机平台上使得推送通道保持的更稳定 -->
         <service
@@ -49,7 +53,7 @@
             android:exported="false">
             <intent-filter android:priority="1000">
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />
-                <!--Required  显示通知栏 -->
+                <!-- Required  显示通知栏 -->
                 <category android:name="${applicationId}" />
             </intent-filter>
             <intent-filter>
@@ -64,10 +68,10 @@
                 <data android:scheme="package" />
             </intent-filter>
             <intent-filter>
-                <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
                 <category android:name="com.littlecorgi.courseji.student" />
             </intent-filter>
         </receiver>
-        <!--极光 end-->
     </application>
+
 </manifest>

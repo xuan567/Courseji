@@ -3,6 +3,8 @@ package com.littlecorgi.courseji.jpush;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import cn.jpush.android.api.CmdMessage;
 import cn.jpush.android.api.CustomMessage;
@@ -23,9 +25,16 @@ public class PushMessageReceiver extends JPushMessageReceiver {
     @Override
     public void onMessage(Context context, CustomMessage customMessage) {
         Log.e(TAG, "[onMessage] " + customMessage);
-        Intent intent = new Intent("com.littlecorgi.courseji.teacher");
-        intent.putExtra("msg", customMessage.message);
-        context.sendBroadcast(intent);
+
+        // 必须回到主线程调用
+        new Handler(Looper.getMainLooper()).post(() -> {
+            Intent intent = new Intent(context, DialogActivity.class);
+            intent.putExtra("title", customMessage.title);
+            intent.putExtra("message", customMessage.message);
+            // 想通过Broadcast的context调起Activity必须添加此Flag
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        });
     }
 
     @Override
