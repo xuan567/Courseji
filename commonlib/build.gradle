@@ -128,10 +128,6 @@ dependencies {
     api rootProject.ext.dependencies["Retrofit-converter-gson"]
     api 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2'
 
-    //ButterKnife
-    api rootProject.ext.dependencies["butterknife"]
-    kapt rootProject.ext.dependencies["butterknife-compiler"]
-
     // Glide
     api rootProject.ext.dependencies["Glide"]
     // annotationProcessor 代表「注解处理器」，每个模块里面都得写
@@ -152,9 +148,6 @@ dependencies {
     api rootProject.ext.dependencies["BuglyCrashReportUpgrade"]
     api rootProject.ext.dependencies["BuglyNativeCrashReport"]
 
-    // NumberPickerView
-    api rootProject.ext.dependencies["NumberPickerView"]
-
     // Jsoup
     api rootProject.ext.dependencies["Jsoup"]
 
@@ -174,8 +167,6 @@ dependencies {
     api rootProject.ext.dependencies["circleimageview"]
 
     api rootProject.ext.dependencies["MPAndroidChart"]
-
-    api rootProject.ext.dependencies["lottie"]
 
     // 穿山甲
     api rootProject.ext.dependencies["pangle"]
