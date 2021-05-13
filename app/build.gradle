@@ -124,8 +124,6 @@ dependencies {
     kapt rootProject.ext.dependencies["ARouterCompiler"]
     // RoomCompiler
     kapt rootProject.ext.dependencies["room-compiler"]
-    // ButterKnife
-    kapt rootProject.ext.dependencies["butterknife-compiler"]
 
     // 每加入一个新的模块，就需要在下面对应的添加一行
     if (!isRunAlone.toBoolean()) {

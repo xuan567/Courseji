@@ -79,6 +79,4 @@ dependencies {
     annotationProcessor rootProject.ext.dependencies["ARouterCompiler"]
     // RoomCompiler
     annotationProcessor rootProject.ext.dependencies["room-compiler"]
-    // ButterKnife
-    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
 }
