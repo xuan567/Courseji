@@ -72,32 +72,32 @@ ext {
             "KoinAndroidExt"               : "io.insert-koin:koin-android-ext:${android["koinVersion"]}",
 
             // 第三方框架
-            "arouter-api"                  : 'com.alibaba:arouter-api:1.5.0',//ARouter api
-            "arouter-compiler"             : 'com.alibaba:arouter-compiler:1.2.2',//ARouter
-            "butterknife"                  : 'com.jakewharton:butterknife:10.2.3',//ButterKnife
-            "butterknife-compiler"         : 'com.jakewharton:butterknife-compiler:10.2.3',//ButterKnife-Compiler
-            "Glide"                        : "com.github.bumptech.glide:glide:${android["glideVersion"]}",// Glide
-            "Glide-compiler"               : "com.github.bumptech.glide:compiler:${android["glideVersion"]}",// Glide-Compiler
-            "Retrofit"                     : "com.squareup.retrofit2:retrofit:${android["retrofitVersion"]}",//Retrofit
-            "Retrofit-converter-gson"      : "com.squareup.retrofit2:converter-gson:${android["retrofitVersion"]}",//Retrofit
-            "leakcanary"                   : 'com.squareup.leakcanary:leakcanary-android:2.7',//LeakCanary
-            "AndPermission"                : 'com.yanzhenjie:permission:2.0.3',//AndPermission
-            "toasty"                       : 'com.github.GrenderG:Toasty:1.5.0',//Toasty 由于还不支持Android11，所以暂时移除
             "BaseRecyclerViewAdapterHelper": "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4",// BaseRecyclerViewAdapterHelper
-            "ARouter"                      : "com.alibaba:arouter-api:1.5.1",//ARouter
-            "ARouterCompiler"              : "com.alibaba:arouter-compiler:1.5.1",// ARouterCompiler
             "BuglyCrashReport"             : "com.tencent.bugly:crashreport:1.5.1",//BuglyCrashReport
             "BuglyCrashReportUpgrade"      : "com.tencent.bugly:crashreport_upgrade:1.5.1",//BuglyCrashReport升级功能
             "BuglyNativeCrashReport"       : "com.tencent.bugly:nativecrashreport:3.9.0",//BuglyNativeCrashReport
-            "NumberPickerView"             : "cn.carbswang.android:NumberPickerView:1.2.0", //NumberPickerView
-            "Jsoup"                        : "org.jsoup:jsoup:1.13.1", //Jsoup
-            "PickerView"                   : 'com.contrarywind:Android-PickerView:4.1.9',  //PickerView
+            "butterknife"                  : 'com.jakewharton:butterknife:10.2.3',//ButterKnife
+            "butterknife-compiler"         : 'com.jakewharton:butterknife-compiler:10.2.3',//ButterKnife-Compiler
             "circleimageview"              : 'de.hdodenhof:circleimageview:3.1.0',        //CircleImageView
+            "Glide"                        : "com.github.bumptech.glide:glide:${android["glideVersion"]}",// Glide
+            "Glide-compiler"               : "com.github.bumptech.glide:compiler:${android["glideVersion"]}",// Glide-Compiler
+            "Jsoup"                        : "org.jsoup:jsoup:1.13.1", //Jsoup
+            "leakcanary"                   : 'com.squareup.leakcanary:leakcanary-android:2.7',//LeakCanary
+            "lottie"                       : "com.airbnb.android:lottie:3.7.0",
+            "MPAndroidChart"               : 'com.github.PhilJay:MPAndroidChart:v3.0.3',
             "PictureSelector"              : 'com.github.LuckSiege.PictureSelector:picture_library:v2.6.0',   //PictureSelector
+            "pangle"                       : "com.pangle.cn:ads-sdk:3.5.0.6", // 穿山甲广告SDK
+            "Retrofit"                     : "com.squareup.retrofit2:retrofit:${android["retrofitVersion"]}",//Retrofit
+            "Retrofit-converter-gson"      : "com.squareup.retrofit2:converter-gson:${android["retrofitVersion"]}",//Retrofit
+            "toasty"                       : 'com.github.GrenderG:Toasty:1.5.0',//Toasty 由于还不支持Android11，所以暂时移除
+
+            // 扔处于jcenter下的包，暂时使用阿里云的jcenter镜像，后续需要移除jcenter
+            "ARouter"                      : 'com.alibaba:arouter-api:1.5.0',//ARouter api
+            "ARouterCompiler"              : 'com.alibaba:arouter-compiler:1.2.2',//ARouter
+            "AndPermission"                : 'com.yanzhenjie:permission:2.0.3',//AndPermission
+            "NumberPickerView"             : "cn.carbswang.android:NumberPickerView:1.2.0", //NumberPickerView
+            "PickerView"                   : 'com.contrarywind:Android-PickerView:4.1.9',  //PickerView
             "refresh-layout-kernel"        : 'com.scwang.smart:refresh-layout-kernel:2.0.1',                  //SmartRefreshLayout
             "refresh-header-classics"      : 'com.scwang.smart:refresh-header-classics:2.0.1',
-            "MPAndroidChart"               : 'com.github.PhilJay:MPAndroidChart:v3.0.3',
-            "lottie"                       : "com.airbnb.android:lottie:3.7.0",
-            "pangle"                       : "com.pangle.cn:ads-sdk:3.5.0.6" // 穿山甲广告SDK
     ]
 }
