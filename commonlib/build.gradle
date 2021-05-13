@@ -148,9 +148,6 @@ dependencies {
     api rootProject.ext.dependencies["BuglyCrashReportUpgrade"]
     api rootProject.ext.dependencies["BuglyNativeCrashReport"]
 
-    // NumberPickerView
-    api rootProject.ext.dependencies["NumberPickerView"]
-
     // Jsoup
     api rootProject.ext.dependencies["Jsoup"]
 
