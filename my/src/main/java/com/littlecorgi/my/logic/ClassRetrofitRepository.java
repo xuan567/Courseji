@@ -26,6 +26,12 @@ public class ClassRetrofitRepository {
         return classInterface.getAllClassFromTheStudent(studentId);
     }
 
+    /**
+     * 加入班级
+     *
+     * @param studentId 学生id
+     * @param classId   班级id
+     */
     public static Call<JoinClassResponse> joinClass(long studentId, long classId) {
         ClassInterface classInterface = TencentServerRetrofitKt.getTencentCloudRetrofit()
                 .create(ClassInterface.class);
