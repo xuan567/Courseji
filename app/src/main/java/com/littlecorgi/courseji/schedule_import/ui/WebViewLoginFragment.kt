@@ -34,6 +34,7 @@ import com.littlecorgi.courseji.databinding.FragmentWebViewLoginBinding
 import com.littlecorgi.courseji.schedule_import.vm.ImportViewModel
 import com.littlecorgi.courseji.utils.Const
 import com.littlecorgi.courseji.utils.getPrefer
+import es.dmoral.toasty.Toasty
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -98,7 +99,8 @@ class WebViewLoginFragment : Fragment() {
                 if (newProgress == 100) {
                     binding.pbLoad.progress = newProgress
                     binding.pbLoad.visibility = View.GONE
-                    // Toasty.info(activity!!, wv_course.url, Toast.LENGTH_LONG).show()
+                    Toasty.info(activity!!, binding.wvCourse.url.toString(), Toast.LENGTH_LONG)
+                        .show()
                 } else {
                     binding.pbLoad.progress = newProgress * 5
                     binding.pbLoad.visibility = View.VISIBLE
@@ -238,8 +240,7 @@ class WebViewLoginFragment : Fragment() {
         if (URLUtil.isHttpUrl(url) || URLUtil.isHttpsUrl(url)) {
             binding.wvCourse.loadUrl(url)
         } else {
-            // Toasty.error(requireContext(), "请输入正确的网址╭(╯^╰)╮").show()
-            Toast.makeText(requireContext(), "请输入正确的网址╭(╯^╰)╮", Toast.LENGTH_SHORT).show()
+            Toasty.error(requireContext(), "请输入正确的网址╭(╯^╰)╮").show()
         }
     }
 
@@ -251,17 +252,11 @@ class WebViewLoginFragment : Fragment() {
                     Log.d("导入的html", "showSource: ")
                     Log.d("导入的html", html)
                     val result = viewModel.importSchedule(html)
-                    // Toasty.success(activity!!, "成功导入 $result 门课程(ﾟ▽ﾟ)/\n请在右侧栏切换后查看").show()
-                    Toast.makeText(
-                        activity!!,
-                        "成功导入 $result 门课程(ﾟ▽ﾟ)/\n请在右侧栏切换后查看",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toasty.success(activity!!, "成功导入 $result 门课程(ﾟ▽ﾟ)/\n请在右侧栏切换后查看").show()
                     activity!!.setResult(Activity.RESULT_OK)
                     activity!!.finish()
                 } catch (e: Exception) {
-                    // Toasty.error(activity!!, "导入失败>_<\n${e.message}", Toast.LENGTH_LONG).show()
-                    Toast.makeText(activity!!, "导入失败>_<\n${e.message}", Toast.LENGTH_SHORT).show()
+                    Toasty.error(activity!!, "导入失败>_<\n${e.message}", Toast.LENGTH_LONG).show()
                 }
             }
         }
