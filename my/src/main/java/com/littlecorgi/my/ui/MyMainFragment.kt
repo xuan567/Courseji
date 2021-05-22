@@ -15,7 +15,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import cn.jpush.android.api.JPushInterface
@@ -24,6 +24,7 @@ import com.bumptech.glide.Glide
 import com.littlecorgi.commonlib.AppViewModel
 import com.littlecorgi.commonlib.util.UserSPConstant
 import com.littlecorgi.my.R
+import com.littlecorgi.my.databinding.MyFragmentBinding
 import com.littlecorgi.my.logic.LoginDataSource
 import com.littlecorgi.my.logic.LoginRepository
 import com.littlecorgi.my.logic.Result
@@ -43,7 +44,7 @@ import com.scwang.smart.refresh.layout.api.RefreshLayout
 @Route(path = "/my/fragment_my_main")
 class MyMainFragment : Fragment() {
 
-    private var mView: View? = null
+    private lateinit var mBinding: MyFragmentBinding
     private lateinit var student: Student
     private var studentId: Long = 0
     private lateinit var refreshLayout: RefreshLayout
@@ -53,6 +54,9 @@ class MyMainFragment : Fragment() {
     private var sp: SharedPreferences? = null
     private var mViewModel: AppViewModel? = null
 
+    /**
+     * 获取StartActivity的返回值
+     */
     private var mGetContent = registerForActivityResult(
         StartActivityForResult()
     ) { result: ActivityResult ->
@@ -79,12 +83,12 @@ class MyMainFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        mView = inflater.inflate(R.layout.my_fragment, container, false)
+    ): View {
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.my_fragment, container, false)
         mViewModel = ViewModelProvider(requireActivity()).get(AppViewModel::class.java)
         Log.d(TAG, "onCreateView: $mViewModel")
         studentId = mViewModel!!.studentId
-        return mView
+        return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -108,15 +112,15 @@ class MyMainFragment : Fragment() {
     }
 
     private fun initView() {
-        refreshLayout = mView!!.findViewById(R.id.refreshLayout)
+        refreshLayout = mBinding.refreshLayout
         if (studentId == -1L) {
             // 没有登录
-            mView!!.findViewById<View>(R.id.no_login).visibility = View.VISIBLE
-            mView!!.findViewById<View>(R.id.has_login).visibility = View.GONE
+            mBinding.noLogin.root.visibility = View.VISIBLE
+            mBinding.hasLogin.root.visibility = View.GONE
             refreshLayout.setEnableRefresh(false)
         } else {
-            mView!!.findViewById<View>(R.id.no_login).visibility = View.GONE
-            mView!!.findViewById<View>(R.id.has_login).visibility = View.VISIBLE
+            mBinding.noLogin.root.visibility = View.GONE
+            mBinding.hasLogin.root.visibility = View.VISIBLE
             refreshLayout.setEnableRefresh(true)
             refreshLayout.setRefreshHeader(ClassicsHeader(requireContext()))
             refreshLayout.setOnRefreshListener { layout: RefreshLayout ->
@@ -135,9 +139,9 @@ class MyMainFragment : Fragment() {
                     }
                 }.start()
             }
-            mTvName = mView!!.findViewById(R.id.my_name)
-            mTvProfessional = mView!!.findViewById(R.id.my_professional)
-            mIvAvatar = mView!!.findViewById(R.id.my_picture)
+            mTvName = mBinding.hasLogin.myName
+            mTvProfessional = mBinding.hasLogin.myProfessional
+            mIvAvatar = mBinding.hasLogin.myPicture
         }
         initBarColor()
     }
@@ -147,9 +151,9 @@ class MyMainFragment : Fragment() {
     }
 
     private fun initClick() {
-        val messageLayout: ConstraintLayout = mView!!.findViewById(R.id.my_message)
-        val aboutLayout: ConstraintLayout = mView!!.findViewById(R.id.my_about)
-        val groupLayout: ConstraintLayout = mView!!.findViewById(R.id.my_addGroup)
+        val messageLayout = mBinding.myMessage
+        val aboutLayout = mBinding.myAbout
+        val groupLayout = mBinding.myAddGroup
         messageLayout.setOnClickListener {
             if (studentId == -1L) {
                 mGetContent.launch(Intent(requireContext(), LoginActivity::class.java))
