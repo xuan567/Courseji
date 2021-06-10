@@ -10,5 +10,5 @@ import java.io.Serializable
 data class StudentResponse(
     var msg: String? = null,
     var status: Int,
-    var data: Student
+    var `data`: Student
 ) : Serializable
