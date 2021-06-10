@@ -37,6 +37,7 @@ import com.littlecorgi.commonlib.util.UserSPConstant;
 import com.littlecorgi.my.R;
 import com.littlecorgi.my.logic.model.MessageChange;
 import com.littlecorgi.my.logic.model.Student;
+import com.littlecorgi.my.logic.model.StudentResponse;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.tools.PictureFileUtils;
@@ -66,7 +67,7 @@ public class MessageActivity extends BaseActivity {
     private ConstraintLayout mPhoneLayout;
     private AppCompatTextView mPhoneTitle;
 
-    private Student.DataBean mMyInfo;
+    private Student mMyInfo;
     private MessageChange mMessageChange;
 
     private Dialog mPictureDialog;
@@ -315,8 +316,7 @@ public class MessageActivity extends BaseActivity {
 
     private void initData() {
         Intent intent = getIntent();
-        mMyInfo = ((Student) intent.getSerializableExtra("studentInfo")).getData();
-        assert mMyInfo != null;
+        mMyInfo = ((StudentResponse) intent.getSerializableExtra("studentInfo")).getData();
         Glide.with(this).load(mMyInfo.getAvatar()).into(mPictureView);
         mNameTitle.setText(mMyInfo.getName());
         mPhoneTitle.setText(mMyInfo.getPhone());
@@ -329,7 +329,7 @@ public class MessageActivity extends BaseActivity {
      * @param context 上下文
      * @param student 我的信息
      */
-    public static void startMessageActivity(Context context, Student student) {
+    public static void startMessageActivity(Context context, StudentResponse student) {
         Intent intent = new Intent(context, MessageActivity.class);
         intent.putExtra("studentInfo", student);
         context.startActivity(intent);

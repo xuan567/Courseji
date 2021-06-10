@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import com.littlecorgi.commonlib.util.UserSPConstant;
 import com.littlecorgi.my.logic.model.LoggedInUser;
 import com.littlecorgi.my.logic.model.Student;
+import com.littlecorgi.my.logic.model.StudentResponse;
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -42,31 +43,28 @@ public class LoginRepository {
         SharedPreferences sp = context.getSharedPreferences(
                 UserSPConstant.FILE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        if (user.getData().getId() != 0) {
-            editor.putLong(UserSPConstant.STUDENT_USER_ID, user.getData().getId());
+        if (user.getId() != null) {
+            editor.putLong(UserSPConstant.STUDENT_USER_ID, user.getId());
         }
-        if (user.getData().getEmail() != null) {
-            editor.putString(UserSPConstant.STUDENT_EMAIL, user.getData().getEmail());
+        if (user.getEmail() != null) {
+            editor.putString(UserSPConstant.STUDENT_EMAIL, user.getEmail());
         }
-        if (user.getData().getName() != null) {
-            editor.putString(UserSPConstant.STUDENT_NAME, user.getData().getName());
+        if (user.getName() != null) {
+            editor.putString(UserSPConstant.STUDENT_NAME, user.getName());
         }
-        if (user.getData().getPhone() != null) {
-            editor.putString(UserSPConstant.STUDENT_PHONE, user.getData().getPhone());
+        if (user.getPhone() != null) {
+            editor.putString(UserSPConstant.STUDENT_PHONE, user.getPhone());
         }
-        if (user.getData().getAvatar() != null) {
-            editor.putString(UserSPConstant.STUDENT_AVATAR, user.getData().getAvatar());
+        if (user.getAvatar() != null) {
+            editor.putString(UserSPConstant.STUDENT_AVATAR, user.getAvatar());
         }
-        if (user.getData().getPicture() != null) {
-            editor.putString(UserSPConstant.STUDENT_PICTURE, user.getData().getPicture());
+        if (user.getPicture() != null) {
+            editor.putString(UserSPConstant.STUDENT_PICTURE, user.getPicture());
         }
-        if (user.getData().getPassword() != null) {
-            editor.putString(UserSPConstant.STUDENT_PASSWORD, user.getData().getPassword());
+        if (user.getPassword() != null) {
+            editor.putString(UserSPConstant.STUDENT_PASSWORD, user.getPassword());
         }
         editor.apply();
-
-        // If user credentials will be cached in local storage, it is recommended it be encrypted
-        // @see https://developer.android.com/training/articles/keystore
     }
 
     /**
@@ -81,10 +79,10 @@ public class LoginRepository {
         // handle login
         Result result = dataSource.login(username, password);
         if (result instanceof Result.Success) {
-            Student student = ((Result.Success<Student>) result).getData();
+            StudentResponse student = ((Result.Success<StudentResponse>) result).getData();
             LoggedInUser loggedInUser = null;
             if (student.getStatus() == 800) {
-                setLoggedInUser(context, student);
+                setLoggedInUser(context, student.getData());
                 loggedInUser = new LoggedInUser("" + student.getData().getId(),
                         student.getData().getName());
             } else if (student.getStatus() == 1002) {

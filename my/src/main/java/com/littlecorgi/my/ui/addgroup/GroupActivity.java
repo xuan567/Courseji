@@ -18,6 +18,7 @@ import com.littlecorgi.my.R;
 import com.littlecorgi.my.databinding.ActivityGroupBinding;
 import com.littlecorgi.my.logic.ClassRetrofitRepository;
 import com.littlecorgi.my.logic.model.AllClassResponse;
+import com.littlecorgi.my.logic.model.ClassDetail;
 import com.littlecorgi.my.logic.model.GroupNameAndTeacher;
 import java.util.ArrayList;
 import retrofit2.Call;
@@ -100,11 +101,12 @@ public class GroupActivity extends BaseActivity {
                         assert response1 != null;
                         if (response1.getStatus() == 800) {
                             mGroupNameAndTeachersList.clear();
-                            for (AllClassResponse.DataBean dataBean : response1.getData()) {
-                                GroupNameAndTeacher groupNameAndTeacher = new GroupNameAndTeacher();
-                                groupNameAndTeacher.setName(dataBean.getName());
-                                groupNameAndTeacher.setTeacherName(dataBean.getTeacher().getName());
-                                groupNameAndTeacher.setId(dataBean.getId());
+                            for (ClassDetail dataBean : response1.getData()) {
+                                GroupNameAndTeacher groupNameAndTeacher = new GroupNameAndTeacher(
+                                        dataBean.getId(),
+                                        dataBean.getName(),
+                                        dataBean.getTeacher().getName()
+                                );
                                 mGroupNameAndTeachersList.add(groupNameAndTeacher);
                             }
                             Log.d(TAG, "onResponse: " + mGroupNameAndTeachersList);

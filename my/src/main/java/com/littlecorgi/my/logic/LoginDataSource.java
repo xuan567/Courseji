@@ -2,6 +2,7 @@ package com.littlecorgi.my.logic;
 
 import android.util.Log;
 import com.littlecorgi.my.logic.model.Student;
+import com.littlecorgi.my.logic.model.StudentResponse;
 import java.io.IOException;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -21,27 +22,27 @@ public class LoginDataSource {
     public Result login(String username, String password) {
         Result result;
 
-        Call<Student> responseBodyCall =
+        Call<StudentResponse> responseBodyCall =
                 UserRetrofitRepository.getUserSignInCall(username, password);
 
         try {
-            Response<Student> response = responseBodyCall.execute();
+            Response<StudentResponse> response = responseBodyCall.execute();
             Log.d("LoginDataSource", "onResponse: " + response);
             if (response.body() != null) {
-                Student student = response.body();
-                Log.d("LoginDataSource", "onResponse: " + student);
-                if (student.getStatus() == 800) {
+                StudentResponse studentResponse = response.body();
+                Log.d("LoginDataSource", "onResponse: " + studentResponse);
+                if (studentResponse.getStatus() == 800) {
                     Log.d("LoginDataSource", "onResponse: 登录成功");
-                    result = new Result.Success<>(student);
-                } else if (student.getStatus() == 1002) {
+                    result = new Result.Success<>(studentResponse);
+                } else if (studentResponse.getStatus() == 1002) {
                     // 用户不存在，转注册
-                    student.setData(new Student.DataBean());
-                    student.getData().setEmail(username);
-                    student.getData().setPassword(password);
-                    result = new Result.Success<>(student);
+                    studentResponse.setData(new Student());
+                    studentResponse.getData().setEmail(username);
+                    studentResponse.getData().setPassword(password);
+                    result = new Result.Success<>(studentResponse);
                 } else {
                     result = new Result.Error(
-                            new IOException("登录失败" + student.getMsg()));
+                            new IOException("登录失败" + studentResponse.getMsg()));
                 }
             } else {
                 Log.d("LoginDataSource", "onResponse: 响应为空");

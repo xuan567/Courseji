@@ -30,7 +30,7 @@ import com.littlecorgi.my.logic.LoginRepository
 import com.littlecorgi.my.logic.Result
 import com.littlecorgi.my.logic.UserRetrofitRepository
 import com.littlecorgi.my.logic.dao.WindowHelp
-import com.littlecorgi.my.logic.model.Student
+import com.littlecorgi.my.logic.model.StudentResponse
 import com.littlecorgi.my.ui.about.AboutActivity
 import com.littlecorgi.my.ui.addgroup.GroupActivity
 import com.littlecorgi.my.ui.message.MessageActivity
@@ -45,7 +45,7 @@ import com.scwang.smart.refresh.layout.api.RefreshLayout
 class MyMainFragment : Fragment() {
 
     private lateinit var mBinding: MyFragmentBinding
-    private lateinit var student: Student
+    private lateinit var studentResponse: StudentResponse
     private var studentId: Long = 0
     private lateinit var refreshLayout: RefreshLayout
     private lateinit var mTvName: AppCompatTextView
@@ -102,11 +102,11 @@ class MyMainFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         if (studentId != -1L) {
-            student.data.avatar = sp!!.getString(UserSPConstant.STUDENT_AVATAR, "")
-            if (student.data.avatar.isEmpty()) {
+            studentResponse.data.avatar = sp?.getString(UserSPConstant.STUDENT_AVATAR, "") ?: ""
+            if (studentResponse.data.avatar == null && studentResponse.data.avatar!!.isEmpty()) {
                 Glide.with(this).load(R.drawable.my).into(mIvAvatar)
             } else {
-                Glide.with(this).load(student.data.avatar).into(mIvAvatar)
+                Glide.with(this).load(studentResponse.data.avatar).into(mIvAvatar)
             }
         }
     }
@@ -126,7 +126,11 @@ class MyMainFragment : Fragment() {
             refreshLayout.setOnRefreshListener { layout: RefreshLayout ->
                 Thread {
                     val result: Result<*> = LoginRepository.getInstance(LoginDataSource())
-                        .login(requireContext(), student.data.email, student.data.password)
+                        .login(
+                            requireContext(),
+                            studentResponse.data.email,
+                            studentResponse.data.password
+                        )
                     var refreshData = false
                     if (result is Result.Success<*>) {
                         refreshData = true
@@ -158,7 +162,7 @@ class MyMainFragment : Fragment() {
             if (studentId == -1L) {
                 mGetContent.launch(Intent(requireContext(), LoginActivity::class.java))
             } else {
-                MessageActivity.startMessageActivity(context, student)
+                MessageActivity.startMessageActivity(context, studentResponse)
             }
         }
         aboutLayout.setOnClickListener {
@@ -171,11 +175,11 @@ class MyMainFragment : Fragment() {
 
     private fun initData() {
         if (studentId != -1L) {
-            student = UserRetrofitRepository.getStudentFromSP(sp)
-            if (student.data.name.isEmpty()) {
+            studentResponse = UserRetrofitRepository.getStudentFromSP(sp)
+            if (studentResponse.data.name?.isEmpty() == true) {
                 mTvName.text = "数据异常，请上报"
             } else {
-                mTvName.text = student.data.name
+                mTvName.text = studentResponse.data.name
             }
             mTvProfessional.text = "计算机学院"
         }

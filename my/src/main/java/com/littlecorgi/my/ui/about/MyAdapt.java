@@ -24,8 +24,7 @@ public class MyAdapt extends BaseQuickAdapter<String, BaseViewHolder> {
 
     @Override
     protected void convert(@NotNull BaseViewHolder baseViewHolder, String s) {
-        AppCompatImageView imageView = baseViewHolder.itemView
-                .findViewById(R.id.my_im_show_gallery);
+        AppCompatImageView imageView = baseViewHolder.getView(R.id.my_im_show_gallery);
         Glide.with(context).load(s).into(imageView);
     }
 }

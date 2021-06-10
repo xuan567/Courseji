@@ -1,15 +1,12 @@
-package com.littlecorgi.my.logic.model;
-
-import java.io.Serializable;
-import lombok.Data;
+package com.littlecorgi.my.logic.model
 
 /**
+ * 班级名和教师名 - 数据类，用于加入班级页面展示所有班级列表
+ *
  * @author littlecorgi 2021/5/4
  */
-@Data
-public class GroupNameAndTeacher implements Serializable {
-    private static final long serialVersionUID = 1234567890606L;
-    long id;
-    String name;
-    String teacherName;
-}
+data class GroupNameAndTeacher(
+    var id: Long = 0,
+    var name: String,
+    var teacherName: String
+)
