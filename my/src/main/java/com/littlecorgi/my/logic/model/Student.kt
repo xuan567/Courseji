@@ -17,6 +17,6 @@ data class Student(
     var picture: String? = null
 ) : Serializable {
     companion object {
-        private const val serialVersionUID = 5990939387657230602L
+        private const val serialVersionUID = 5990939387657230607L
     }
 }
