@@ -1,5 +1,7 @@
 package com.littlecorgi.my.logic.model
 
+import java.io.Serializable
+
 /**
  * 学生用户信息 - 数据类
  *
@@ -13,4 +15,8 @@ data class Student(
     var password: String? = null,
     var phone: String? = null,
     var picture: String? = null
-)
+) : Serializable {
+    companion object {
+        private const val serialVersionUID = 5990939387657230602L
+    }
+}

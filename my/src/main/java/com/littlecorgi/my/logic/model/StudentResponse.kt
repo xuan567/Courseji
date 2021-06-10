@@ -11,4 +11,8 @@ data class StudentResponse(
     var msg: String? = null,
     var status: Int,
     var `data`: Student
-) : Serializable
+) : Serializable {
+    companion object {
+        private const val serialVersionUID = 5990939387657230601L
+    }
+}
