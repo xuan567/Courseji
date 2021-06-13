@@ -5,8 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -17,20 +15,16 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import cn.jpush.android.api.JPushInterface
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.bumptech.glide.Glide
 import com.littlecorgi.commonlib.AppViewModel
 import com.littlecorgi.commonlib.util.UserSPConstant
 import com.littlecorgi.my.R
 import com.littlecorgi.my.databinding.MyFragmentBinding
-import com.littlecorgi.my.logic.LoginDataSource
-import com.littlecorgi.my.logic.LoginRepository
 import com.littlecorgi.my.logic.Result
-import com.littlecorgi.my.logic.UserRetrofitRepository
 import com.littlecorgi.my.logic.dao.WindowHelp
-import com.littlecorgi.my.logic.model.StudentResponse
 import com.littlecorgi.my.ui.about.AboutActivity
 import com.littlecorgi.my.ui.addgroup.GroupActivity
 import com.littlecorgi.my.ui.message.MessageActivity
@@ -45,14 +39,16 @@ import com.scwang.smart.refresh.layout.api.RefreshLayout
 class MyMainFragment : Fragment() {
 
     private lateinit var mBinding: MyFragmentBinding
-    private lateinit var studentResponse: StudentResponse
-    private var studentId: Long = 0
+    private val mViewModel: MyMainViewModel by viewModels()
+    private val mAppViewModel: AppViewModel by activityViewModels()
+
     private lateinit var refreshLayout: RefreshLayout
     private lateinit var mTvName: AppCompatTextView
     private lateinit var mTvProfessional: AppCompatTextView
     private lateinit var mIvAvatar: AppCompatImageView
     private var sp: SharedPreferences? = null
-    private var mViewModel: AppViewModel? = null
+
+    private var mResponseHasInit = false
 
     /**
      * 获取StartActivity的返回值
@@ -61,20 +57,10 @@ class MyMainFragment : Fragment() {
         StartActivityForResult()
     ) { result: ActivityResult ->
         if (result.resultCode == Activity.RESULT_OK) {
-            studentId = sp!!.getLong(UserSPConstant.STUDENT_USER_ID, -1L)
-            mViewModel!!.studentId = studentId
-            JPushInterface.deleteAlias(requireContext(), 0)
-            // 刚刚发起一个请求，必须过一段时间再发送另一个请求，否则极光推送会报6022错误
-            Thread {
-                try {
-                    Thread.sleep((5 * 1000).toLong())
-                    JPushInterface.setAlias(requireContext(), 10, "学生$studentId")
-                } catch (e: InterruptedException) {
-                    e.printStackTrace()
-                }
-            }.start()
+            mAppViewModel.studentId = mViewModel.getUserIdFromSP()
+            mViewModel.updateJpushAlias(requireContext())
             initView()
-            initData()
+            initObserve()
             initClick()
         }
     }
@@ -85,9 +71,8 @@ class MyMainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.my_fragment, container, false)
-        mViewModel = ViewModelProvider(requireActivity()).get(AppViewModel::class.java)
-        Log.d(TAG, "onCreateView: $mViewModel")
-        studentId = mViewModel!!.studentId
+        Log.d(TAG, "onCreateView: $mAppViewModel")
+        mViewModel.mStudentId = mAppViewModel.studentId
         return mBinding.root
     }
 
@@ -95,13 +80,14 @@ class MyMainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         sp = requireContext().getSharedPreferences(UserSPConstant.FILE_NAME, Context.MODE_PRIVATE)
         initView()
-        initData()
+        initObserve()
         initClick()
     }
 
     override fun onResume() {
         super.onResume()
-        if (studentId != -1L) {
+        if (mViewModel.mStudentId != -1L && mResponseHasInit) {
+            val studentResponse = mViewModel.mStudentResponse
             studentResponse.data.avatar = sp?.getString(UserSPConstant.STUDENT_AVATAR, "") ?: ""
             if (studentResponse.data.avatar == null && studentResponse.data.avatar!!.isEmpty()) {
                 Glide.with(this).load(R.drawable.my).into(mIvAvatar)
@@ -113,7 +99,7 @@ class MyMainFragment : Fragment() {
 
     private fun initView() {
         refreshLayout = mBinding.refreshLayout
-        if (studentId == -1L) {
+        if (mViewModel.mStudentId == -1L) {
             // 没有登录
             mBinding.noLogin.root.visibility = View.VISIBLE
             mBinding.hasLogin.root.visibility = View.GONE
@@ -123,25 +109,8 @@ class MyMainFragment : Fragment() {
             mBinding.hasLogin.root.visibility = View.VISIBLE
             refreshLayout.setEnableRefresh(true)
             refreshLayout.setRefreshHeader(ClassicsHeader(requireContext()))
-            refreshLayout.setOnRefreshListener { layout: RefreshLayout ->
-                Thread {
-                    val result: Result<*> = LoginRepository.getInstance(LoginDataSource())
-                        .login(
-                            requireContext(),
-                            studentResponse.data.email,
-                            studentResponse.data.password
-                        )
-                    var refreshData = false
-                    if (result is Result.Success<*>) {
-                        refreshData = true
-                    }
-                    val finalRefreshData = refreshData
-                    // 切换回主线程更新UI （用Java太恶心人了）
-                    Handler(Looper.getMainLooper()).post {
-                        initData()
-                        layout.finishRefresh(finalRefreshData)
-                    }
-                }.start()
+            refreshLayout.setOnRefreshListener {
+                mViewModel.getUserFromServer(requireContext())
             }
             mTvName = mBinding.hasLogin.myName
             mTvProfessional = mBinding.hasLogin.myProfessional
@@ -159,10 +128,10 @@ class MyMainFragment : Fragment() {
         val aboutLayout = mBinding.myAbout
         val groupLayout = mBinding.myAddGroup
         messageLayout.setOnClickListener {
-            if (studentId == -1L) {
+            if (mViewModel.mStudentId == -1L) {
                 mGetContent.launch(Intent(requireContext(), LoginActivity::class.java))
             } else {
-                MessageActivity.startMessageActivity(context, studentResponse)
+                MessageActivity.startMessageActivity(context, mViewModel.mStudentResponse)
             }
         }
         aboutLayout.setOnClickListener {
@@ -173,15 +142,39 @@ class MyMainFragment : Fragment() {
         }
     }
 
-    private fun initData() {
-        if (studentId != -1L) {
-            studentResponse = UserRetrofitRepository.getStudentFromSP(sp)
-            if (studentResponse.data.name?.isEmpty() == true) {
-                mTvName.text = "数据异常，请上报"
-            } else {
-                mTvName.text = studentResponse.data.name
+    private fun initObserve() {
+        if (mViewModel.mStudentId != -1L) {
+            // 监听获取到的用户信息，用于展示用户登录信息
+            mViewModel.getUser().observe(viewLifecycleOwner) { studentResponse ->
+                Log.d(TAG, "initData: 用户信息更新")
+                if (studentResponse.data.name?.isEmpty() == true) {
+                    mTvName.text = "数据异常，请上报"
+                } else {
+                    mTvName.text = studentResponse.data.name
+                }
+                mTvProfessional.text = "计算机学院"
+
+                studentResponse.data.avatar = sp?.getString(UserSPConstant.STUDENT_AVATAR, "") ?: ""
+                if (studentResponse.data.avatar == null && studentResponse.data.avatar!!.isEmpty()) {
+                    Glide.with(this).load(R.drawable.my).into(mIvAvatar)
+                } else {
+                    Glide.with(this).load(studentResponse.data.avatar).into(mIvAvatar)
+                }
+
+                mResponseHasInit = true
             }
-            mTvProfessional.text = "计算机学院"
+            // 加载数据
+            mViewModel.loadUser()
+
+            // 监听登录结果，用于刷新
+            mViewModel.getLoginResult().observe(viewLifecycleOwner) {
+                if (it is Result.Success<*>) {
+                    mViewModel.loadUser()
+                    refreshLayout.finishRefresh(true)
+                } else {
+                    refreshLayout.finishRefresh(false)
+                }
+            }
         }
     }
 
