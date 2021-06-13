@@ -5,14 +5,13 @@
 <!--
     Checkstyle configuration that checks the Google coding conventions from Google Java Style
     that can be found at https://google.github.io/styleguide/javaguide.html
-
     Checkstyle is very configurable. Be sure to read the documentation at
     http://checkstyle.org (or in your downloaded distribution).
-
     To completely disable a check, just comment it out or delete it from the file.
     To suppress certain violations please review suppression filters.
-
     Authors: Max Vetrenko, Ruslan Diachenko, Roman Ivanov.
+
+    链接：https://github.com/checkstyle/checkstyle/blob/master/src/main/resources/google_checks.xml
  -->
 
 <module name="Checker">
@@ -146,13 +145,13 @@
             <property name="option" value="EOL" />
         </module>
         <module name="SeparatorWrap">
-            <!-- ELLIPSIS is EOL until https://github.com/google/styleguide/issues/258 -->
+            <!-- ELLIPSIS is EOL until https://github.com/google/styleguide/issues/259 -->
             <property name="id" value="SeparatorWrapEllipsis" />
             <property name="tokens" value="ELLIPSIS" />
             <property name="option" value="EOL" />
         </module>
         <module name="SeparatorWrap">
-            <!-- ARRAY_DECLARATOR is EOL until https://github.com/google/styleguide/issues/259 -->
+            <!-- ARRAY_DECLARATOR is EOL until https://github.com/google/styleguide/issues/258 -->
             <property name="id" value="SeparatorWrapArrayDeclarator" />
             <property name="tokens" value="ARRAY_DECLARATOR" />
             <property name="option" value="EOL" />
@@ -207,6 +206,11 @@
             <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)" />
             <message key="name.invalidPattern"
                 value="Class type name ''{0}'' must match pattern ''{1}''." />
+        </module>
+        <module name="RecordComponentName">
+            <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$" />
+            <message key="name.invalidPattern"
+                value="Record component name ''{0}'' must match pattern ''{1}''." />
         </module>
         <module name="RecordTypeParameterName">
             <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)" />
@@ -276,7 +280,8 @@
         <module name="OperatorWrap">
             <property name="option" value="NL" />
             <property name="tokens" value="BAND, BOR, BSR, BXOR, DIV, EQUAL, GE, GT, LAND, LE, LITERAL_INSTANCEOF, LOR,
-                    LT, MINUS, MOD, NOT_EQUAL, PLUS, QUESTION, SL, SR, STAR, METHOD_REF " />
+                    LT, MINUS, MOD, NOT_EQUAL, PLUS, QUESTION, SL, SR, STAR, METHOD_REF,
+                    TYPE_EXTENSION_AND " />
         </module>
         <module name="AnnotationLocation">
             <property name="id" value="AnnotationLocationMostCases" />
@@ -291,9 +296,6 @@
         <module name="NonEmptyAtclauseDescription" />
         <module name="InvalidJavadocPosition" />
         <module name="JavadocTagContinuationIndentation" />
-        <module name="JavadocStyle">
-            <property name="checkFirstSentence" value="false" />
-        </module>
         <module name="JavadocParagraph" />
         <module name="RequireEmptyLineBeforeBlockTagGroup" />
         <module name="AtclauseOrder">
@@ -302,7 +304,7 @@
                 value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF, VARIABLE_DEF" />
         </module>
         <module name="JavadocMethod">
-            <property name="scope" value="public" />
+            <property name="accessModifiers" value="public" />
             <property name="allowMissingParamTags" value="true" />
             <property name="allowMissingReturnTag" value="true" />
             <property name="allowedAnnotations" value="Override, Test" />
