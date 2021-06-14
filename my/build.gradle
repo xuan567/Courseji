@@ -3,6 +3,16 @@ if (isRunAlone.toBoolean()) {
 } else {
     apply plugin: 'com.android.library'
 }
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-parcelize'
+
+kapt {
+    // ARouter-Kotlin
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+}
 
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
@@ -69,20 +79,22 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
 
-    //noinspection AnnotationProcessorOnCompilePath Lombok只能这么导入
-    compileOnly 'org.projectlombok:lombok:1.18.20'
-    annotationProcessor 'org.projectlombok:lombok:1.18.20'
-
     // 在下面添加只有APP需要的依赖
     testImplementation rootProject.ext.dependencies["junit"]
     androidTestImplementation rootProject.ext.dependencies["testExtJunit"]
     androidTestImplementation rootProject.ext.dependencies["espressoCore"]
 
-    // apt必须各个模块自行添加
+    // apt必须各个模块自行添加，将所有代码改为Kotlin后必须移除此部分
     // Glide-compiler
     annotationProcessor rootProject.ext.dependencies["Glide-compiler"]
-    // ARouterCompiler
-    annotationProcessor rootProject.ext.dependencies["ARouterCompiler"]
     // RoomCompiler
     annotationProcessor rootProject.ext.dependencies["room-compiler"]
+
+    // apt必须各个模块自行添加
+    // Glide-compiler
+    kapt rootProject.ext.dependencies["Glide-compiler"]
+    // ARouterCompiler
+    kapt rootProject.ext.dependencies["ARouterCompiler"]
+    // RoomCompiler
+    kapt rootProject.ext.dependencies["room-compiler"]
 }

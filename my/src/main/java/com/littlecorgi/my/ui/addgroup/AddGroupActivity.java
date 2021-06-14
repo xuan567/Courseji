@@ -84,7 +84,8 @@ public class AddGroupActivity extends BaseActivity {
                     Log.d("AddGroupActivity", "onResponse: " + response.body());
                     JoinClassResponse joinClassResponse = response.body();
                     assert joinClassResponse != null;
-                    if (joinClassResponse.getStatus() == 800) {
+                    if (joinClassResponse.getStatus() != null
+                            && joinClassResponse.getStatus() == 800) {
                         showSuccessToast(AddGroupActivity.this, "加入成功", true, Toast.LENGTH_SHORT);
                         new Handler(Looper.getMainLooper()).postDelayed(() -> {
                             finish();

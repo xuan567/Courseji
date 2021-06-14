@@ -5,6 +5,7 @@ import com.littlecorgi.commonlib.logic.TencentServerRetrofitKt;
 import com.littlecorgi.commonlib.util.UserSPConstant;
 import com.littlecorgi.my.logic.model.SignUpResponse;
 import com.littlecorgi.my.logic.model.Student;
+import com.littlecorgi.my.logic.model.StudentResponse;
 import com.littlecorgi.my.logic.network.UserRequestInterface;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -22,7 +23,7 @@ public class UserRetrofitRepository {
      *
      * @param student 注册所需的用户信息
      */
-    public static Call<SignUpResponse> getUserSignUpCall(Student.DataBean student) {
+    public static Call<SignUpResponse> getUserSignUpCall(Student student) {
         UserRequestInterface userRequestInterface =
                 TencentServerRetrofitKt.getTencentCloudRetrofit()
                         .create(UserRequestInterface.class);
@@ -36,7 +37,7 @@ public class UserRetrofitRepository {
      * @param email    账号
      * @param password 密码
      */
-    public static Call<Student> getUserSignInCall(String email, String password) {
+    public static Call<StudentResponse> getUserSignInCall(String email, String password) {
         UserRequestInterface userRequestInterface =
                 TencentServerRetrofitKt.getTencentCloudRetrofit()
                         .create(UserRequestInterface.class);
@@ -51,18 +52,16 @@ public class UserRetrofitRepository {
      *
      * @param sp SharedPreferences
      */
-    public static Student getStudentFromSP(SharedPreferences sp) {
-        Student student = new Student();
-        student.setStatus(800);
-        Student.DataBean data = new Student.DataBean();
-        data.setId(sp.getLong(UserSPConstant.STUDENT_USER_ID, -1));
-        data.setName(sp.getString(UserSPConstant.STUDENT_NAME, ""));
-        data.setPassword(sp.getString(UserSPConstant.STUDENT_PASSWORD, ""));
-        data.setPhone(sp.getString(UserSPConstant.STUDENT_PHONE, ""));
-        data.setAvatar(sp.getString(UserSPConstant.STUDENT_AVATAR, ""));
-        data.setPicture(sp.getString(UserSPConstant.STUDENT_PICTURE, ""));
-        data.setEmail(sp.getString(UserSPConstant.STUDENT_EMAIL, ""));
-        student.setData(data);
-        return student;
+    public static StudentResponse getStudentFromSP(SharedPreferences sp) {
+        Student data = new Student(
+                sp.getLong(UserSPConstant.STUDENT_USER_ID, -1),
+                sp.getString(UserSPConstant.STUDENT_AVATAR, ""),
+                sp.getString(UserSPConstant.STUDENT_EMAIL, ""),
+                sp.getString(UserSPConstant.STUDENT_NAME, ""),
+                sp.getString(UserSPConstant.STUDENT_PASSWORD, ""),
+                sp.getString(UserSPConstant.STUDENT_PHONE, ""),
+                sp.getString(UserSPConstant.STUDENT_PICTURE, "")
+        );
+        return new StudentResponse(null, 800, data);
     }
 }

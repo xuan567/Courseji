@@ -53,7 +53,7 @@ import retrofit2.Response;
 public class SignUpActivity extends BaseActivity {
 
     private ActivitySignUpBinding mBinding;
-    private Student.DataBean mSignUpInfo;
+    private Student mSignUpInfo;
 
     private Dialog mAvatarDialog;
     private Dialog mEmailDialog;
@@ -69,7 +69,7 @@ public class SignUpActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up);
-        mSignUpInfo = new Student.DataBean();
+        mSignUpInfo = new Student();
         // 因为initView需要用到initData的数据，所以把initData放前面
         initData();
         initView();
